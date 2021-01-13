@@ -36,13 +36,11 @@ public class Manager extends Application {
         javafx.scene.text.Font.loadFont(Manager.class.
                 getResource("/assets/jlm_special.ttf").toExternalForm(), 1);
 
-        //javafx.scene.text.Font.loadFonts(Manager.class.getResource("/assets/maths").toExternalForm(),1);
-       // Font.
         Parent root = FXMLLoader.load(Manager.class.getResource(
-                "MainScene.fxml"));
+            "/MainScene.fxml"));
         stage.setTitle("Graph-tool");
 
-        root.getStylesheets().add(getClass().getResource("MyStyle.css").toString());
+        root.getStylesheets().add(getClass().getResource("/MyStyle.css").toString());
         stage.setScene(new Scene(root));
 
         stage.setMinWidth(900);

@@ -17,7 +17,7 @@ public class TexLabel extends Canvas {
     private TeXIcon icon;
     private TextField input;
 
-    TexLabel(){
+    public TexLabel() {
         super();
         this.gc = new FXGraphics2D(getGraphicsContext2D());
 
@@ -29,20 +29,23 @@ public class TexLabel extends Canvas {
         // create a formula
         TeXFormula formula = null;
 
-        if (text.isEmpty()) text = DEFAULT;
+        if (text.isEmpty()) {
+            text = DEFAULT;
+        }
 
         try {
             formula = new TeXFormula(text);
-        }catch(ParseException e){
+        } catch (ParseException e) {
             formula = new TeXFormula(DEFAULT);
             text = DEFAULT;
         }
         String curText = text;
 
-        if(!text.equals("\\infty"))
-            icon = formula.createTeXIcon(TeXConstants.ALIGN_CENTER,17);
-        else
-            icon = formula.createTeXIcon(TeXConstants.ALIGN_CENTER,22);
+        if (!text.equals("\\infty")) {
+            icon = formula.createTeXIcon(TeXConstants.ALIGN_CENTER, 17);
+        } else {
+            icon = formula.createTeXIcon(TeXConstants.ALIGN_CENTER, 22);
+        }
 
 
         GraphicsContext gc = getGraphicsContext2D();
@@ -61,13 +64,12 @@ public class TexLabel extends Canvas {
         return curText;
     }
 
-    private void checkText(String text){
+    private void checkText(String text) {
         boolean isCommand = false;
 
     }
 
-
-    public void showInput(){
+    public void showInput() {
 
     }
 }
