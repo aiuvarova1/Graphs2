@@ -1,13 +1,12 @@
 package main;
 
+import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
-
-import java.io.IOException;
+import javafx.stage.Stage;
 
 public class Manager extends Application {
 
@@ -20,21 +19,21 @@ public class Manager extends Application {
     public void start(Stage stage) throws IOException {
 
         javafx.scene.text.Font.loadFont(Manager.class.
-                getResource("/assets/jlm_cmex10.ttf").toExternalForm(), 1);
+            getResource("/assets/jlm_cmex10.ttf").toExternalForm(), 1);
 
         javafx.scene.text.Font.loadFont(Manager.class.
-                getResource("/assets/jlm_cmmi10.ttf").toExternalForm(), 1);
+            getResource("/assets/jlm_cmmi10.ttf").toExternalForm(), 1);
         javafx.scene.text.Font.loadFont(Manager.class.
-                getResource("/assets/jlm_cmsy10.ttf").toExternalForm(), 1);
+            getResource("/assets/jlm_cmsy10.ttf").toExternalForm(), 1);
         javafx.scene.text.Font.loadFont(Manager.class.
-                getResource("/assets/jlm_cmr10.ttf").toExternalForm(), 1);
+            getResource("/assets/jlm_cmr10.ttf").toExternalForm(), 1);
 
         javafx.scene.text.Font.loadFont(Manager.class.
-                getResource("/assets/jlm_fcmrpg.ttf").toExternalForm(), 1);
+            getResource("/assets/jlm_fcmrpg.ttf").toExternalForm(), 1);
         javafx.scene.text.Font.loadFont(Manager.class.
-                getResource("/assets/jlm_eufb10.ttf").toExternalForm(), 1);
+            getResource("/assets/jlm_eufb10.ttf").toExternalForm(), 1);
         javafx.scene.text.Font.loadFont(Manager.class.
-                getResource("/assets/jlm_special.ttf").toExternalForm(), 1);
+            getResource("/assets/jlm_special.ttf").toExternalForm(), 1);
 
         Parent root = FXMLLoader.load(Manager.class.getResource(
             "/MainScene.fxml"));

@@ -63,13 +63,4 @@ public class TexLabel extends Canvas {
         icon.paintIcon(null, graphics, 0, 0);
         return curText;
     }
-
-    private void checkText(String text) {
-        boolean isCommand = false;
-
-    }
-
-    public void showInput() {
-
-    }
 }

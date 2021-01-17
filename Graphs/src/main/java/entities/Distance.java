@@ -7,7 +7,6 @@ import main.*;
 
 import java.io.Serializable;
 
-
 /**
  * Control with distance text label and input field
  */
@@ -21,18 +20,11 @@ public class Distance extends Pane implements Serializable {
     public static final int MAX_LENGTH = 70;
     private static boolean isCalculated = false;
 
-
     public static void setCalc(boolean val) {
         isCalculated = val;
     }
 
-
     public Distance() {
-
-        if (!InfiniteManager.canEdit()) {
-            value = 1;
-            return;
-        }
         label = new TexLabel();
         input = new TextField();
 
@@ -62,20 +54,20 @@ public class Distance extends Pane implements Serializable {
         this.getChildren().add(label);
         input.setDisable(true);
 
-        if (SimpleGraph.areDistancesShown()) {
+        if (Graph.areDistancesShown()) {
             show();
         }
 
         this.addEventFilter(MouseEvent.MOUSE_CLICKED, Filter.clickFilter);
     }
 
-
-
     /**
      * Hides label and shows input field
      */
     public void showInput() {
-        if (Filter.isEditing()) return;
+        if (Filter.isEditing()) {
+            return;
+        }
 
         this.getChildren().add(input);
         input.setDisable(false);
@@ -88,16 +80,19 @@ public class Distance extends Pane implements Serializable {
      * Hides input field and returns label
      */
     private void showLabel() {
-        if (!Filter.isEditing()) return;
+        if (!Filter.isEditing()) {
+            return;
+        }
 //        setDistance(input.getText());
 
         try {
             value = Parser.parseDistance(input.getText());
 
-            if (!isCalculated)
+            if (!isCalculated) {
                 Invoker.getInstance().changeDistance(this, input.getText(), value);
-            else
+            } else {
                 Invoker.getInstance().changeDistance(this, Formatter.format(value), value);
+            }
         } catch (IllegalArgumentException ex) {
             System.out.println(ex.getMessage());
             PopupMessage.showMessage(ex.getMessage());
@@ -111,10 +106,11 @@ public class Distance extends Pane implements Serializable {
 
     void show() {
         if (!isCalculated || value == Double.MAX_VALUE
-                || value == Double.MIN_VALUE)
+            || value == Double.MIN_VALUE) {
             curText = label.setText(curText);
-        else
+        } else {
             label.setText(Formatter.format(value));
+        }
         Drawer.getInstance().addElem(this);
     }
 
@@ -124,10 +120,11 @@ public class Distance extends Pane implements Serializable {
 
     public void setDistance(String text, double val) {
         if (!isCalculated || val == Double.MAX_VALUE
-                || value == Double.MIN_VALUE)
+            || value == Double.MIN_VALUE) {
             curText = label.setText(text);
-        else
+        } else {
             label.setText(Formatter.format(val));
+        }
         value = val;
     }
 
@@ -139,16 +136,18 @@ public class Distance extends Pane implements Serializable {
      * Calculates the length in input
      */
     public void calculate() {
-        if (value != Double.MAX_VALUE && value != Double.MIN_VALUE)
+        if (value != Double.MAX_VALUE && value != Double.MIN_VALUE) {
             label.setText(Formatter.format(value));
+        }
     }
 
     /**
      * Returns the length to the initial state (before any computations)
      */
     public void decalculate() {
-        if (value != Double.MAX_VALUE && value != Double.MIN_VALUE)
+        if (value != Double.MAX_VALUE && value != Double.MIN_VALUE) {
             label.setText(curText);
+        }
     }
 
     /**

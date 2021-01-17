@@ -10,133 +10,43 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3aa67ae0-54ba-4086-884d-3b050cac4cee" name="Default Changelist" comment="Move to Maven">
-      <change afterPath="$PROJECT_DIR$/.idea/artifacts/GraphsTool_war_exploded.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jfree_org_jfree_fxgraphics2d_2_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_linux_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_controls_linux_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_fxml_linux_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_linux_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_graphics_win_12.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_swing_13_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_swing_linux_13_0_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_scilab_forge_jlatexmath_1_0_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_scilab_forge_jlatexmath_font_cyrillic_1_0_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_scilab_forge_jlatexmath_font_greek_1_0_7.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Spring_5_2_3_RELEASE.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/main/GUIStarter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/MainScene.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/MyStyle.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/3952.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/close.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/confirm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/discard.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/drag.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/gif.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/graph.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/jlm_cmex10.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/jlm_cmmi10.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/jlm_cmr10.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/jlm_cmsy10.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/jlm_eufb10.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/jlm_fcmrpg.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/jlm_special.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/lattice.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/leftClick.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/line.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/nodeClick.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/open.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/opened.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/oval.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/play.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/redo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/reset.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/rightClick.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/save.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/stop.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/trash.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/assets/undo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/index.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_linux_12.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraphsTool.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GraphsTool.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/3952.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/3952.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/close.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/close.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/confirm.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/confirm.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/discard.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/discard.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/drag.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/drag.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/gif.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/gif.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/graph.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/graph.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/jlm_cmex10.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/jlm_cmex10.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/jlm_cmmi10.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/jlm_cmmi10.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/jlm_cmr10.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/jlm_cmr10.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/jlm_cmsy10.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/jlm_cmsy10.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/jlm_eufb10.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/jlm_eufb10.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/jlm_fcmrpg.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/jlm_fcmrpg.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/jlm_special.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/jlm_special.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/lattice.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/lattice.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/leftClick.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/leftClick.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/line.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/line.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/nodeClick.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/nodeClick.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/open.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/open.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/opened.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/opened.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/oval.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/oval.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/play.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/play.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/redo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/redo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/reset.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/reset.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/rightClick.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/rightClick.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/save.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/save.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/stop.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/stop.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/trash.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/trash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/assets/undo.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/assets/undo.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Arrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Arrow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Distance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Distance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Graph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/InfiniteGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/InfiniteGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/InfiniteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/InfiniteManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/LatticeGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/LatticeGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/LineGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/LineGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Point.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Restorable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Restorable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/SimpleGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/SimpleGraph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/TexLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/TexLabel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Undoable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Undoable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entities/Visitable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Visitable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Cache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Cache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Command.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Drawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Drawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/EdgeContextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/EdgeContextMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/FileManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Filter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Formatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Formatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/GIFMaker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/GIFMaker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Invoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Invoker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/MainScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MainScene.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/MenuManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/MenuManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/MyContextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/MyContextMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/MyStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MyStyle.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/NodeContextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/NodeContextMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/PopupMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/PopupMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Visualizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Visualizer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/module-info.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Arrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Arrow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Distance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Distance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/InfiniteGraph.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/InfiniteManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/LatticeGraph.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/LineGraph.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Point.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/SimpleGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Graph.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/TexLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/TexLabel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Cache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Cache.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Drawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Drawer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/EdgeContextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/EdgeContextMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/FileManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Filter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Formatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Formatter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/GIFMaker.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Invoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Invoker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Manager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/MenuManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/MenuManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/MyContextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/MyContextMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/NodeContextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/NodeContextMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Visualizer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/MainScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MainScene.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MainScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MainScene.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,7 +106,7 @@
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit5" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5" value="" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="/opt/scenebuilder/bin/SceneBuilder" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -211,11 +121,11 @@
       <recent name="D:\CourseWork\GraphsTool\resources\assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
       <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main/java/main" />
       <recent name="$PROJECT_DIR$/src/main" />
       <recent name="$PROJECT_DIR$/src/main/java" />
-      <recent name="D:\CourseWork\GraphsTool\src" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -239,6 +149,17 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -281,6 +202,31 @@
     <configuration name="GraphsTool.jar" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/graphsTool_jar/GraphsTool.jar" />
       <method v="2" />
+    </configuration>
+    <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list />
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <list>
       <item itemvalue="Application.GUIStarter" />
@@ -480,29 +426,14 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/entities/Point.java</url>
-          <line>201</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/main/Visualizer.java</url>
-          <line>219</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/entities/Point.java</url>
-          <line>134</line>
-          <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/entities/Distance.java</url>
+          <url>file://$PROJECT_DIR$/src/java/entities/Distance.java</url>
           <line>35</line>
           <option name="timeStamp" value="27" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/entities/Distance.java</url>
+          <url>file://$PROJECT_DIR$/src/java/entities/Distance.java</url>
           <line>124</line>
-          <properties class="entities.Distance" method="setDistance">
+          <properties class="entities.Distance">
             <option name="EMULATED" value="true" />
           </properties>
           <option name="timeStamp" value="19" />

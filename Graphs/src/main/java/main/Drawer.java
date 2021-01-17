@@ -14,7 +14,6 @@ import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
-
 /**
  * Draws Nodes and stores some needed references connected
  * with drawing
@@ -24,12 +23,11 @@ public class Drawer {
     public static final int BOUNDS_GAP = 25;
 
     public static final String NODE_TEXT = "-fx-font-family: \"Pristina\";" +
-            "-fx-font-size: 24px;";
+        "-fx-font-size: 24px;";
 
     private static Drawer instance;
     private AnchorPane pane;
     private StackPane dialog;
-
 
     /**
      * Singleton
@@ -45,13 +43,8 @@ public class Drawer {
 
     public void clear() {
         pane.getChildren().removeIf(x -> x instanceof Edge ||
-                x instanceof Distance || x instanceof Node);
+            x instanceof Distance || x instanceof Node);
     }
-
-    public WritableImage takeSnap() {
-        return pane.snapshot(null, null);
-    }
-
 
     /**
      * Removes element from the drawing pane
@@ -101,33 +94,11 @@ public class Drawer {
     }
 
     /**
-     * Removes all points from the graph
-     */
-    void removePoints() {
-
-        ArrayList<Point> lst = new ArrayList<>();
-        pane.getChildren().removeIf(x ->
-        {
-            if (x instanceof Point) {
-                lst.add((Point) x);
-            }
-            return x instanceof Point;
-        });
-
-        for (Point p : lst) {
-            p.hideEnabled();
-        }
-
-    }
-
-
-    /**
      * @return bounds of the drawing area
      */
     public Bounds getBounds() {
         return instance.pane.getBoundsInLocal();
     }
-
 
     /**
      * Draws the node by calling needed methods and adds it to the scene
@@ -147,7 +118,7 @@ public class Drawer {
 
         Node layout = new Node(num);
         layout.getChildren().add(node);
-        if(needText) {
+        if (needText) {
             Text numText = new Text("" + (num + 1));
             numText.setStyle(NODE_TEXT);
             layout.getChildren().add(numText);
@@ -165,15 +136,15 @@ public class Drawer {
      */
     private Node createLayout(double xPos, double yPos) {
 
-       // System.out.println("Node in " + xPos + " " + yPos);
+        // System.out.println("Node in " + xPos + " " + yPos);
 
         Circle node = new Circle(xPos, yPos, Node.RADIUS, Color.WHITE);
 
         node.addEventFilter(MouseEvent.MOUSE_DRAGGED, Filter.dragFilter);
         node.setStroke(Color.BLACK);
 
-        Node layout = new Node(SimpleGraph.getInstance().getSize() + 1);
-        Text numText = new Text("" + (SimpleGraph.getInstance().getSize() + 1));
+        Node layout = new Node(Graph.getInstance().getSize() + 1);
+        Text numText = new Text("" + (Graph.getInstance().getSize() + 1));
 
         numText.setStyle(NODE_TEXT);
 
@@ -182,7 +153,6 @@ public class Drawer {
 
         return layout;
     }
-
 
     /**
      * Checks whether the click position crosses the bounds and changes it if needed

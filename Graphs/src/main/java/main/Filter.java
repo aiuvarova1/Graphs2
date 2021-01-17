@@ -16,10 +16,10 @@ import javafx.scene.text.Text;
 public class Filter {
 
     private static String SELECTED_BUTTON = "-fx-background-color: #ebebeb;" + "-fx-font-size: 18px;"
-            + "-fx-font-family: \"Constantia\";";
+        + "-fx-font-family: \"Constantia\";";
 
     private static String UNSELECTED_BUTTON = "-fx-background-color: #f5f5f5;" + "-fx-font-size: 17px;"
-            + "-fx-font-family: \"Constantia\";";
+        + "-fx-font-family: \"Constantia\";";
 
     private static boolean dragging = false;
 
@@ -31,27 +31,28 @@ public class Filter {
 
     private static final int CURSOR_GAP = 5;
 
-    public static boolean isEdgeStarted(){
+    public static boolean isEdgeStarted() {
         return edgeStarted;
     }
 
-    public static boolean isEditing(){
+    public static boolean isEditing() {
         return editing;
     }
 
-    public static void endEdit(){
+    public static void endEdit() {
         editing = false;
     }
+
     /**
      * Distinguishes dragging from pane click
      */
     public static final EventHandler<MouseEvent> dragFilter = event -> {
 
-        if (editing || Visualizer.isRunning() || !InfiniteManager.canEdit()) {
+        if (editing) {
             return;
         }
         if (event.getEventType() == MouseEvent.MOUSE_DRAGGED &&
-                event.getButton() == MouseButton.PRIMARY) {
+            event.getButton() == MouseButton.PRIMARY) {
             dragging = true;
         } else if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
             if (dragging) {
@@ -68,16 +69,9 @@ public class Filter {
     public static final EventHandler<MouseEvent> clickFilter = new EventHandler<MouseEvent>() {
         @Override
         public void handle(MouseEvent event) {
-//            System.out.println(event.getSource().getClass());
-//            System.out.println(event.getTarget());
-
-            if (Visualizer.isRunning() || !InfiniteManager.canEdit()) {
-                event.consume();
-                return;
-            }
 
             if (editing && (event.getTarget().getClass() != Text.class ||
-                    event.getSource().getClass() == Node.class)) {
+                event.getSource().getClass() == Node.class)) {
                 event.consume();
                 Drawer.getInstance().setFocus();
                 return;
@@ -88,7 +82,9 @@ public class Filter {
 
                 if (event.getButton() == MouseButton.PRIMARY) {
                     if (!edgeStarted) {
-                        if (MenuManager.getEdgeMenu().isShowing()) return;
+                        if (MenuManager.getEdgeMenu().isShowing()) {
+                            return;
+                        }
 
                         edgeStarted = true;
                         pretender = (Node) event.getSource();
@@ -132,13 +128,14 @@ public class Filter {
                 Distance curDist = (Distance) event.getSource();
                 curDist.showInput();
                 editing = true;
-                if (edgeStarted)
+                if (edgeStarted) {
                     removeStartedEdge();
+                }
             }
         }
     };
 
-    private static void removeStartedEdge(){
+    private static void removeStartedEdge() {
         edgeStarted = false;
 
         edgePretender.setVisible(false);
@@ -146,7 +143,6 @@ public class Filter {
 
         Drawer.getInstance().removeMoveHandler();
     }
-
 
     /**
      * Controls potential edge's movements
@@ -161,11 +157,11 @@ public class Filter {
             Bounds b = Drawer.getInstance().getBounds();
 
             double dist = Edge.getDistance(xPos, yPos, pretender.getCircle().getCenterX(),
-                    pretender.getCircle().getCenterY());
+                pretender.getCircle().getCenterY());
 
             if (dist > Node.RADIUS + CURSOR_GAP && isInBounds(event.getX(), event.getY(), b)) {
                 double[] cords = Edge.getStartCoordinates(xPos, yPos, pretender.getCircle().getCenterX(),
-                        pretender.getCircle().getCenterY(), dist, pretender.getCircle().getRadius());
+                    pretender.getCircle().getCenterY(), dist, pretender.getCircle().getRadius());
 
                 int signX = cords[0] <= event.getX() ? -1 : 1;
                 int signY = cords[1] <= event.getY() ? -1 : 1;
@@ -176,13 +172,14 @@ public class Filter {
                 edgePretender.setEndY(event.getY() + CURSOR_GAP * signY);
 
                 edgePretender.setVisible(true);
-            } else
+            } else {
                 edgePretender.setVisible(false);
+            }
         }
 
         private boolean isInBounds(double x, double y, Bounds b) {
             return x > b.getMinX() && x < b.getMaxX() &&
-                    y > b.getMinY() && y < b.getMaxY();
+                y > b.getMinY() && y < b.getMaxY();
         }
     };
 

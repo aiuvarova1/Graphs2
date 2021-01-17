@@ -1,10 +1,11 @@
 package entities;
 
-import javafx.animation.PathTransition;
-import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.concurrent.Task;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.function.Consumer;
+
 import javafx.geometry.Bounds;
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseButton;
@@ -16,20 +17,12 @@ import javafx.scene.text.Text;
 import main.Drawer;
 import main.Filter;
 import main.MenuManager;
-import main.Visualizer;
-
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Consumer;
 
 /**
  * Represents one node of the graph
  */
 public class Node extends StackPane implements
-        Undoable, Visitable, Serializable, Restorable {
+    Undoable, Visitable, Serializable, Restorable {
 
     public static final double RADIUS = 16;
 
@@ -43,25 +36,11 @@ public class Node extends StackPane implements
     private static final Color color = Color.WHITE;
     private static final Color selectedColor = Color.LIGHTBLUE;
 
-    private transient Color curColor = color;
+    private Color curColor = color;
 
     public Circle getCircle() {
         return (Circle) getChildren().get(0);
     }
-
-    volatile transient BooleanProperty processed;
-    volatile transient AtomicInteger guests = new AtomicInteger(0);
-    private volatile double amplitudesSum = 0;
-
-
-    double getAmplitudesSum() {
-        return amplitudesSum;
-    }
-
-    synchronized void increaseAmplitudesSum(double amplitude) {
-        amplitudesSum += amplitude;
-    }
-
 
     public Node(int num) {
 
@@ -74,32 +53,9 @@ public class Node extends StackPane implements
 
     }
 
-
-    /**
-     * Resets info needed for visualization
-     */
-    void resetNode() {
-        guests.set(0);
-        processed.set(false);
-        amplitudesSum = 0;
-        for (Edge e : edges)
-            e.resetProceed();
-
-    }
-
-    void checkMinEdge(){
-        for (Edge e : edges) {
-            SimpleGraph.getInstance().setMin(e.getLength());
-            if (e.getLength() == Double.MAX_VALUE) {
-                throw new IllegalArgumentException("Not all distances are set");
-            }
-        }
-    }
-
-    public int getNum(){
+    public int getNum() {
         return num;
     }
-
 
     /**
      * Selects the node as the start one
@@ -116,8 +72,6 @@ public class Node extends StackPane implements
         getCircle().setFill(color);
         curColor = color;
     }
-
-
 
     /**
      * Gets list of neighbours through passing the list of edges
@@ -162,10 +116,11 @@ public class Node extends StackPane implements
         double oldX = getLayoutX();
 
 
-        if (getLayoutX() * scale > b.getMaxX())
+        if (getLayoutX() * scale > b.getMaxX()) {
             setLayoutX(b.getMaxX() - 2 * RADIUS - 2 * Drawer.BOUNDS_GAP);
-        else
+        } else {
             setLayoutX(getLayoutX() * scale);
+        }
 
         relocate(getLayoutX(), getLayoutY());
         relocateCircleCenter(getLayoutX(), getLayoutY());
@@ -174,7 +129,6 @@ public class Node extends StackPane implements
             recalculateEdges();
         }
     }
-
 
     /**
      * Rescales the node by y-axis
@@ -186,10 +140,11 @@ public class Node extends StackPane implements
 
         double oldY = getLayoutY();
         //System.out.println("scale" + circle.getLayoutY() + " " + b.getMaxY());
-        if (getLayoutY() * scale > b.getMaxY())
+        if (getLayoutY() * scale > b.getMaxY()) {
             setLayoutY(b.getMaxY() - 2 * RADIUS - 2 * Drawer.BOUNDS_GAP);
-        else
+        } else {
             setLayoutY(getLayoutY() * scale);
+        }
 
         relocate(getLayoutX(), getLayoutY());
         relocateCircleCenter(getLayoutX(), getLayoutY());
@@ -198,7 +153,6 @@ public class Node extends StackPane implements
             recalculateEdges();
         }
     }
-
 
     /**
      * @return Nodes' text on the label
@@ -264,7 +218,6 @@ public class Node extends StackPane implements
         getCircle().setCenterY(y + getCircle().getRadius());
     }
 
-
     /**
      * Fixes node's position after dragging
      *
@@ -290,13 +243,12 @@ public class Node extends StackPane implements
     @Override
     public void remove() {
 
-        if (SimpleGraph.getInstance().getStartNode() == this) {
-            SimpleGraph.getInstance().setStartNode(null);
+        if (Graph.getInstance().getStartNode() == this) {
+            Graph.getInstance().setStartNode(null);
         }
 
-        SimpleGraph.getInstance().removeNode(this);
+        Graph.getInstance().removeNode(this);
     }
-
 
     /**
      * (Re)creates the node
@@ -305,14 +257,14 @@ public class Node extends StackPane implements
      */
     @Override
     public boolean create() {
-        SimpleGraph.getInstance().addNode(this);
+        Graph.getInstance().addNode(this);
 
         try {
             Drawer.getInstance().addElem(this);
         } catch (IllegalArgumentException ex) {
             System.out.println("Already drawn node");
         }
-        SimpleGraph.getInstance().refreshLabels(this);
+        Graph.getInstance().refreshLabels(this);
         getCircle().setFill(color);
         curColor = color;
 
@@ -333,8 +285,9 @@ public class Node extends StackPane implements
     public void unvisit() {
         visited = false;
 
-        for (Edge e : edges)
+        for (Edge e : edges) {
             e.unvisit();
+        }
     }
 
     /**
@@ -359,7 +312,7 @@ public class Node extends StackPane implements
     }
 
     @Override
-    public void restore(){
+    public void restore() {
 
         Circle circle = new Circle(RADIUS, Color.WHITE);
         circle.setStroke(Color.BLACK);
@@ -367,7 +320,7 @@ public class Node extends StackPane implements
 
         this.getChildren().add(circle);
 
-        Text numText =new Text("" + num);
+        Text numText = new Text("" + num);
         numText.setStyle(Drawer.NODE_TEXT);
 
         this.getChildren().add(numText);
@@ -402,7 +355,6 @@ public class Node extends StackPane implements
             e.connectNodes(this, e.getNeighbour(this));
         }
     }
-
 
     /**
      * Checks whether the node will cross the bounds of the drawing area after moving
@@ -455,7 +407,6 @@ public class Node extends StackPane implements
 
     }
 
-
     /**
      * Sets filters and handlers for mouse events
      * (dragging, clicking, etc)
@@ -467,10 +418,8 @@ public class Node extends StackPane implements
         setOnMousePressed(event -> {
 
             if (Filter.isEdgeStarted()
-                    || Filter.isEditing()
-                    || event.isSecondaryButtonDown()
-                    || Visualizer.isRunning()
-                    || !InfiniteManager.canEdit()) {
+                || Filter.isEditing()
+                || event.isSecondaryButtonDown()) {
                 return;
             }
 
@@ -483,23 +432,22 @@ public class Node extends StackPane implements
         });
 
         this.setOnContextMenuRequested(contextMenuEvent -> {
-            if (Filter.isEdgeStarted() || Visualizer.isRunning() || !InfiniteManager.canEdit()) {
+            if (Filter.isEdgeStarted()) {
                 return;
             }
             MenuManager.getNodeMenu().bindElem((javafx.scene.Node) contextMenuEvent.getSource());
             MenuManager.getNodeMenu().show((javafx.scene.Node) contextMenuEvent.getSource(),
-                    contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY());
+                contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY());
         });
 
 
         setOnMouseReleased(mouseEvent -> {
-            if (mouseEvent.getButton() != MouseButton.PRIMARY ||
-                    Visualizer.isRunning() || !InfiniteManager.canEdit()) {
+            if (mouseEvent.getButton() != MouseButton.PRIMARY) {
                 return;
             }
 
             getScene().setCursor(Cursor.HAND);
-          //  Node n = (Node) mouseEvent.getSource();
+            //  Node n = (Node) mouseEvent.getSource();
             // Invoker.getInstance().moveElement(n, initialPosition,new double[]{getLayoutX() + getTranslateX(),
             // getLayoutY() + getTranslateY()});
             fixPosition(getLayoutX() + getTranslateX(), getLayoutY() + getTranslateY());
@@ -507,21 +455,22 @@ public class Node extends StackPane implements
         });
         setOnMouseDragged(event -> {
 
-            if (Filter.isEdgeStarted() || event.getButton() != MouseButton.PRIMARY
-                    || Visualizer.isRunning() || !InfiniteManager.canEdit()) {
+            if (Filter.isEdgeStarted() || event.getButton() != MouseButton.PRIMARY) {
                 return;
             }
 
             boolean[] crossedBounds = checkBoundsCrossed(event);
-            if (!crossedBounds[0])
+            if (!crossedBounds[0]) {
                 setTranslateX(getTranslateX() + event.getX() - RADIUS);
-            if (!crossedBounds[1])
+            }
+            if (!crossedBounds[1]) {
                 setTranslateY(getTranslateY() + event.getY() - RADIUS);
+            }
 
             recalculateEdges();
 
             relocateCircleCenter(getLayoutX() + getTranslateX(),
-                    getLayoutY() + getTranslateY());
+                getLayoutY() + getTranslateY());
         });
         setOnMouseEntered(mouseEvent -> {
             if (!mouseEvent.isPrimaryButtonDown()) {
@@ -535,70 +484,6 @@ public class Node extends StackPane implements
             }
             getCircle().setFill(curColor);
         });
-
-        processed = new SimpleBooleanProperty(false);
-        guests = new AtomicInteger(0);
-
-        processed.addListener((observable, oldValue, newValue) -> {
-            if (oldValue) return;
-            try {
-
-                Visualizer.runTask(new Task() {
-                    @Override
-                    protected Object call() throws Exception {
-
-                        synchronized (Node.this) {
-                            try {
-                                System.err.println(java.time.LocalDateTime.now());
-                                Node.this.wait(Visualizer.GAP - 5);
-                            } catch (InterruptedException ex) {
-                                System.out.println("Interrupted in waiting points");
-                                return null;
-                            }
-                            Platform.runLater(() -> {
-                                handlePoints();
-                                processed.setValue(false);
-                                amplitudesSum = 0;
-                            });
-
-
-                        }
-                        return null;
-                    }
-                });
-
-            } catch (IllegalStateException e) {
-                System.out.println("illegal state");
-            }
-        });
-
-    }
-
-    /**
-     * Proceeds all points which came to the node and restarts their animations
-     *
-     */
-    private void handlePoints() {
-
-        if (!Visualizer.isRunning())
-            return;
-
-        ArrayList<PathTransition> toPlay = new ArrayList<>();
-        PathTransition p;
-        for (Edge e : edges) {
-            p = e.handlePoint(this, edges.size());
-            if(p!=null) {
-                Visualizer.addPath(p);
-                toPlay.add(p);
-            }
-        }
-        if (!Visualizer.isRunning())
-            return;
-
-        for (PathTransition path : toPlay) {
-            path.play();
-        }
-        System.out.println(LocalDateTime.now() + " all points started");
 
     }
 }

@@ -1,7 +1,6 @@
 package entities;
 
 import javafx.animation.PathTransition;
-import javafx.beans.property.BooleanProperty;
 import javafx.scene.Cursor;
 
 import javafx.scene.input.MouseEvent;
@@ -11,18 +10,16 @@ import main.Drawer;
 import main.Filter;
 import main.MenuManager;
 import main.PopupMessage;
-import main.Visualizer;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
-
 /**
  * Represents an edge between 2 nodes
  */
 public class Edge extends Line implements Undoable, Visitable,
-        Serializable, Restorable {
+    Serializable, Restorable {
 
     private Node n1;
     private Node n2;
@@ -37,18 +34,6 @@ public class Edge extends Line implements Undoable, Visitable,
 
     private transient Color curColor = color;
 
-    private HashMap<Node, double[]> nearestCoords;
-    private transient ConcurrentHashMap<Integer, Point> pointsToProceed = new ConcurrentHashMap<>();
-    private transient ConcurrentHashMap<Integer, Long> canVisualize = new ConcurrentHashMap<>();
-
-    /**
-     * Clears pointsToProceed before the new visualization
-     */
-    void resetProceed() {
-        pointsToProceed.clear();
-        canVisualize.clear();
-    }
-
     public Edge(double v1, double v2, double v3, double v4) {
 
         super(v1, v2, v3, v4);
@@ -56,7 +41,6 @@ public class Edge extends Line implements Undoable, Visitable,
 
         setStroke(color);
 
-        nearestCoords = new HashMap<>();
     }
 
     void hide() {
@@ -86,105 +70,6 @@ public class Edge extends Line implements Undoable, Visitable,
     }
 
     /**
-     * Returns the nearest to the given node edge end
-     *
-     * @param n node to find the end for
-     * @return coordinates of the nearest edge end
-     */
-    public double[] getNodesNearest(Node n) {
-        return nearestCoords.get(n);
-    }
-
-    private void removePoint(Point p) {
-        p.hideEnabled();
-        p.removePath();
-        Drawer.getInstance().removeElement(p);
-        Visualizer.decreasePoints();
-    }
-
-    /**
-     * Renews the amplitude of the point and builds a new way (or creates the new point)
-     *
-     * @param n      node to which the point came
-     * @param degree degree of the node n
-     * @return instance of animation to proceed
-     */
-    PathTransition handlePoint(Node n, int degree) {
-
-        try {
-            if (InfiniteManager.canEdit() && canVisualize.containsKey(n.getNum())) {
-
-                if (canVisualize.get(n.getNum()) + Visualizer.GAP + 20 > System.currentTimeMillis()) {
-                    System.out.println(n.getNum());
-                    if (pointsToProceed.containsKey(n.getNum())) {
-                        System.out.println("deleted");
-                        removePoint(pointsToProceed.get(n.getNum()));
-                    }
-                    return null;
-                }
-            }
-            if (pointsToProceed.containsKey(n.getNum())) {
-
-                pointsToProceed.get(n.getNum()).changeAmplitude(degree);
-                if (pointsToProceed.get(n.getNum()).getAmplitude().equals("0")) {
-                    pointsToProceed.get(n.getNum()).hideEnabled();
-                    pointsToProceed.get(n.getNum()).removePath();
-                    Drawer.getInstance().removeElement(pointsToProceed.get(n.getNum()));
-                    pointsToProceed.remove(n.getNum());
-                    Visualizer.decreasePoints();
-                    return null;
-                }
-                pointsToProceed.get(n.getNum()).setDestination(getNeighbour(n));
-                PathTransition p = pointsToProceed.get(n.getNum()).startPath(nearestCoords.get(n),
-                        nearestCoords.get(getNeighbour(n)), length.getValue());
-                pointsToProceed.remove(n.getNum());
-                canVisualize.put(n.getNum(), System.currentTimeMillis());
-                return p;
-
-            } else {
-
-                if (!Visualizer.checkOOM()) {
-                    return null;
-                }
-                Point p = new Point(getNeighbour(n), this);
-
-                p.setAmplitude(degree);
-
-                if (p.getAmplitude().equals("0")) {
-                    p.hideEnabled();
-                    return null;
-                }
-
-                Visualizer.increasePoints();
-                Drawer.getInstance().addElem(p);
-                canVisualize.put(n.getNum(), System.currentTimeMillis());
-
-                return p.startPath(nearestCoords.get(n), nearestCoords.get(getNeighbour(n)), length.getValue());
-            }
-        } catch (OutOfMemoryError e) {
-            PopupMessage.showMessage("Not enough memory");
-            Visualizer.stopVisualization();
-            return null;
-        }
-    }
-
-    /**
-     * Adds a point to the "waiting list" for the next animation cycle
-     *
-     * @param n node which will accept the point
-     * @param p point to accept
-     */
-    synchronized void addToProceed(Node n, Point p) {
-        if (pointsToProceed.containsKey(n.getNum())) {
-            System.out.println("DUPLICATE");
-            removePoint(p);
-            throw new IllegalArgumentException("Duplicate point");
-        }
-
-        pointsToProceed.put(n.getNum(), p);
-    }
-
-    /**
      * Sets nodes on the ends of the edge
      *
      * @param n1 start node
@@ -194,7 +79,6 @@ public class Edge extends Line implements Undoable, Visitable,
         this.n1 = n1;
         this.n2 = n2;
 
-        canVisualize.clear();
         setHandlers();
 
         length = new Distance();
@@ -210,10 +94,6 @@ public class Edge extends Line implements Undoable, Visitable,
 
         curColor = color;
 
-        pointsToProceed = new ConcurrentHashMap<>();
-        canVisualize = new ConcurrentHashMap<>();
-
-
         Distance d = new Distance();
         d.setDistance(length.getText(), length.getValue());
         length = d;
@@ -221,7 +101,6 @@ public class Edge extends Line implements Undoable, Visitable,
         Drawer.getInstance().addElem(this);
 
     }
-
 
     /**
      * Nodes getter
@@ -242,7 +121,6 @@ public class Edge extends Line implements Undoable, Visitable,
         return n == n1 ? n2 : n1;
     }
 
-
     /**
      * Calculates needed start and end of the edge
      * Than connects two nodes
@@ -252,17 +130,14 @@ public class Edge extends Line implements Undoable, Visitable,
      */
     public void connectNodes(Node node1, Node node2) {
         double dist = getDistance(node1.getCircle().getCenterX(), node1.getCircle().getCenterY(),
-                node2.getCircle().getCenterX(), node2.getCircle().getCenterY());
+            node2.getCircle().getCenterX(), node2.getCircle().getCenterY());
 
         double[] startCordsNode = getStartCoordinates(node1.getCircle().getCenterX(), node1.getCircle().getCenterY(),
-                node2.getCircle().getCenterX(), node2.getCircle().getCenterY(), dist, node2.getCircle().getRadius());
+            node2.getCircle().getCenterX(), node2.getCircle().getCenterY(), dist, node2.getCircle().getRadius());
 
         double[] startCordsPretender = getStartCoordinates(node2.getCircle().getCenterX(),
-                node2.getCircle().getCenterY(),
-                node1.getCircle().getCenterX(), node1.getCircle().getCenterY(), dist, node1.getCircle().getRadius());
-
-        nearestCoords.put(node1, startCordsPretender);
-        nearestCoords.put(node2, startCordsNode);
+            node2.getCircle().getCenterY(),
+            node1.getCircle().getCenterX(), node1.getCircle().getCenterY(), dist, node1.getCircle().getRadius());
 
         if (startCordsNode[1] > startCordsPretender[1]) {
             this.setStartX(startCordsNode[0]);
@@ -293,7 +168,7 @@ public class Edge extends Line implements Undoable, Visitable,
     public static double getDistance(double xPos, double yPos, double centerX,
                                      double centerY) {
         return Math.sqrt((xPos - centerX) * (xPos - centerX) +
-                (yPos - centerY) * (yPos - centerY));
+            (yPos - centerY) * (yPos - centerY));
     }
 
     /**
@@ -313,7 +188,7 @@ public class Edge extends Line implements Undoable, Visitable,
         double ySide = yPos - centerY;
 
         return new double[]{centerX + xSide * radius / distance,
-                centerY + ySide * radius / distance};
+            centerY + ySide * radius / distance};
     }
 
     /**
@@ -334,7 +209,7 @@ public class Edge extends Line implements Undoable, Visitable,
 
         try {
             Drawer.getInstance().addElem(this);
-            if (InfiniteManager.canEdit() && SimpleGraph.getInstance().areDistancesShown()) {
+            if (Graph.getInstance().areDistancesShown()) {
                 length.show();
             }
             setStroke(color);
@@ -355,11 +230,10 @@ public class Edge extends Line implements Undoable, Visitable,
         n2.removeNeighbour(n1);
         Drawer.getInstance().removeElement(this);
         Drawer.getInstance().removeElement(length);
-        if (InfiniteManager.canEdit() && SimpleGraph.getInstance().getStartEdge() == this) {
-            SimpleGraph.getInstance().setStartEdge(null);
+        if (Graph.getInstance().getStartEdge() == this) {
+            Graph.getInstance().setStartEdge(null);
         }
     }
-
 
     @Override
     public Edge clone() throws CloneNotSupportedException {
@@ -402,7 +276,6 @@ public class Edge extends Line implements Undoable, Visitable,
         return length.getText();
     }
 
-
     /**
      * @return whether the edge has been visited in dfs
      */
@@ -424,18 +297,17 @@ public class Edge extends Line implements Undoable, Visitable,
         visited = false;
     }
 
-
     /**
      * Moves length field after the edge
      */
     private void relocateLabel() {
-        if (length == null || !InfiniteManager.canEdit()) {
+        if (length == null) {
             return;
         }
 
 
         double coef = (getEndX() - getStartX()) /
-                getDistance(getStartX(), getStartY(), getEndX(), getEndY());
+            getDistance(getStartX(), getStartY(), getEndX(), getEndY());
         length.setLayoutX((this.getStartX() + this.getEndX()) / 2.0 + LABEL_GAP * (Math.sqrt(1 - coef * coef)));
         length.setLayoutY((this.getStartY() + this.getEndY()) / 2.0 + LABEL_GAP * coef);
 
@@ -461,13 +333,13 @@ public class Edge extends Line implements Undoable, Visitable,
 
 
         this.setOnContextMenuRequested(contextMenuEvent -> {
-            if (Filter.isEdgeStarted() || Visualizer.isRunning() || !InfiniteManager.canEdit()) {
+            if (Filter.isEdgeStarted()) {
                 return;
             }
             // System.out.println(contextMenuEvent.getSource());
             MenuManager.getEdgeMenu().bindElem((javafx.scene.Node) contextMenuEvent.getSource());
             MenuManager.getEdgeMenu().show(n1,
-                    contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY());
+                contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY());
         });
 
         addEventFilter(MouseEvent.MOUSE_CLICKED, Filter.clickFilter);

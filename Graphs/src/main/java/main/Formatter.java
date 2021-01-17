@@ -4,7 +4,7 @@ import java.text.DecimalFormat;
 import java.util.Locale;
 
 public class Formatter {
-    private static DecimalFormat formatter = (DecimalFormat)DecimalFormat.getInstance(Locale.US);
+    private static final DecimalFormat formatter = (DecimalFormat) DecimalFormat.getInstance(Locale.US);
     static{
         formatter.setMaximumFractionDigits(5);
         formatter.setMinimumFractionDigits(0);
