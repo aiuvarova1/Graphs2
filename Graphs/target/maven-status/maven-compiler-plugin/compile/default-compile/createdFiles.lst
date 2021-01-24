@@ -1,4 +1,5 @@
 main/Parser$Operation.class
+services/JythonService.class
 main/MenuManager.class
 main/Controller.class
 main/Parser.class
@@ -8,6 +9,7 @@ entities/Arrow.class
 main/Command.class
 entities/Distance.class
 entities/Edge.class
+services/MagnitudeService.class
 main/FileManager.class
 entities/Visitable.class
 main/Manager.class
@@ -18,6 +20,7 @@ main/Controller$1.class
 entities/Node.class
 main/MoveCommand.class
 main/Filter$1.class
+exceptions/IsAlreadyVisitedException.class
 main/Parser$Function.class
 main/CreateCommand.class
 main/ChangeDistCommand.class
@@ -32,7 +35,9 @@ entities/TexLabel.class
 main/NodeContextMenu.class
 main/Filter$2.class
 entities/Undoable.class
+exceptions/ValidationException.class
 main/Filter.class
 main/Drawer.class
+utils/Constants.class
 main/Formatter.class
 entities/Position.class

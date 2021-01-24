@@ -1,15 +1,45 @@
 package services;
 
+import java.util.Comparator;
+import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Stack;
 import java.util.function.Consumer;
 
 import entities.Graph;
 import entities.Node;
+import exceptions.IsAlreadyVisitedException;
 
 public class AlgorithmService {
 
     private static final Stack<Node> dfsStack = new Stack<>();
     private static final Graph graph = Graph.getInstance();
+
+    public static double[][] findAllMinDistances() {
+        int n = graph.getSize();
+        double[][] matrix = new double[n][n];
+
+        for (int i = 0; i < n; i++) {
+            findMinDistance(graph.getNodes().get(i), matrix[i]);
+        }
+
+        return matrix;
+    }
+
+    public static boolean hasCycles() {
+        boolean isCycled = false;
+        try {
+            for (Node n : graph.getNodes()) {
+                if (!n.isVisited()) {
+                    hasCycle(n, n);
+                }
+            }
+        } catch (IsAlreadyVisitedException ex) {
+            isCycled = true;
+        }
+        resetDFS();
+        return isCycled;
+    }
 
     /**
      * Runs dfs for each node and counts components
@@ -37,6 +67,52 @@ public class AlgorithmService {
         return components;
     }
 
+    private static void findMinDistance(Node n, double[] distances) {
+        PriorityQueue<Node> priorityQueue = new PriorityQueue<>(
+            Comparator.comparing(Node::getDijkstraDistance).reversed()
+        );
+        for (Node node : graph.getNodes()) {
+            if (node.equals(n)) {
+                node.setDijkstraDistance(0);
+            } else {
+                node.setDijkstraDistance(Integer.MAX_VALUE);
+            }
+
+            priorityQueue.add(node);
+        }
+
+        while (!priorityQueue.isEmpty()) {
+            Node minNode = priorityQueue.poll();
+            distances[minNode.getNum() - 1] = minNode.getDijkstraDistance();
+            for (Map.Entry<Node, Double> entry : minNode.getNeighboursAndDistances().entrySet()) {
+                double curVal = minNode.getDijkstraDistance() + entry.getValue();
+                Node node = entry.getKey();
+                if (node.getDijkstraDistance() > curVal) {
+                    node.setDijkstraDistance(curVal);
+                    priorityQueue.remove(node);
+                    priorityQueue.add(node);
+                }
+            }
+        }
+
+    }
+
+    private static void hasCycle(Node n, Node parent) {
+        if (n.isProcessed()) {
+            throw new IsAlreadyVisitedException("Cycle detected");
+        }
+
+        n.setProcessed(true);
+        for (Node neighbour : n.getNeighbours()) {
+            if (!neighbour.equals(parent) && !neighbour.isVisited()) {
+                hasCycle(neighbour, n);
+            }
+        }
+
+        n.setProcessed(false);
+        n.setVisited(true);
+    }
+
     /**
      * Runs DFS for one node
      *
@@ -47,7 +123,7 @@ public class AlgorithmService {
         while (!dfsStack.isEmpty()) {
             curNode = dfsStack.pop();
             if (!curNode.isVisited()) {
-                curNode.visit();
+                curNode.setVisited(true);
                 if (handler != null) {
                     handler.accept(curNode);
                 }

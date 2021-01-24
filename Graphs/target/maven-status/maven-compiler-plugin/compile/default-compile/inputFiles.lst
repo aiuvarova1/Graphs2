@@ -1,4 +1,6 @@
+/home/aidenne/Coursework3/Graphs/src/main/java/services/JythonService.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Controller.java
+/home/aidenne/Coursework3/Graphs/src/main/java/services/AlgorithmService.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Parser.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Arrow.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/TexLabel.java
@@ -11,15 +13,19 @@
 /home/aidenne/Coursework3/Graphs/src/main/java/main/GUIStarter.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Invoker.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Node.java
+/home/aidenne/Coursework3/Graphs/src/main/java/services/MagnitudeService.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Formatter.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Undoable.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Edge.java
+/home/aidenne/Coursework3/Graphs/src/main/java/exceptions/IsAlreadyVisitedException.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Visitable.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Command.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/EdgeContextMenu.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Distance.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/FileManager.java
+/home/aidenne/Coursework3/Graphs/src/main/java/exceptions/ValidationException.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Filter.java
+/home/aidenne/Coursework3/Graphs/src/main/java/utils/Constants.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Restorable.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/NodeContextMenu.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Graph.java

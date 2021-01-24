@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -14,6 +15,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import lombok.Getter;
+import lombok.Setter;
 import main.Drawer;
 import main.Filter;
 import main.MenuManager;
@@ -21,6 +24,9 @@ import main.MenuManager;
 /**
  * Represents one node of the graph
  */
+
+@Setter
+@Getter
 public class Node extends StackPane implements
     Undoable, Visitable, Serializable, Restorable {
 
@@ -28,14 +34,15 @@ public class Node extends StackPane implements
     private static final Color color = Color.WHITE;
     private static final Color selectedColor = Color.LIGHTBLUE;
 
-    private int num;
-    private boolean visited;
-
     private final ArrayList<Edge> edges;
     private final double[] initialPosition;
     private final double[] curPosition = new double[2];
-
     private Color curColor = color;
+
+    private int num;
+    private boolean visited;
+    private boolean processed;
+    private double dijkstraDistance;
 
     public Circle getCircle() {
         return (Circle) getChildren().get(0);
@@ -67,6 +74,17 @@ public class Node extends StackPane implements
             nodes.add(e.getNeighbour(this));
         }
         return nodes;
+    }
+
+    public HashMap<Node, Double> getNeighboursAndDistances() {
+        HashMap<Node, Double> map = new HashMap<>();
+
+        for (Edge e : edges) {
+            if (!map.containsKey(this) || e.getLength() < map.get(this)) {
+                map.put(e.getNeighbour(this), e.getLength());
+            }
+        }
+        return map;
     }
 
     /**
@@ -249,22 +267,15 @@ public class Node extends StackPane implements
         return true;
     }
 
-    public boolean isVisited() {
-        return visited;
-    }
-
-    public void visit() {
-        visited = true;
-    }
-
     /**
      * Marks the node as not visited (for dfs)
      */
     public void unvisit() {
         visited = false;
+        processed = false;
 
         for (Edge e : edges) {
-            e.unvisit();
+            e.setVisited(false);
         }
     }
 
@@ -319,7 +330,7 @@ public class Node extends StackPane implements
     private void handleEdges(Consumer<Edge> handler) {
         for (Edge e : edges) {
             if (!e.isVisited()) {
-                e.visit();
+                e.setVisited(true);
                 handler.accept(e);
             }
         }

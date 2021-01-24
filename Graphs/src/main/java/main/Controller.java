@@ -1,6 +1,7 @@
 package main;
 
 import entities.*;
+import exceptions.ValidationException;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -9,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import services.MagnitudeService;
 
 public class Controller {
 
@@ -54,7 +56,7 @@ public class Controller {
     private Button undoButton;
 
     @FXML
-    private ImageView undoIcon;
+    private Button magnitude;
 
     @FXML
     private Button redoButton;
@@ -108,6 +110,9 @@ public class Controller {
 
         resetDistances.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
         resetDistances.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+
+        magnitude.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
+        magnitude.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
 
         setAll.addEventHandler(MouseEvent.MOUSE_ENTERED, event ->
         {
@@ -201,7 +206,7 @@ public class Controller {
             dialog.setVisible(true);
 
         } else {
-            FileManager.open();
+            FileManager.openGraphFile();
         }
 
     }
@@ -210,13 +215,13 @@ public class Controller {
     void saveUnchanged() {
         hideDialog();
         FileManager.save();
-        FileManager.open();
+        FileManager.openGraphFile();
     }
 
     @FXML
     void discardAndOpen() {
         hideDialog();
-        FileManager.open();
+        FileManager.openGraphFile();
     }
 
     @FXML
@@ -329,6 +334,15 @@ public class Controller {
     @FXML
     private void changeDist() {
         Graph.getInstance().changeDistances(allLengths.getText());
+    }
+
+    @FXML
+    private void calculateMagnitude() {
+        try {
+            MagnitudeService.calculateMagnitude();
+        } catch (ValidationException ex) {
+            PopupMessage.showMessage(ex.getMessage());
+        }
     }
 
     /**

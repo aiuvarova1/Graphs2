@@ -1,20 +1,29 @@
 package main;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+
 import entities.Graph;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.*;
-
 /**
  * Class which controls all file operations
  */
-class FileManager {
+public class FileManager {
 
     private static File curFile = null;
     private static final FileChooser fileChooser = new FileChooser();
+    private static final FileChooser functionFileChooser = new FileChooser();
     private static Stage mainStage = null;
 
     private static final BooleanProperty noSave = new SimpleBooleanProperty(false);
@@ -22,6 +31,10 @@ class FileManager {
     static {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter
             ("Graph object (*.graph)", "*.graph"));
+        functionFileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("Tex file (*.tex)", "*.tex"),
+            new FileChooser.ExtensionFilter("Txt file (*.txt)", "*.txt")
+        );
     }
 
     /**
@@ -98,13 +111,23 @@ class FileManager {
         if (file != null) {
             convertGraph(file);
         }
-
     }
 
-    /**
-     * Opens the specified file
-     */
-    static void open() {
+    public static void saveFunctionOutput(String functionResult) {
+        File file = functionFileChooser.showSaveDialog(mainStage);
+        if (file != null) {
+            try (FileOutputStream outputStream = new FileOutputStream(file);
+                 Writer writer = new OutputStreamWriter(outputStream)
+            ) {
+                writer.write(functionResult);
+            } catch (IOException e) {
+                PopupMessage.showMessage("Failed to write data to file");
+                e.printStackTrace();
+            }
+        }
+    }
+
+    static void openGraphFile() {
 
         File file = fileChooser.showOpenDialog(mainStage);
 
@@ -131,7 +154,6 @@ class FileManager {
         }
         Invoker.reset();
         noSave.set(false);
-
     }
 
     /**

@@ -6,6 +6,8 @@ import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import lombok.Getter;
+import lombok.Setter;
 import main.Drawer;
 import main.Filter;
 import main.MenuManager;
@@ -18,8 +20,14 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Represents an edge between 2 nodes
  */
+@Getter
+@Setter
 public class Edge extends Line implements Undoable, Visitable,
     Serializable, Restorable {
+
+    private static final double LABEL_GAP = 15;
+    private static final Color color = Color.DIMGRAY;
+    private static final Color selectedColor = Color.LIGHTBLUE;
 
     private Node n1;
     private Node n2;
@@ -27,11 +35,6 @@ public class Edge extends Line implements Undoable, Visitable,
     private boolean visited = false;
 
     private Distance length;
-
-    private static final double LABEL_GAP = 15;
-    private static final Color color = Color.DIMGRAY;
-    private static final Color selectedColor = Color.LIGHTBLUE;
-
     private Color curColor = color;
 
     public Edge(double v1, double v2, double v3, double v4) {
@@ -255,27 +258,6 @@ public class Edge extends Line implements Undoable, Visitable,
 
     String getTextLength() {
         return length.getText();
-    }
-
-    /**
-     * @return whether the edge has been visited in dfs
-     */
-    public boolean isVisited() {
-        return visited;
-    }
-
-    /**
-     * Marks the edge as visited
-     */
-    public void visit() {
-        visited = true;
-    }
-
-    /**
-     * Marks the edge as not visited
-     */
-    public void unvisit() {
-        visited = false;
     }
 
     /**
