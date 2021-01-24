@@ -19,16 +19,16 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="menu" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
-   <children>
-      <HBox maxWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <VBox maxWidth="283.0" minHeight="400.0" minWidth="283.0" prefHeight="600.0" prefWidth="328.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <AnchorPane maxHeight="121.0" maxWidth="283.0" minHeight="80.0" minWidth="220.0" prefHeight="107.0" prefWidth="283.0" style="-fx-background-color: #2E3348; -fx-background-radius: 1;">
-                     <children>
-                        <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutY="-7.0" prefHeight="79.0" prefWidth="290.0" text="Graph tool" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="-7.0">
-                           <font>
-                              <Font name="Times New Roman" size="42.0" />
+    <children>
+        <HBox maxWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <VBox maxWidth="283.0" minHeight="400.0" minWidth="283.0" prefHeight="600.0" prefWidth="328.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <AnchorPane maxHeight="121.0" maxWidth="283.0" minHeight="80.0" minWidth="220.0" prefHeight="107.0" prefWidth="283.0" style="-fx-background-color: #2E3348; -fx-background-radius: 1;">
+                            <children>
+                                <Label fx:id="label" alignment="CENTER" contentDisplay="CENTER" layoutY="-7.0" prefHeight="79.0" prefWidth="290.0" text="Graph tool" textAlignment="CENTER" textFill="WHITE" wrapText="true" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="-7.0">
+                                    <font>
+                                        <Font name="Times New Roman" size="42.0" />
                            </font>
                         </Label>
                      </children>
@@ -53,7 +53,7 @@
                                              <graphic>
                                                 <ImageView fx:id="undoIcon" fitHeight="18.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../resources/assets/undo.png" />
+                                                      <Image url="@assets/undo.png" />
                                                    </image>
                                                    <effect>
                                                       <ColorAdjust brightness="0.48" />
@@ -68,7 +68,7 @@
                                              <graphic>
                                                 <ImageView fx:id="redoIcon" fitHeight="22.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../resources/assets/redo.png" />
+                                                      <Image url="@assets/redo.png" />
                                                    </image>
                                                    <effect>
                                                       <ColorAdjust brightness="0.48" />
@@ -83,7 +83,7 @@
                                              <graphic>
                                                 <ImageView fx:id="trashIcon" fitHeight="18.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../resources/assets/trash.png" />
+                                                      <Image url="@assets/trash.png" />
                                                    </image>
                                                    <effect>
                                                       <ColorAdjust brightness="0.48" />
@@ -103,7 +103,7 @@
                                              <graphic>
                                                 <ImageView fx:id="openIcon" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../resources/assets/open.png" />
+                                                      <Image url="@assets/open.png" />
                                                    </image>
                                                    <effect>
                                                       <ColorAdjust brightness="0.48" />
@@ -118,7 +118,7 @@
                                              <graphic>
                                                 <ImageView fx:id="saveIcon" fitHeight="19.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../resources/assets/save.png" />
+                                                      <Image url="@assets/save.png" />
                                                    </image>
                                                    <effect>
                                                       <ColorAdjust brightness="0.48" />
@@ -133,7 +133,7 @@
                                              <graphic>
                                                 <ImageView fx:id="saveAsIcon" fitHeight="19.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../resources/assets/save.png" />
+                                                      <Image url="@assets/save.png" />
                                                    </image>
                                                    <effect>
                                                       <ColorAdjust brightness="0.48" />
@@ -193,7 +193,7 @@
                                                    <graphic>
                                                       <ImageView fx:id="setAllIcon" fitHeight="20.0" fitWidth="18.0" onMouseClicked="#changeDist" pickOnBounds="true" preserveRatio="true">
                                                          <image>
-                                                            <Image url="@../../resources/assets/confirm.png" />
+                                                            <Image url="@assets/confirm.png" />
                                                          </image>
                                                          <effect>
                                                             <ColorAdjust brightness="0.48" />
@@ -215,7 +215,7 @@
                                              <graphic>
                                                 <ImageView fx:id="resetIcon" fitHeight="18.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                                                    <image>
-                                                      <Image url="@../../resources/assets/reset.png" />
+                                                      <Image url="@assets/reset.png" />
                                                    </image>
                                                    <effect>
                                                       <ColorAdjust brightness="0.48" />
@@ -251,7 +251,7 @@
                                              <graphic>
                                                  <ImageView fx:id="leftClick" fitHeight="27.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                                                      <image>
-                                                         <Image url="@../../resources/assets/leftClick.png" />
+                                                         <Image url="@assets/leftClick.png" />
                                                      </image>
                                                      <effect>
                                                          <ColorAdjust brightness="0.48" />
@@ -266,7 +266,7 @@
                                                <graphic>
                                                    <ImageView fx:id="nodeClick" fitHeight="36.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                                                        <image>
-                                                           <Image url="@../../resources/assets/nodeClick.png" />
+                                                           <Image url="@assets/nodeClick.png" />
                                                        </image>
                                                        <effect>
                                                            <ColorAdjust brightness="0.48" />
@@ -281,7 +281,7 @@
                                                <graphic>
                                                    <ImageView fx:id="drag" fitHeight="62.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                                                        <image>
-                                                           <Image url="@../../resources/assets/drag.png" />
+                                                           <Image url="@assets/drag.png" />
                                                        </image>
                                                        <effect>
                                                            <ColorAdjust brightness="0.48" />
@@ -296,7 +296,7 @@
                                                <graphic>
                                                    <ImageView fx:id="rightClick" fitHeight="62.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
                                                        <image>
-                                                           <Image url="@../../resources/assets/rightClick.png" />
+                                                           <Image url="@assets/rightClick.png" />
                                                        </image>
                                                        <effect>
                                                            <ColorAdjust brightness="0.48" />
@@ -320,18 +320,18 @@
                   </Accordion>
                </children>
             </VBox>
-             <AnchorPane fx:id="drawingArea" minHeight="480.0" minWidth="620.0" onMouseClicked="#createNode" prefHeight="95.0" prefWidth="700.0" style="-fx-background-color: FFFFFF;" HBox.hgrow="ALWAYS">
-                 <children>
-                     <Label fx:id="tip" layoutX="599.0" layoutY="554.0" maxWidth="500.0" minWidth="-Infinity" opacity="0.0" prefHeight="12.0" styleClass="popup" stylesheets="@MyStyle.css" visible="false" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                         <font>
-                             <Font name="Constantia" size="2.0" />
-                         </font>
-                     </Label>
-                     <Label fx:id="points" prefHeight="49.0" prefWidth="108.0" text="Points: 1" textFill="#686060" visible="false" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
-                         <font>
-                             <Font name="Constantia" size="19.0" />
-                         </font>
-                     </Label>
+                <AnchorPane fx:id="drawingArea" minHeight="480.0" minWidth="620.0" onMouseClicked="#createNode" prefHeight="95.0" prefWidth="700.0" style="-fx-background-color: FFFFFF;" HBox.hgrow="ALWAYS">
+                    <children>
+                        <Label fx:id="tip" layoutX="599.0" layoutY="554.0" maxWidth="500.0" minWidth="-Infinity" opacity="0.0" prefHeight="12.0" styleClass="popup" stylesheets="@MyStyle.css" visible="false" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                            <font>
+                                <Font name="Constantia" size="2.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="points" prefHeight="49.0" prefWidth="108.0" text="Points: 1" textFill="#686060" visible="false" wrapText="true" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+                            <font>
+                                <Font name="Constantia" size="19.0" />
+                            </font>
+                        </Label>
                  </children>
              </AnchorPane>
          </children>
@@ -354,7 +354,7 @@
                            <graphic>
                               <ImageView fx:id="saveIcon2" fitHeight="22.0" fitWidth="20.0" onMouseClicked="#saveUnchanged" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../resources/assets/save.png" />
+                                    <Image url="@assets/save.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="0.48" />
@@ -369,7 +369,7 @@
                            <graphic>
                               <ImageView fx:id="discardIcon" fitHeight="25.0" fitWidth="21.0" onMouseClicked="#discardAndOpen" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../resources/assets/discard.png" />
+                                    <Image url="@assets/discard.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="0.48" />
@@ -384,7 +384,7 @@
                            <graphic>
                               <ImageView fx:id="cancelIcon" fitHeight="19.0" fitWidth="17.0" onMouseClicked="#hideDialog" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../resources/assets/close.png" />
+                                    <Image url="@assets/close.png" />
                                  </image>
                                  <effect>
                                     <ColorAdjust brightness="0.48" />

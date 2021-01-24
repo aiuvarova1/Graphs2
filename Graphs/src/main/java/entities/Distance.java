@@ -11,14 +11,14 @@ import java.io.Serializable;
  * Control with distance text label and input field
  */
 public class Distance extends Pane implements Serializable {
-    private transient TexLabel label;
-    private transient TextField input;
+    public static final int MAX_LENGTH = 70;
+    private static boolean isCalculated = false;
+
+    private TexLabel label;
+    private TextField input;
 
     private double value = Double.MAX_VALUE;
     private String curText = TexLabel.DEFAULT;
-
-    public static final int MAX_LENGTH = 70;
-    private static boolean isCalculated = false;
 
     public static void setCalc(boolean val) {
         isCalculated = val;

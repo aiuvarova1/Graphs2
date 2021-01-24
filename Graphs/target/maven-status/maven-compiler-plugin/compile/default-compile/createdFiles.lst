@@ -13,6 +13,7 @@ entities/Visitable.class
 main/Manager.class
 main/EdgeContextMenu.class
 main/Cache.class
+services/AlgorithmService.class
 main/Controller$1.class
 entities/Node.class
 main/MoveCommand.class

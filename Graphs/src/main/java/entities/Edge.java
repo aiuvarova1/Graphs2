@@ -32,7 +32,7 @@ public class Edge extends Line implements Undoable, Visitable,
     private static final Color color = Color.DIMGRAY;
     private static final Color selectedColor = Color.LIGHTBLUE;
 
-    private transient Color curColor = color;
+    private Color curColor = color;
 
     public Edge(double v1, double v2, double v3, double v4) {
 
@@ -51,22 +51,6 @@ public class Edge extends Line implements Undoable, Visitable,
     void show() {
         Drawer.getInstance().addElem(this);
         Drawer.getInstance().addElem(length);
-    }
-
-    /**
-     * Selects the edge as the beginning one
-     */
-    public void select() {
-        setStroke(selectedColor);
-        curColor = selectedColor;
-    }
-
-    /**
-     * Deselects the edge as the beginning one
-     */
-    public void deselect() {
-        setStroke(color);
-        curColor = color;
     }
 
     /**
@@ -230,9 +214,6 @@ public class Edge extends Line implements Undoable, Visitable,
         n2.removeNeighbour(n1);
         Drawer.getInstance().removeElement(this);
         Drawer.getInstance().removeElement(length);
-        if (Graph.getInstance().getStartEdge() == this) {
-            Graph.getInstance().setStartEdge(null);
-        }
     }
 
     @Override

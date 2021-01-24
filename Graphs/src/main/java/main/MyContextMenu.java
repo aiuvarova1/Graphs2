@@ -5,7 +5,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 
 public class MyContextMenu extends ContextMenu {
-    private MenuItem deletion;
+    private final MenuItem deletion;
     protected Undoable elem;
 
     public MyContextMenu() {

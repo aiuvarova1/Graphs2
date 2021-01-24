@@ -12,7 +12,7 @@ import javafx.scene.layout.StackPane;
 
 public class Controller {
 
-    private Drawer drawer;
+    private final Drawer drawer;
 
     @FXML
     private ToggleButton showDistances;
@@ -28,12 +28,6 @@ public class Controller {
 
     @FXML
     private TextField allLengths;
-
-    @FXML
-    private ImageView leftClick;
-
-    @FXML
-    private ImageView rightClick;
 
     @FXML
     private TitledPane helpTitledPane;
@@ -66,20 +60,7 @@ public class Controller {
     private Button redoButton;
 
     @FXML
-    private ImageView redoIcon;
-
-    @FXML
-    private ImageView resetIcon;
-
-    @FXML
     private AnchorPane drawingArea;
-
-    @FXML
-    private ImageView nodeClick;
-
-    @FXML
-    private ImageView drag;
-
     @FXML
     private Label tip;
 
@@ -87,40 +68,18 @@ public class Controller {
     private Button saveButton;
 
     @FXML
-    private ImageView saveIcon;
-
-    @FXML
     private Button openButton;
-
-    @FXML
-    private ImageView openIcon;
-
     @FXML
     private Button saveAsButton;
-
-    @FXML
-    private ImageView saveAsIcon;
-
     @FXML
     private StackPane dialog;
 
     @FXML
     private Button saveButton2;
-
-    @FXML
-    private ImageView saveIcon2;
-
     @FXML
     private Button discardButton;
-
-    @FXML
-    private ImageView discardIcon;
-
     @FXML
     private Button cancelButton;
-
-    @FXML
-    private ImageView cancelIcon;
 
     public Controller() {
         drawer = Drawer.getInstance();
@@ -134,24 +93,6 @@ public class Controller {
     @FXML
     public void setOldIcon() {
         trashIcon.setImage(new Image(Manager.class.getResource("/assets/trash.png").toExternalForm()));
-    }
-
-    @FXML
-    private void setIcons() {
-        leftClick.setImage(new Image(Manager.class.getResource("/assets/leftClick.png").toExternalForm()));
-        rightClick.setImage(new Image(Manager.class.getResource("/assets/rightClick.png").toExternalForm()));
-        nodeClick.setImage(new Image(Manager.class.getResource("/assets/nodeClick.png").toExternalForm()));
-        drag.setImage(new Image(Manager.class.getResource("/assets/drag.png").toExternalForm()));
-        undoIcon.setImage(new Image(Manager.class.getResource("/assets/undo.png").toExternalForm()));
-        redoIcon.setImage(new Image(Manager.class.getResource("/assets/redo.png").toExternalForm()));
-        resetIcon.setImage(new Image(Manager.class.getResource("/assets/reset.png").toExternalForm()));
-        setAllIcon.setImage(new Image(Manager.class.getResource("/assets/confirm.png").toExternalForm()));
-        openIcon.setImage(new Image(Manager.class.getResource("/assets/open.png").toExternalForm()));
-        saveIcon.setImage(new Image(Manager.class.getResource("/assets/save.png").toExternalForm()));
-        saveAsIcon.setImage(new Image(Manager.class.getResource("/assets/save.png").toExternalForm()));
-        saveIcon2.setImage(new Image(Manager.class.getResource("/assets/save.png").toExternalForm()));
-        discardIcon.setImage(new Image(Manager.class.getResource("/assets/discard.png").toExternalForm()));
-        cancelIcon.setImage(new Image(Manager.class.getResource("/assets/close.png").toExternalForm()));
     }
 
     @FXML
@@ -300,7 +241,6 @@ public class Controller {
         drawTitledPane.setAnimated(true);
         helpTitledPane.setAnimated(true);
         accordion.setExpandedPane(drawTitledPane);
-        setIcons();
 
         new Distance();
         PopupMessage.setPopup(tip);

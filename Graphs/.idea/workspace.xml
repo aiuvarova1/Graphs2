@@ -10,43 +10,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3aa67ae0-54ba-4086-884d-3b050cac4cee" name="Default Changelist" comment="Move to Maven">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_12.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_openjfx_javafx_base_linux_12.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_python_jython_2_7_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/AlgorithmService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_16_10.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_12.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GraphsTool.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GraphsTool.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Arrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Arrow.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/Distance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Distance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/InfiniteGraph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/InfiniteManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/LatticeGraph.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/LineGraph.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Graph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Point.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/SimpleGraph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Graph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/TexLabel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/TexLabel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Cache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Cache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Command.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Drawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Drawer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/EdgeContextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/EdgeContextMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/FileManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Filter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Formatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Formatter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/GIFMaker.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Invoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Invoker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/MenuManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/MenuManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/MyContextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/MyContextMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/NodeContextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/NodeContextMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Visualizer.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/MainScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MainScene.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/MainScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MainScene.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,13 +134,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="class" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

@@ -25,16 +25,15 @@ public class Node extends StackPane implements
     Undoable, Visitable, Serializable, Restorable {
 
     public static final double RADIUS = 16;
+    private static final Color color = Color.WHITE;
+    private static final Color selectedColor = Color.LIGHTBLUE;
 
     private int num;
     private boolean visited;
 
-    private ArrayList<Edge> edges;
-    private double[] initialPosition;
-    private double[] curPosition = new double[2];
-
-    private static final Color color = Color.WHITE;
-    private static final Color selectedColor = Color.LIGHTBLUE;
+    private final ArrayList<Edge> edges;
+    private final double[] initialPosition;
+    private final double[] curPosition = new double[2];
 
     private Color curColor = color;
 
@@ -58,27 +57,11 @@ public class Node extends StackPane implements
     }
 
     /**
-     * Selects the node as the start one
-     */
-    public void select() {
-        getCircle().setFill(selectedColor);
-        curColor = selectedColor;
-    }
-
-    /**
-     * Deselects the node as the start one
-     */
-    public void deselect() {
-        getCircle().setFill(color);
-        curColor = color;
-    }
-
-    /**
      * Gets list of neighbours through passing the list of edges
      *
      * @return list of neighbour nodes
      */
-    Set<Node> getNeighbours() {
+    public Set<Node> getNeighbours() {
         Set<Node> nodes = new HashSet<>(edges.size());
         for (Edge e : edges) {
             nodes.add(e.getNeighbour(this));
@@ -242,11 +225,6 @@ public class Node extends StackPane implements
      */
     @Override
     public void remove() {
-
-        if (Graph.getInstance().getStartNode() == this) {
-            Graph.getInstance().setStartNode(null);
-        }
-
         Graph.getInstance().removeNode(this);
     }
 
