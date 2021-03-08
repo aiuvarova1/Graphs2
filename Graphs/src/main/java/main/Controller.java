@@ -12,6 +12,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import services.MagnitudeService;
 
+import static utils.Constants.NEGATIVE_BASE_MESSAGE;
+
 public class Controller {
 
     private final Drawer drawer;
@@ -30,6 +32,9 @@ public class Controller {
 
     @FXML
     private TextField allLengths;
+
+    @FXML
+    private TextField ringBase;
 
     @FXML
     private TitledPane helpTitledPane;
@@ -338,6 +343,17 @@ public class Controller {
 
     @FXML
     private void calculateMagnitude() {
+//        String text = ringBase.getText();
+//        int base;
+//        try {
+//            base = Integer.parseInt(text);
+//            if (base < 0)
+//                throw new NumberFormatException();
+//        } catch (NumberFormatException ex) {
+//            PopupMessage.showMessage(NEGATIVE_BASE_MESSAGE);
+//            return;
+//        }
+
         try {
             MagnitudeService.calculateMagnitude();
         } catch (ValidationException ex) {

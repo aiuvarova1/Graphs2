@@ -1,5 +1,6 @@
 package services;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -15,10 +16,11 @@ public class AlgorithmService {
     private static final Stack<Node> dfsStack = new Stack<>();
     private static final Graph graph = Graph.getInstance();
 
-    public static double[][] findAllMinDistances() {
+    public static int[][] findAllMinDistances() {
         int n = graph.getSize();
-        double[][] matrix = new double[n][n];
+        int[][] matrix = new int[n][n];
 
+        Arrays.stream(matrix).forEach(arr -> Arrays.fill(arr, Integer.MAX_VALUE));
         for (int i = 0; i < n; i++) {
             findMinDistance(graph.getNodes().get(i), matrix[i]);
         }
@@ -67,7 +69,7 @@ public class AlgorithmService {
         return components;
     }
 
-    private static void findMinDistance(Node n, double[] distances) {
+    private static void findMinDistance(Node n, int[] distances) {
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>(
             Comparator.comparing(Node::getDijkstraDistance).reversed()
         );
@@ -83,11 +85,12 @@ public class AlgorithmService {
 
         while (!priorityQueue.isEmpty()) {
             Node minNode = priorityQueue.poll();
-            distances[minNode.getNum() - 1] = minNode.getDijkstraDistance();
+            int distance = minNode.getDijkstraDistance();
+            distances[minNode.getNum() - 1] = distance == Integer.MAX_VALUE ? -1 : distance;
             for (Map.Entry<Node, Double> entry : minNode.getNeighboursAndDistances().entrySet()) {
-                double curVal = minNode.getDijkstraDistance() + entry.getValue();
+                int curVal = minNode.getDijkstraDistance() + entry.getValue().intValue();
                 Node node = entry.getKey();
-                if (node.getDijkstraDistance() > curVal) {
+                if (curVal > 0 && node.getDijkstraDistance() > curVal) {
                     node.setDijkstraDistance(curVal);
                     priorityQueue.remove(node);
                     priorityQueue.add(node);

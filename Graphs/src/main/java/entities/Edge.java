@@ -35,7 +35,7 @@ public class Edge extends Line implements Undoable, Visitable,
     private boolean visited = false;
 
     private Distance length;
-    private Color curColor = color;
+    private transient Color curColor = color;
 
     public Edge(double v1, double v2, double v3, double v4) {
 

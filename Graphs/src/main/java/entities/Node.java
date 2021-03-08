@@ -37,12 +37,12 @@ public class Node extends StackPane implements
     private final ArrayList<Edge> edges;
     private final double[] initialPosition;
     private final double[] curPosition = new double[2];
-    private Color curColor = color;
+    private transient Color curColor = color;
 
     private int num;
     private boolean visited;
     private boolean processed;
-    private double dijkstraDistance;
+    private int dijkstraDistance;
 
     public Circle getCircle() {
         return (Circle) getChildren().get(0);

@@ -1,52 +1,55 @@
 package services;
 
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.util.Arrays;
+import java.io.PrintWriter;
+import java.net.URL;
 import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import main.PopupMessage;
-import org.python.util.PythonInterpreter;
+import utils.Constants;
 
 @ParametersAreNonnullByDefault
 public class JythonService {
 
     @Nonnull
     public static String runScript(List<String> args, String pathToScript) {
-        try (PythonInterpreter interpreter = new PythonInterpreter();
-             InputStream inputStream = MagnitudeService.class.getResourceAsStream(pathToScript);
-             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))
-        ) {
-            StringWriter stringWriter = new StringWriter();
-            interpreter.setOut(stringWriter);
+        try {
+            writeMatrix(args);
 
-            String[] arguments = new String[args.size() + 1];
-            arguments[0] = pathToScript;
+            URL resource = JythonService.class.getResource(pathToScript);
 
-            for (int i = 0; i < args.size(); i++) {
-                arguments[i + 1] = args.get(i);
+            String runString = String.format("python3 %s", resource.getPath());
+            Process process = Runtime.getRuntime().exec(runString);
+            int exitCode = process.waitFor();
+
+            if (exitCode != 0) {
+                BufferedReader err = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+                String errorMessage = err.lines().reduce((a, b) -> a + '\n' + b).orElse("");
+                throw new Exception(errorMessage);
             }
+            System.out.println("Process exited with : " + exitCode);
 
-            setArgs(arguments, interpreter);
-            String script = reader.lines().reduce((a, b) -> a + "\n" + b).get();
-            interpreter.exec(script);
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            String res = in.lines().reduce((a, b) -> a + '\n' + b).orElseThrow();
 
-            System.out.println(stringWriter.toString());
-            return stringWriter.toString();
-        } catch (IOException e) {
-            PopupMessage.showMessage("Failed to run python script");
-            return "";
+            System.out.println(res);
+            return res;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
-    private static void setArgs(String[] arguments, PythonInterpreter interpreter) {
-        String args = Arrays.stream(arguments).map(s -> '\'' + s + '\'').reduce((a, b) -> a + ", " + b).get();
-        interpreter.exec(String.format("import sys\nsys.argv=[%s]", args));
+    private static void writeMatrix(List<String> args) {
+        System.out.println(JythonService.class.getResource(Constants.PATH_TO_DATA).getPath());
+        try (PrintWriter writer = new PrintWriter(JythonService.class.getResource(Constants.PATH_TO_DATA).getPath())) {
+            args.forEach(writer::println);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -14,8 +14,8 @@ public class Distance extends Pane implements Serializable {
     public static final int MAX_LENGTH = 70;
     private static boolean isCalculated = false;
 
-    private TexLabel label;
-    private TextField input;
+    private transient TexLabel label;
+    private transient TextField input;
 
     private double value = Double.MAX_VALUE;
     private String curText = TexLabel.DEFAULT;
