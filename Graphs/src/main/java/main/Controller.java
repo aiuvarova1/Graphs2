@@ -1,18 +1,32 @@
 package main;
 
-import entities.*;
+import entities.Distance;
+import entities.Edge;
+import entities.Graph;
+import entities.Node;
 import exceptions.ValidationException;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import services.BarnesZetaFunctionService;
+import services.IharaZetaFunctionService;
 import services.MagnitudeService;
-
-import static utils.Constants.NEGATIVE_BASE_MESSAGE;
 
 public class Controller {
 
@@ -32,9 +46,6 @@ public class Controller {
 
     @FXML
     private TextField allLengths;
-
-    @FXML
-    private TextField ringBase;
 
     @FXML
     private TitledPane helpTitledPane;
@@ -62,6 +73,12 @@ public class Controller {
 
     @FXML
     private Button magnitude;
+
+    @FXML
+    private Button barnes;
+
+    @FXML
+    private Button ihara;
 
     @FXML
     private Button redoButton;
@@ -118,6 +135,12 @@ public class Controller {
 
         magnitude.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
         magnitude.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+
+        barnes.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
+        barnes.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+
+        ihara.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
+        ihara.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
 
         setAll.addEventHandler(MouseEvent.MOUSE_ENTERED, event ->
         {
@@ -343,19 +366,26 @@ public class Controller {
 
     @FXML
     private void calculateMagnitude() {
-//        String text = ringBase.getText();
-//        int base;
-//        try {
-//            base = Integer.parseInt(text);
-//            if (base < 0)
-//                throw new NumberFormatException();
-//        } catch (NumberFormatException ex) {
-//            PopupMessage.showMessage(NEGATIVE_BASE_MESSAGE);
-//            return;
-//        }
-
         try {
             MagnitudeService.calculateMagnitude();
+        } catch (ValidationException ex) {
+            PopupMessage.showMessage(ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void calculateBarnes() {
+        try {
+            BarnesZetaFunctionService.calculateBarnesFunction();
+        } catch (ValidationException ex) {
+            PopupMessage.showMessage(ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void calculateIhara() {
+        try {
+            IharaZetaFunctionService.calculateIharaFunction();
         } catch (ValidationException ex) {
             PopupMessage.showMessage(ex.getMessage());
         }

@@ -1,5 +1,5 @@
-/home/aidenne/Coursework3/Graphs/src/main/java/services/JythonService.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Controller.java
+/home/aidenne/Coursework3/Graphs/src/main/java/services/dto/IharaDto.java
 /home/aidenne/Coursework3/Graphs/src/main/java/services/AlgorithmService.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Parser.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Arrow.java
@@ -7,6 +7,8 @@
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Manager.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/PopupMessage.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/MyContextMenu.java
+/home/aidenne/Coursework3/Graphs/src/main/java/services/PythonService.java
+/home/aidenne/Coursework3/Graphs/src/main/java/services/BarnesZetaFunctionService.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/MenuManager.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Cache.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Drawer.java
@@ -18,6 +20,7 @@
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Undoable.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Edge.java
 /home/aidenne/Coursework3/Graphs/src/main/java/exceptions/IsAlreadyVisitedException.java
+/home/aidenne/Coursework3/Graphs/src/main/java/services/IharaZetaFunctionService.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Visitable.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Command.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/EdgeContextMenu.java

@@ -1,40 +1,15 @@
 from sympy import Matrix, symbols
+from utils import tex_replace, convert_matrix_row_to_string, BEGIN_MATRIX, END_MATRIX
 
 DELIMITER = ' '
 REPLACE_Z = 'Z_G = '
 REPLACE_INV_Z = 'Z_G^{-1} = '
 REPLACE_SUM = 'e: $$\#G(q) ='
 
-BEGIN_MATRIX = "\\begin{pmatrix}\n"
-END_MATRIX = '\\end{pmatrix}\n'
-
-MATRIX_DELIMITER = ' & '
-
 matrix = []
 output = ""
 
 q = symbols('q')
-
-
-def tex_replace(el):
-    if '/' in el:
-        parts = el.split('/')
-        frac = '\\dfrac{%s}{%s}' % (parts[0], parts[1].replace('(', '').replace(')', ''))
-        el = frac
-    if '**' in el:
-        parts = el.split('**')
-        index = 0
-        el = parts[0]
-        for i in range(1, len(parts)):
-            while index < len(parts[i]) and parts[i][index].isdigit():
-                index += 1
-            el += "^{%s}%s" % (parts[i][:index], parts[i][index:])
-    return el
-
-
-def convert_matrix_row_to_string(row):
-    r = [tex_replace(str(x)) for x in row]
-    return MATRIX_DELIMITER.join(r) + '\\\\\n'
 
 
 def insert_matrix():

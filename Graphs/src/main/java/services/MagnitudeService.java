@@ -8,14 +8,13 @@ import entities.Graph;
 import exceptions.ValidationException;
 import main.FileManager;
 import main.PopupMessage;
+import utils.Constants;
 
 import static utils.Constants.EMPTY_GRAPH_MESSAGE;
 import static utils.Constants.NO_DISTANCES_SHOWN_MESSAGE;
 import static utils.Constants.PATH_TO_MAGNITUDE_SCRIPT;
 
 public class MagnitudeService {
-
-    private static final Graph graph = Graph.getInstance();
 
     public static void calculateMagnitude() {
         validate();
@@ -32,7 +31,8 @@ public class MagnitudeService {
             .forEach(args::add);
 
         try {
-            String result = JythonService.runScript(args, PATH_TO_MAGNITUDE_SCRIPT);
+            PythonService.writeMatrix(args, Constants.PATH_TO_MAGNITUDE_DATA);
+            String result = PythonService.runScript(PATH_TO_MAGNITUDE_SCRIPT);
             FileManager.saveFunctionOutput(result);
         } catch (Exception e) {
             PopupMessage.showMessage("Failed to run python script");
@@ -41,7 +41,7 @@ public class MagnitudeService {
     }
 
     private static void validate() {
-        if (graph.getSize() == 0) {
+        if (Graph.getInstance().getSize() == 0) {
             throw new ValidationException(EMPTY_GRAPH_MESSAGE);
         }
         if (!Graph.areDistancesShown()) {

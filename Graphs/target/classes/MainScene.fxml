@@ -39,24 +39,24 @@
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="220.0" prefHeight="461.0" prefWidth="294.0">
                                  <children>
-                                    <VBox minWidth="208.0" prefHeight="473.0" prefWidth="283.0" spacing="10.0" style="-fx-border-color: #f5f5f5;" AnchorPane.leftAnchor="-16.0" AnchorPane.rightAnchor="-16.0">
-                                       <children>
-                                          <Label alignment="CENTER" graphicTextGap="1.0" prefHeight="38.0" prefWidth="281.0" style="-fx-background-color: e8e8e8;" text="Edit" textAlignment="CENTER" textFill="#686060" wrapText="true">
-                                             <font>
-                                                <Font name="Constantia" size="16.0" />
-                                             </font>
-                                          </Label>
-                                          <Button fx:id="undoButton" alignment="CENTER" minWidth="208.0" mnemonicParsing="false" onMouseClicked="#undoAction" prefHeight="31.0" prefWidth="277.0" style="-fx-background-color: #f5f5f5;" text="Undo" textAlignment="CENTER" textFill="#686060">
-                                             <font>
-                                                <Font name="Constantia" size="17.0" />
-                                             </font>
-                                             <graphic>
-                                                <ImageView fx:id="undoIcon" fitHeight="18.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
-                                                   <image>
-                                                       <Image url="@assets/undo.png" />
-                                                   </image>
-                                                   <effect>
-                                                      <ColorAdjust brightness="0.48" />
+                                     <VBox minWidth="208.0" prefHeight="473.0" prefWidth="283.0" spacing="10.0" style="-fx-border-color: #f5f5f5;" AnchorPane.leftAnchor="-16.0" AnchorPane.rightAnchor="-16.0">
+                                         <children>
+                                             <Label alignment="CENTER" graphicTextGap="1.0" prefHeight="38.0" prefWidth="281.0" style="-fx-background-color: e8e8e8;" text="Edit" textAlignment="CENTER" textFill="#686060" wrapText="true">
+                                                 <font>
+                                                     <Font name="Constantia" size="16.0" />
+                                                 </font>
+                                             </Label>
+                                             <Button fx:id="undoButton" alignment="CENTER" minWidth="208.0" mnemonicParsing="false" onMouseClicked="#undoAction" prefHeight="31.0" prefWidth="277.0" style="-fx-background-color: #f5f5f5;" text="Undo" textAlignment="CENTER" textFill="#686060">
+                                                 <font>
+                                                     <Font name="Constantia" size="17.0" />
+                                                 </font>
+                                                 <graphic>
+                                                     <ImageView fx:id="undoIcon" fitHeight="18.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                             <Image url="@assets/undo.png" />
+                                                         </image>
+                                                         <effect>
+                                                             <ColorAdjust brightness="0.48" />
                                                    </effect>
                                                 </ImageView>
                                              </graphic>
@@ -217,50 +217,59 @@
                                                    <image>
                                                        <Image url="@assets/reset.png" />
                                                    </image>
-                                                   <effect>
-                                                      <ColorAdjust brightness="0.48" />
-                                                   </effect>
+                                                    <effect>
+                                                        <ColorAdjust brightness="0.48" />
+                                                    </effect>
                                                 </ImageView>
                                              </graphic>
                                           </Button>
                                        </children>
-                                       <padding>
-                                          <Insets top="15.0" />
-                                       </padding>
+                                        <padding>
+                                            <Insets top="15.0" />
+                                        </padding>
                                     </VBox>
                                  </children>
                               </AnchorPane>
                            </content>
-                           <effect>
-                              <ColorAdjust brightness="-0.13" contrast="0.08" hue="-0.12" />
-                           </effect>
-                           <font>
-                              <Font name="Constantia" size="18.0" />
-                           </font>
+                            <effect>
+                                <ColorAdjust brightness="-0.13" contrast="0.08" hue="-0.12" />
+                            </effect>
+                            <font>
+                                <Font name="Constantia" size="18.0" />
+                            </font>
                         </TitledPane>
-                        <TitledPane fx:id="helpTitledPane1" animated="false" maxWidth="283.0" minWidth="220.0" prefHeight="469.0" prefWidth="296.0" style="-fx-border-color: #f5f5f5;" stylesheets="@MyStyle.css" text="Functions" textFill="#686060">
-                           <content>
-                              <AnchorPane minHeight="0.0" minWidth="220.0" prefHeight="461.0" prefWidth="294.0">
-                                 <children>
-                                    <VBox layoutX="30.4" layoutY="0.40000000000000036" minWidth="208.0" prefHeight="386.0" prefWidth="248.0" style="-fx-border-color: #f5f5f5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-16.0" AnchorPane.rightAnchor="-16.0" AnchorPane.topAnchor="0.0">
+                         <TitledPane fx:id="helpTitledPane1" animated="false" maxWidth="283.0" minWidth="220.0" prefHeight="469.0" prefWidth="296.0" style="-fx-border-color: #f5f5f5;" stylesheets="@MyStyle.css" text="Functions" textFill="#686060">
+                             <content>
+                                 <AnchorPane minHeight="0.0" minWidth="220.0" prefHeight="461.0" prefWidth="294.0">
+                                     <children>
+                                         <VBox layoutX="30.4" layoutY="0.40000000000000036" minWidth="208.0" prefHeight="386.0" prefWidth="248.0" spacing="10.0" style="-fx-border-color: #f5f5f5;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-16.0" AnchorPane.rightAnchor="-16.0" AnchorPane.topAnchor="0.0">
                                        <children>
-                                          <Button fx:id="magnitude" alignment="CENTER" minWidth="208.0" mnemonicParsing="false" onAction="#calculateMagnitude" prefHeight="32.0" prefWidth="278.0" style="-fx-background-color: #f5f5f5;" text="Magnitude " textAlignment="CENTER" textFill="#686060">
+                                                 <Button fx:id="magnitude" alignment="CENTER" minWidth="208.0" mnemonicParsing="false" onAction="#calculateMagnitude" prefHeight="32.0" prefWidth="277.0" style="-fx-background-color: #f5f5f5;" text="Magnitude " textAlignment="CENTER" textFill="#686060">
+                                                     <font>
+                                                         <Font name="Constantia" size="17.0" />
+                                                     </font>
+                                                 </Button>
+                                          <Button fx:id="barnes" alignment="CENTER" minWidth="208.0" mnemonicParsing="false" onAction="#calculateBarnes" prefHeight="32.0" prefWidth="277.0" style="-fx-background-color: #f5f5f5;" text="Barnes zeta function" textAlignment="CENTER" textFill="#686060">
                                              <font>
                                                 <Font name="Constantia" size="17.0" />
                                              </font>
                                           </Button>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                           <effect>
-                              <ColorAdjust brightness="-0.13" contrast="0.08" hue="-0.12" />
-                           </effect>
-                           <font>
-                              <Font name="Constantia" size="18.0" />
-                           </font>
-                        </TitledPane>
+                                          <Button fx:id="ihara" alignment="CENTER" minWidth="208.0" mnemonicParsing="false" onAction="#calculateIhara" prefHeight="32.0" prefWidth="277.0" style="-fx-background-color: #f5f5f5;" text="Ihara zeta function" textAlignment="CENTER" textFill="#686060">
+                                             <font>
+                                                <Font name="Constantia" size="17.0" />
+                                             </font>
+                                          </Button>
+                                       </children></VBox>
+                                     </children>
+                                 </AnchorPane>
+                             </content>
+                             <effect>
+                                 <ColorAdjust brightness="-0.13" contrast="0.08" hue="-0.12" />
+                             </effect>
+                             <font>
+                                 <Font name="Constantia" size="18.0" />
+                             </font>
+                         </TitledPane>
                         <TitledPane fx:id="helpTitledPane" animated="false" maxWidth="283.0" minWidth="220.0" prefHeight="469.0" prefWidth="296.0" style="-fx-border-color: #f5f5f5;" stylesheets="@MyStyle.css" text="Help" textFill="#686060">
                            <content>
                               <AnchorPane minHeight="0.0" minWidth="220.0" prefHeight="461.0" prefWidth="294.0">

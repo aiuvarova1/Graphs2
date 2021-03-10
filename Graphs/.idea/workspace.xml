@@ -9,27 +9,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3aa67ae0-54ba-4086-884d-3b050cac4cee" name="Default Changelist" comment="lombok, jython, code formatting">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_2_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_python_jython_standalone_2_7_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/exceptions/IsAlreadyVisitedException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/exceptions/ValidationException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/JythonService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/MagnitudeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/Constants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/magnitude.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_python_jython_2_7_0.xml" beforeDir="false" />
+    <list default="true" id="3aa67ae0-54ba-4086-884d-3b050cac4cee" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_12_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_12_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_12_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/BarnesZetaFunctionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/IharaZetaFunctionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/dto/IharaDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/data/ihara_data.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/ihara.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/templates/ihara.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/templates/magnitude.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_python_jython_standalone_2_7_2.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/GraphsTool.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GraphsTool.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Edge.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Visitable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Visitable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Drawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Drawer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/FileManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/AlgorithmService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/AlgorithmService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/JythonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/PythonService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/MagnitudeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/MagnitudeService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Constants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/MainScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MainScene.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/scripts/magnitude.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scripts/magnitude.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/MainScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MainScene.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
@@ -153,37 +157,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ParserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GraphsTool" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="main.EdgeContextMenu" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="main" />
-      <option name="MAIN_CLASS_NAME" value="main.ParserTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ParserTest.testFrac3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="GraphsTool" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="main.EdgeContextMenu" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="main" />
-      <option name="MAIN_CLASS_NAME" value="main.ParserTest" />
-      <option name="METHOD_NAME" value="testFrac3" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="GraphsTool.jar (1)" type="JarApplication" temporary="true">
       <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/GraphsTool_jar/GraphsTool.jar" />
       <method v="2" />
@@ -217,20 +190,64 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ihara" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GraphsTool" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/main/resources/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/main/resources/scripts/ihara.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="magnitude" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="GraphsTool" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/main/resources/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/main/resources/scripts/magnitude.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Application.GUIStarter" />
       <item itemvalue="JAR Application.GraphsTool.jar" />
       <item itemvalue="JAR Application.GraphsTool.jar (1)" />
-      <item itemvalue="JUnit.ParserTest.testFrac3" />
-      <item itemvalue="JUnit.ParserTest" />
+      <item itemvalue="Python.magnitude" />
+      <item itemvalue="Python.ihara" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.ihara" />
+        <item itemvalue="Python.magnitude" />
         <item itemvalue="Application.GUIStarter" />
         <item itemvalue="JAR Application.GraphsTool.jar (1)" />
         <item itemvalue="JAR Application.GraphsTool.jar" />
-        <item itemvalue="JUnit.ParserTest" />
-        <item itemvalue="JUnit.ParserTest.testFrac3" />
       </list>
     </recent_temporary>
   </component>
@@ -388,6 +405,14 @@
       <workItem from="1610562296049" duration="9560000" />
       <workItem from="1610571908964" duration="358000" />
       <workItem from="1610572308652" duration="420000" />
+      <workItem from="1611510991582" duration="1429000" />
+      <workItem from="1613994739970" duration="10832000" />
+      <workItem from="1615052501260" duration="4438000" />
+      <workItem from="1615057065856" duration="1542000" />
+      <workItem from="1615145802017" duration="5668000" />
+      <workItem from="1615217755094" duration="6520000" />
+      <workItem from="1615313137340" duration="8895000" />
+      <workItem from="1615392617562" duration="5403000" />
     </task>
     <task id="LOCAL-00001" summary="Several hot fixes, basis for infinite graphs (completely built in gui, working visualization but still no &quot;infinity&quot; for line)">
       <created>1588347857172</created>
@@ -403,7 +428,21 @@
       <option name="project" value="LOCAL" />
       <updated>1611486986132</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Full java part for magnitude function">
+      <created>1611500392253</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1611500392253</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Completed magnitude with python">
+      <created>1615221359528</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1615221359528</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -416,7 +455,9 @@
     <MESSAGE value="Several hot fixes, basis for infinite graphs (completely built in gui, working visualization but still no &quot;infinity&quot; for line)" />
     <MESSAGE value="Move to Maven" />
     <MESSAGE value="lombok, jython, code formatting" />
-    <option name="LAST_COMMIT_MESSAGE" value="lombok, jython, code formatting" />
+    <MESSAGE value="Full java part for magnitude function" />
+    <MESSAGE value="Completed magnitude with python" />
+    <option name="LAST_COMMIT_MESSAGE" value="Completed magnitude with python" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -429,8 +470,28 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/services/MagnitudeService.java</url>
-          <line>34</line>
+          <line>41</line>
           <option name="timeStamp" value="32" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://$MAVEN_REPOSITORY$/org/python/jython-standalone/2.7.2/jython-standalone-2.7.2.jar!/org/python/core/PyFile.class</url>
+          <line>172</line>
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/main/FileManager.java</url>
+          <line>142</line>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/entities/Node.java</url>
+          <line>309</line>
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/entities/Graph.java</url>
+          <line>107</line>
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/java/entities/Distance.java</url>
@@ -446,5 +507,9 @@
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
     <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Graphs$ihara.coverage" NAME="ihara Coverage Results" MODIFIED="1615393529597" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/main/resources/scripts" />
+    <SUITE FILE_PATH="coverage/Graphs$magnitude.coverage" NAME="magnitude Coverage Results" MODIFIED="1615054045655" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/main/resources/scripts" />
   </component>
 </project>

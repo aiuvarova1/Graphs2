@@ -2,10 +2,13 @@ package services;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Stack;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import entities.Graph;
 import entities.Node;
@@ -14,24 +17,56 @@ import exceptions.IsAlreadyVisitedException;
 public class AlgorithmService {
 
     private static final Stack<Node> dfsStack = new Stack<>();
-    private static final Graph graph = Graph.getInstance();
 
     public static int[][] findAllMinDistances() {
-        int n = graph.getSize();
+        int n = Graph.getInstance().getSize();
         int[][] matrix = new int[n][n];
 
         Arrays.stream(matrix).forEach(arr -> Arrays.fill(arr, Integer.MAX_VALUE));
         for (int i = 0; i < n; i++) {
-            findMinDistance(graph.getNodes().get(i), matrix[i]);
+            findMinDistance(Graph.getInstance().getNodes().get(i), matrix[i]);
         }
 
         return matrix;
     }
 
+    //no loops and multiple edges for now
+    public static int[][] findAdjacencyMatrix() {
+        int n = Graph.getInstance().getSize();
+        int[][] A = new int[n][n];
+
+        List<Node> sorted = Graph.getInstance().getNodes().stream().sorted(
+            Comparator.comparing(Node::getNum)
+        ).collect(Collectors.toList());
+
+        for (Node node : sorted) {
+            node.getNeighbours().forEach(neighbour ->
+                A[node.getNum() - 1][neighbour.getNum() - 1] = 1
+            );
+        }
+
+        return A;
+    }
+
+    public static int[][] findDiagonalMatrix() {
+        int n = Graph.getInstance().getSize();
+
+        int[][] Q = new int[n][n];
+
+        List<Node> sorted = Graph.getInstance().getNodes().stream().sorted(
+            Comparator.comparing(Node::getNum)
+        ).collect(Collectors.toList());
+
+        IntStream.range(0, n).forEach(i -> Q[i][i] = sorted.get(i).getDegree() - 1);
+
+        return Q;
+
+    }
+
     public static boolean hasCycles() {
         boolean isCycled = false;
         try {
-            for (Node n : graph.getNodes()) {
+            for (Node n : Graph.getInstance().getNodes()) {
                 if (!n.isVisited()) {
                     hasCycle(n, n);
                 }
@@ -51,12 +86,12 @@ public class AlgorithmService {
      */
     public static int runDFS(Consumer<Node> handler) {
 
-        if (graph.getSize() == 0) {
+        if (Graph.getInstance().getSize() == 0) {
             return 0;
         }
 
         int components = 0;
-        for (Node n : graph.getNodes()) {
+        for (Node n : Graph.getInstance().getNodes()) {
             if (!n.isVisited()) {
                 components++;
                 dfsStack.push(n);
@@ -73,7 +108,7 @@ public class AlgorithmService {
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>(
             Comparator.comparing(Node::getDijkstraDistance).reversed()
         );
-        for (Node node : graph.getNodes()) {
+        for (Node node : Graph.getInstance().getNodes()) {
             if (node.equals(n)) {
                 node.setDijkstraDistance(0);
             } else {
@@ -143,7 +178,7 @@ public class AlgorithmService {
      * Marks all nodes unvisited after dfs
      */
     private static void resetDFS() {
-        for (Node n : graph.getNodes()) {
+        for (Node n : Graph.getInstance().getNodes()) {
             n.unvisit();
         }
     }

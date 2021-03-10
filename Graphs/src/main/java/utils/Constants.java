@@ -10,6 +10,8 @@ public class Constants {
     public static final String NEGATIVE_BASE_MESSAGE = "Base must be a non-negative integer";
 
     public static final String PATH_TO_MAGNITUDE_SCRIPT = "/scripts/magnitude.py";
-    public static final String PATH_TO_DATA = "/scripts/data/matrix.txt";
+    public static final String PATH_TO_MAGNITUDE_DATA = "/scripts/data/matrix.txt";
 
+    public static final String PATH_TO_IHARA_SCRIPT = "/scripts/ihara.py";
+    public static final String PATH_TO_IHARA_DATA = "/scripts/data/ihara_data.json";
 }

@@ -59,6 +59,10 @@ public class Node extends StackPane implements
 
     }
 
+    public int getDegree() {
+        return edges.size();
+    }
+
     public int getNum() {
         return num;
     }

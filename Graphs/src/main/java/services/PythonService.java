@@ -2,6 +2,7 @@ package services;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
@@ -10,18 +11,18 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import main.PopupMessage;
-import utils.Constants;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ParametersAreNonnullByDefault
-public class JythonService {
+public class PythonService {
+
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     @Nonnull
-    public static String runScript(List<String> args, String pathToScript) {
+    public static String runScript(String pathToScript) {
         try {
-            writeMatrix(args);
-
-            URL resource = JythonService.class.getResource(pathToScript);
+            URL resource = PythonService.class.getResource(pathToScript);
 
             String runString = String.format("python3 %s", resource.getPath());
             Process process = Runtime.getRuntime().exec(runString);
@@ -44,12 +45,23 @@ public class JythonService {
         }
     }
 
-    private static void writeMatrix(List<String> args) {
-        System.out.println(JythonService.class.getResource(Constants.PATH_TO_DATA).getPath());
-        try (PrintWriter writer = new PrintWriter(JythonService.class.getResource(Constants.PATH_TO_DATA).getPath())) {
+    public static void writeMatrix(List<String> args, String pathToData) {
+        System.out.println(PythonService.class.getResource(pathToData).getPath());
+        try (PrintWriter writer = new PrintWriter(PythonService.class.getResource(pathToData).getPath())) {
             args.forEach(writer::println);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public static void writeJsonObject(Object value, String pathToData) throws JsonProcessingException {
+        String jsonData = OBJECT_MAPPER.writeValueAsString(value);
+        System.out.println(jsonData);
+
+        try (PrintWriter writer = new PrintWriter(PythonService.class.getResource(pathToData).getPath())) {
+            OBJECT_MAPPER.writeValue(writer, value);
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 }
