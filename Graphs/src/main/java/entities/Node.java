@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -15,6 +17,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
+import javafx.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import main.Drawer;
@@ -42,7 +45,8 @@ public class Node extends StackPane implements
     private int num;
     private boolean visited;
     private boolean processed;
-    private int dijkstraDistance;
+    private double dijkstraDistance;
+    private List<String> dijkstraTexTokens = new ArrayList<>();
 
     public Circle getCircle() {
         return (Circle) getChildren().get(0);
@@ -80,12 +84,23 @@ public class Node extends StackPane implements
         return nodes;
     }
 
-    public HashMap<Node, Double> getNeighboursAndDistances() {
-        HashMap<Node, Double> map = new HashMap<>();
+    public Map<Node, Integer> getNeighboursAndCounts() {
+        Map<Node, Integer> nodes = new HashMap<>(edges.size());
+        Node neighbour;
 
         for (Edge e : edges) {
-            if (!map.containsKey(this) || e.getLength() < map.get(this)) {
-                map.put(e.getNeighbour(this), e.getLength());
+            neighbour = e.getNeighbour(this);
+            nodes.put(neighbour, nodes.getOrDefault(neighbour, -1) + 1);
+        }
+        return nodes;
+    }
+
+    public HashMap<Node, Pair<Double, String>> getNeighboursAndDistances() {
+        HashMap<Node, Pair<Double, String>> map = new HashMap<>();
+
+        for (Edge e : edges) {
+            if (!map.containsKey(this) || e.getLength() < map.get(this).getKey()) {
+                map.put(e.getNeighbour(this), new Pair<>(e.getLength(), e.getTextLength()));
             }
         }
         return map;
@@ -174,16 +189,7 @@ public class Node extends StackPane implements
      * @return whether the adding was successful
      */
     Boolean addEdge(Node neighbour, Edge edge) {
-        //NO MULTIPLE EDGES
-        for (Edge e : edges) {
-
-            if (e.getNeighbour(this).equals(neighbour)) {
-                return false;
-            }
-        }
-
-        edges.add(edge);
-        return true;
+        return edges.add(edge);
     }
 
     /**
@@ -345,7 +351,7 @@ public class Node extends StackPane implements
      */
     private void recalculateEdges() {
         for (Edge e : edges) {
-            e.connectNodes(this, e.getNeighbour(this));
+            e.connectNodes(e.getN1(), e.getN2(), this);
         }
     }
 

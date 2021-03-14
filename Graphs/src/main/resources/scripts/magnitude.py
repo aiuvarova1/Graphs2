@@ -1,4 +1,4 @@
-from sympy import Matrix, symbols
+from sympy import Matrix, symbols, sympify, latex
 from utils import tex_replace, convert_matrix_row_to_string, BEGIN_MATRIX, END_MATRIX
 
 DELIMITER = ' '
@@ -18,7 +18,7 @@ def insert_matrix():
     z_g = []
 
     for row in matrix:
-        r = [q ** x if x != -1 else 0 for x in row]
+        r = [q ** sympify(x, evaluate=True) if x != "-1" else 0 for x in row]
         z_g.append(r)
         z += convert_matrix_row_to_string(r)
     z += END_MATRIX
@@ -30,7 +30,8 @@ def insert_matrix():
 def insert_inverted_matrix(z_g):
     global output
     # print(z_g)
-    inverted = Matrix(z_g) ** -1
+    # method : ('GE', 'LU', 'ADJ', 'CH', 'LDL')
+    inverted = z_g.inv(method='CH')
     # print(inverted)
     z_inv = REPLACE_INV_Z + BEGIN_MATRIX
     for r in range(0, inverted.shape[0]):
@@ -44,16 +45,16 @@ def insert_sum(z_inv):
     global output
     s = sum([x for x in z_inv])
     # print(s)
-    output = output.replace(REPLACE_SUM, REPLACE_SUM + ' ' + tex_replace(str(s)))
+    output = output.replace(REPLACE_SUM, REPLACE_SUM + ' ' + latex(str(s)))
     return s
 
 
 def parse_args():
     global matrix
 
-    with open("target/classes/scripts/data/matrix.txt", 'r') as data:
+    with open("data/matrix.txt", 'r') as data:
         for line in data:
-            row = [int(x) for x in line.strip().split(DELIMITER)]
+            row = [x for x in line.strip().split(DELIMITER)]
             matrix.append(row)
 
     # print(matrix)
@@ -61,7 +62,7 @@ def parse_args():
 
 def read_sample():
     global output
-    with open("src/main/resources/scripts/templates/magnitude.tex", 'r') as sample:
+    with open("templates/magnitude.tex", 'r') as sample:
         for s in sample:
             output += s
 

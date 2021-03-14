@@ -1,28 +1,26 @@
 package entities;
 
-import javafx.animation.PathTransition;
-import javafx.scene.Cursor;
+import java.io.Serializable;
 
+import javax.annotation.Nullable;
+
+import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.QuadCurve;
+import javafx.scene.shape.StrokeLineCap;
 import lombok.Getter;
 import lombok.Setter;
 import main.Drawer;
 import main.Filter;
 import main.MenuManager;
-import main.PopupMessage;
-
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Represents an edge between 2 nodes
  */
 @Getter
 @Setter
-public class Edge extends Line implements Undoable, Visitable,
+public class Edge extends QuadCurve implements Undoable, Visitable,
     Serializable, Restorable {
 
     private static final double LABEL_GAP = 15;
@@ -35,15 +33,22 @@ public class Edge extends Line implements Undoable, Visitable,
     private boolean visited = false;
 
     private Distance length;
+    private Anchor anchor;
+
     private transient Color curColor = color;
 
     public Edge(double v1, double v2, double v3, double v4) {
 
-        super(v1, v2, v3, v4);
-        this.setStrokeWidth(1.7);
+        setStartX(v1);
+        setStartY(v2);
+        setEndX(v3);
+        setEndY(v4);
 
         setStroke(color);
+        setStrokeWidth(1.7);
 
+        setStrokeLineCap(StrokeLineCap.ROUND);
+        setFill(null);
     }
 
     void hide() {
@@ -70,6 +75,7 @@ public class Edge extends Line implements Undoable, Visitable,
 
         length = new Distance();
         relocateLabel();
+        relocateAnchor();
     }
 
     @Override
@@ -78,10 +84,14 @@ public class Edge extends Line implements Undoable, Visitable,
         this.setStrokeWidth(1.7);
         setHandlers();
         setStroke(color);
+        setStrokeLineCap(StrokeLineCap.ROUND);
+        setFill(null);
 
         curColor = color;
 
         Distance d = new Distance();
+        createAnchor();
+
         d.setDistance(length.getText(), length.getValue());
         length = d;
 
@@ -110,38 +120,67 @@ public class Edge extends Line implements Undoable, Visitable,
 
     /**
      * Calculates needed start and end of the edge
-     * Than connects two nodes
+     * Than connects two nodes, ORDER IS IMPORTANT
      *
      * @param node1 first node to connect
      * @param node2 second node to connect
      */
-    public void connectNodes(Node node1, Node node2) {
+    public void connectNodes(Node node1, Node node2, Node movingNode) {
         double dist = getDistance(node1.getCircle().getCenterX(), node1.getCircle().getCenterY(),
             node2.getCircle().getCenterX(), node2.getCircle().getCenterY());
+
+        if (dist == 0) {
+            return;
+        }
 
         double[] startCordsNode = getStartCoordinates(node1.getCircle().getCenterX(), node1.getCircle().getCenterY(),
             node2.getCircle().getCenterX(), node2.getCircle().getCenterY(), dist, node2.getCircle().getRadius());
 
-        double[] startCordsPretender = getStartCoordinates(node2.getCircle().getCenterX(),
+        double[] startCordsPretender = getStartCoordinates(
+            node2.getCircle().getCenterX(),
             node2.getCircle().getCenterY(),
-            node1.getCircle().getCenterX(), node1.getCircle().getCenterY(), dist, node1.getCircle().getRadius());
+            node1.getCircle().getCenterX(),
+            node1.getCircle().getCenterY(),
+            dist,
+            node1.getCircle().getRadius()
+        );
 
-        if (startCordsNode[1] > startCordsPretender[1]) {
-            this.setStartX(startCordsNode[0]);
-            this.setStartY(startCordsNode[1]);
+        double oldStartX = getStartX();
+        double oldStartY = getStartY();
+
+        double oldEndX = getEndX();
+        double oldEndY = getEndY();
+
+        this.setStartX(startCordsNode[0]);
+        this.setStartY(startCordsNode[1]);
+
+        this.setEndX(startCordsPretender[0]);
+        this.setEndY(startCordsPretender[1]);
+
+        if (anchor != null) {
+            double difX = 0, difY = 0, coefX = 0, coefY = 0;
+            if (movingNode.equals(n1)) {
+
+                System.out.println("end");
+                difX = getEndX() - oldEndX;
+                difY = getEndY() - oldEndY;
+
+                coefX = Math.abs(anchor.getCenterX() - oldStartX) / Math.abs(oldEndX - oldStartX);
+                coefY = Math.abs(anchor.getCenterY() - oldStartY) / Math.abs(oldEndY - oldStartY);
 
 
-            this.setEndX(startCordsPretender[0]);
-            this.setEndY(startCordsPretender[1]);
+            } else {
+                System.out.println("start");
+                difX = getStartX() - oldStartX;
+                difY = getStartY() - oldStartY;
 
+                coefX = Math.abs(anchor.getCenterX() - oldEndX) / Math.abs(oldEndX - oldStartX);
+                coefY = Math.abs(anchor.getCenterY() - oldEndY) / Math.abs(oldEndY - oldStartY);
+            }
+            relocateAnchor(anchor.getCenterX() + difX * coefX, anchor.getCenterY() + difY * coefY);
         } else {
-            this.setEndX(startCordsNode[0]);
-            this.setEndY(startCordsNode[1]);
-
-            this.setStartX(startCordsPretender[0]);
-            this.setStartY(startCordsPretender[1]);
+            relocateLabel();
         }
-        relocateLabel();
     }
 
     /**
@@ -174,8 +213,10 @@ public class Edge extends Line implements Undoable, Visitable,
         double xSide = xPos - centerX;
         double ySide = yPos - centerY;
 
-        return new double[]{centerX + xSide * radius / distance,
-            centerY + ySide * radius / distance};
+        return new double[]{
+            centerX + xSide * radius / distance,
+            centerY + ySide * radius / distance
+        };
     }
 
     /**
@@ -190,18 +231,20 @@ public class Edge extends Line implements Undoable, Visitable,
             this.n2.addEdge(this.n1, this);
         } else {
             Drawer.getInstance().removeElement(this);
+            Drawer.getInstance().removeElement(anchor);
             length.hide();
             return false;
         }
 
         try {
             Drawer.getInstance().addElem(this);
+            Drawer.getInstance().addElem(anchor);
             if (Graph.getInstance().areDistancesShown()) {
                 length.show();
             }
             setStroke(color);
             curColor = color;
-            connectNodes(n1, n2);
+            connectNodes(n1, n2, n1);
         } catch (IllegalArgumentException ex) {
             System.out.println("Already drawn");
         }
@@ -216,6 +259,7 @@ public class Edge extends Line implements Undoable, Visitable,
         n1.removeNeighbour(n2);
         n2.removeNeighbour(n1);
         Drawer.getInstance().removeElement(this);
+        Drawer.getInstance().removeElement(anchor);
         Drawer.getInstance().removeElement(length);
     }
 
@@ -232,6 +276,38 @@ public class Edge extends Line implements Undoable, Visitable,
     void showLength() {
         relocateLabel();
         length.show();
+    }
+
+    public void relocateAnchor() {
+        relocateAnchor((getStartX() + getEndX()) / 2.0, (getStartY() + getEndY()) / 2.0);
+    }
+
+    public void relocateAnchor(double centerX, double centerY) {
+        double v1 = getStartX();
+        double v3 = getEndX();
+        double v2 = getStartY();
+        double v4 = getEndY();
+
+        if (
+            Double.isNaN(centerX) || Double.isInfinite(centerX)
+        ) {
+            centerX = (v1 + v3) / 2.0;
+        }
+
+        if (Double.isNaN(centerY) || Double.isInfinite(centerY)) {
+            centerY = (v2 + v4) / 2.0;
+        }
+
+        System.out.println("Relocate " + centerX + " " + centerY);
+
+
+        setControlX(centerX / 0.5 - v1 * 0.5 - v3 * 0.5);
+        setControlY(centerY / 0.5 - v2 * 0.5 - v4 * 0.5);
+
+        if (anchor != null) {
+            anchor.setNewCoordinatesSafe(centerX, centerY);
+            relocateLabel();
+        }
     }
 
     /**
@@ -260,6 +336,16 @@ public class Edge extends Line implements Undoable, Visitable,
         return length.getText();
     }
 
+    public void createAnchor() {
+        this.anchor = new Anchor(
+            controlXProperty(),
+            controlYProperty(),
+            this::relocateAnchor
+        );
+        Drawer.getInstance().addElem(anchor);
+        relocateAnchor();
+    }
+
     /**
      * Moves length field after the edge
      */
@@ -268,11 +354,21 @@ public class Edge extends Line implements Undoable, Visitable,
             return;
         }
 
-
         double coef = (getEndX() - getStartX()) /
             getDistance(getStartX(), getStartY(), getEndX(), getEndY());
-        length.setLayoutX((this.getStartX() + this.getEndX()) / 2.0 + LABEL_GAP * (Math.sqrt(1 - coef * coef)));
-        length.setLayoutY((this.getStartY() + this.getEndY()) / 2.0 + LABEL_GAP * coef);
+
+        double x, y;
+
+        if (anchor != null) {
+            x = anchor.getCenterX();
+            y = anchor.getCenterY();
+        } else {
+            x = (this.getStartX() + this.getEndX()) / 2.0;
+            y = (this.getStartY() + this.getEndY()) / 2.0;
+        }
+
+        length.setLayoutX(x + LABEL_GAP * (Math.sqrt(1 - coef * coef)));
+        length.setLayoutY(y + LABEL_GAP * coef);
 
         length.toFront();
     }
@@ -286,12 +382,18 @@ public class Edge extends Line implements Undoable, Visitable,
             this.setStroke(Color.DARKGRAY);
             setStrokeWidth(2.5);
             getScene().setCursor(Cursor.HAND);
+            if (anchor != null) {
+                anchor.show();
+            }
         });
         setOnMouseExited(x ->
         {
             this.setStrokeWidth(1.7);
             this.setStroke(curColor);
             getScene().setCursor(Cursor.DEFAULT);
+            if (anchor != null) {
+                anchor.hide();
+            }
         });
 
 

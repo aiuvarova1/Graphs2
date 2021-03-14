@@ -18,14 +18,13 @@ public class MagnitudeService {
 
     public static void calculateMagnitude() {
         validate();
-        int[][] allMinDistances = AlgorithmService.findAllMinDistances();
+        String[][] allMinDistances = AlgorithmService.findAllMinDistances();
 
         List<String> args = new ArrayList<>();
 
         Arrays.stream(allMinDistances)
             .map(arr ->
                 Arrays.stream(arr)
-                    .mapToObj(String::valueOf)
                     .reduce((a, b) -> a + " " + b)
                     .get())
             .forEach(args::add);

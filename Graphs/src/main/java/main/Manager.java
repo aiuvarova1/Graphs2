@@ -3,9 +3,20 @@ package main;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.NumberBinding;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
+import javafx.application.Application;
+import javafx.beans.property.DoubleProperty;
+import javafx.event.EventHandler;
+import javafx.scene.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
 import javafx.stage.Stage;
 
 public class Manager extends Application {
@@ -49,7 +60,7 @@ public class Manager extends Application {
 
         FileManager.setStage(stage);
 
-
         stage.show();
     }
 }
+

@@ -51,7 +51,7 @@ public class Graph implements Serializable {
      */
     void addNode(Node node) {
 
-        int num = Integer.parseInt(node.getId()) - 1;
+        int num = node.getNum() - 1;
         instance.nodes.add(num, node);
         Drawer.getInstance().addElem(node);
     }
@@ -75,7 +75,7 @@ public class Graph implements Serializable {
     }
 
     void refreshLabels(Node circle) {
-        int num = Integer.parseInt(circle.getId()) - 1;
+        int num = circle.getNum() - 1;
         // nodes.
         for (int i = num; i < nodes.size(); i++) {
             nodes.get(i).renewNum(i + 1);
@@ -110,7 +110,7 @@ public class Graph implements Serializable {
         AlgorithmService.runDFS(Node::restore);
         for (Node n : instance.nodes) {
             for (Edge e : n.getEdges()) {
-                e.connectNodes(e.getNodes()[0], e.getNodes()[1]);
+                e.connectNodes(e.getNodes()[0], e.getNodes()[1], e.getNodes()[1]);
             }
         }
     }

@@ -2,11 +2,13 @@ package services;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import entities.Graph;
+import exceptions.ValidationException;
 import main.FileManager;
 import services.dto.IharaDto;
 import utils.Constants;
+
+import static utils.Constants.EMPTY_GRAPH_MESSAGE;
 
 @ParametersAreNonnullByDefault
 public class IharaZetaFunctionService {
@@ -41,6 +43,8 @@ public class IharaZetaFunctionService {
     }
 
     private static void validate() {
-
+        if (Graph.getInstance().getSize() == 0) {
+            throw new ValidationException(EMPTY_GRAPH_MESSAGE);
+        }
     }
 }

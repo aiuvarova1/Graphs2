@@ -2,6 +2,8 @@ package main;
 
 import java.util.ArrayDeque;
 import java.util.HashMap;
+import java.util.List;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Parser {
@@ -86,7 +88,8 @@ public class Parser {
         }
     }
 
-    private static HashMap<Character, Operation> operations;
+    private static final HashMap<Character, Operation> operations;
+    private static final Pattern REAL_NUMBER_PATTERN = Pattern.compile("\\d+[.,]?\\d*");
 
     static {
         operations = new HashMap<>();
@@ -96,6 +99,23 @@ public class Parser {
         operations.put('/', new Operation('/', 1));
         operations.put('%', new Operation('%', 1));
         operations.put('^', new Operation('^', 2));
+    }
+
+    public static String parseTexToSympy(List<String> tokens) {
+        String realPart = tokens.stream()
+            .filter(token -> REAL_NUMBER_PATTERN.matcher(token).matches())
+            .map(Double::valueOf)
+            .reduce(Double::sum)
+            .map(token -> token == 0 ? "" : String.valueOf(token))
+            .orElse("");
+
+        String texPart = tokens.stream()
+            .filter(token -> !REAL_NUMBER_PATTERN.matcher(token).matches())
+            .map(Parser::texToSympy)
+            .reduce((a, b) -> a + '+' + b)
+            .orElse("");
+
+        return realPart.equals("") ? texPart : texPart.equals("") ? realPart : realPart + '+' + texPart;
     }
 
     /**
@@ -157,6 +177,16 @@ public class Parser {
 //        if(res.size()!= 1 || res.getFirst() <= 0 || res.getFirst() > 200000)
 //            return -1;
         return res.getFirst();
+    }
+
+    private static String texToSympy(String token) {
+        String result = token
+            .replace("\\sqrt", "sqrt")
+            .replace("^", "**")
+            .replace("{", "(")
+            .replace("}", ")");
+
+        return result;
     }
 
     /**

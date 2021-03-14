@@ -1,6 +1,5 @@
 package services;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -13,16 +12,18 @@ import java.util.stream.IntStream;
 import entities.Graph;
 import entities.Node;
 import exceptions.IsAlreadyVisitedException;
+import javafx.util.Pair;
+import main.Parser;
 
 public class AlgorithmService {
 
     private static final Stack<Node> dfsStack = new Stack<>();
 
-    public static int[][] findAllMinDistances() {
+    public static String[][] findAllMinDistances() {
         int n = Graph.getInstance().getSize();
-        int[][] matrix = new int[n][n];
 
-        Arrays.stream(matrix).forEach(arr -> Arrays.fill(arr, Integer.MAX_VALUE));
+        String[][] matrix = new String[n][n];
+
         for (int i = 0; i < n; i++) {
             findMinDistance(Graph.getInstance().getNodes().get(i), matrix[i]);
         }
@@ -30,7 +31,7 @@ public class AlgorithmService {
         return matrix;
     }
 
-    //no loops and multiple edges for now
+    //no loops for now
     public static int[][] findAdjacencyMatrix() {
         int n = Graph.getInstance().getSize();
         int[][] A = new int[n][n];
@@ -40,8 +41,8 @@ public class AlgorithmService {
         ).collect(Collectors.toList());
 
         for (Node node : sorted) {
-            node.getNeighbours().forEach(neighbour ->
-                A[node.getNum() - 1][neighbour.getNum() - 1] = 1
+            node.getNeighboursAndCounts().forEach((neighbour, count) ->
+                A[node.getNum() - 1][neighbour.getNum() - 1] = count
             );
         }
 
@@ -104,7 +105,7 @@ public class AlgorithmService {
         return components;
     }
 
-    private static void findMinDistance(Node n, int[] distances) {
+    private static void findMinDistance(Node n, String[] distances) {
         PriorityQueue<Node> priorityQueue = new PriorityQueue<>(
             Comparator.comparing(Node::getDijkstraDistance).reversed()
         );
@@ -112,20 +113,35 @@ public class AlgorithmService {
             if (node.equals(n)) {
                 node.setDijkstraDistance(0);
             } else {
-                node.setDijkstraDistance(Integer.MAX_VALUE);
+                node.setDijkstraDistance(Double.MAX_VALUE);
             }
+            node.getDijkstraTexTokens().clear();
 
             priorityQueue.add(node);
         }
 
         while (!priorityQueue.isEmpty()) {
             Node minNode = priorityQueue.poll();
-            int distance = minNode.getDijkstraDistance();
-            distances[minNode.getNum() - 1] = distance == Integer.MAX_VALUE ? -1 : distance;
-            for (Map.Entry<Node, Double> entry : minNode.getNeighboursAndDistances().entrySet()) {
-                int curVal = minNode.getDijkstraDistance() + entry.getValue().intValue();
+            double distance = minNode.getDijkstraDistance();
+
+            distances[minNode.getNum() - 1] = n.equals(minNode) ? "0" : distance == Double.MAX_VALUE ?
+                "-1" :
+                Parser.parseTexToSympy(minNode.getDijkstraTexTokens());
+
+
+            for (Map.Entry<Node, Pair<Double, String>> entry : minNode.getNeighboursAndDistances().entrySet()) {
+                double curVal = minNode.getDijkstraDistance() + entry.getValue().getKey();
+
+//                String curTextVal = minNode.getDijkstraTexDistance().equals("") ?
+//                    entry.getValue().getValue() :
+//                    minNode.getDijkstraTexDistance() + '+' + entry.getValue().getValue();
+
                 Node node = entry.getKey();
                 if (curVal > 0 && node.getDijkstraDistance() > curVal) {
+                    node.getDijkstraTexTokens().clear();
+                    node.getDijkstraTexTokens().addAll(minNode.getDijkstraTexTokens());
+                    node.getDijkstraTexTokens().add(entry.getValue().getValue());
+
                     node.setDijkstraDistance(curVal);
                     priorityQueue.remove(node);
                     priorityQueue.add(node);

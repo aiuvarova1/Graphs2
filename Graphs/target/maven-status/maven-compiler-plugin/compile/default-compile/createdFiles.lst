@@ -22,6 +22,7 @@ entities/Restorable.class
 main/Filter$2.class
 utils/Constants.class
 main/Formatter.class
+entities/Anchor.class
 main/MenuManager.class
 main/Controller.class
 main/Parser.class

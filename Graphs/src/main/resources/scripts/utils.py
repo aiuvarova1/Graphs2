@@ -1,4 +1,4 @@
-from sympy import Matrix
+from sympy import Matrix, latex
 
 BEGIN_MATRIX = "\\begin{pmatrix}\n"
 END_MATRIX = '\\end{pmatrix}\n'
@@ -30,7 +30,7 @@ def read_sample(file_path):
 
 
 def convert_matrix_row_to_string(row):
-    r = [tex_replace(str(x)) for x in row]
+    r = [latex(str(x)) for x in row]
     return MATRIX_DELIMITER.join(r) + '\\\\\n'
 
 

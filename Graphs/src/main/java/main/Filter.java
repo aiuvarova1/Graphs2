@@ -52,7 +52,8 @@ public class Filter {
             return;
         }
         if (event.getEventType() == MouseEvent.MOUSE_DRAGGED &&
-            event.getButton() == MouseButton.PRIMARY) {
+            event.getButton() == MouseButton.PRIMARY
+        ) {
             dragging = true;
         } else if (event.getEventType() == MouseEvent.MOUSE_CLICKED) {
             if (dragging) {
@@ -66,7 +67,7 @@ public class Filter {
      * Distinguishes pane clicks from node clicks
      */
 
-    public static final EventHandler<MouseEvent> clickFilter = new EventHandler<MouseEvent>() {
+    public static final EventHandler<MouseEvent> clickFilter = new EventHandler<>() {
         @Override
         public void handle(MouseEvent event) {
 
@@ -94,21 +95,20 @@ public class Filter {
                         Drawer.getInstance().setMoveHandler(edgeMoveHandler);
                         Drawer.getInstance().addElem(edgePretender);
                     } else {
-                        //System.out.println("here");
                         event.consume();
                         edgeStarted = false;
                         Node node = (Node) event.getSource();
-                        if (node == pretender) {
-                            Drawer.getInstance().removeMoveHandler();
-                            return;
-                        }
+//                        if (node == pretender) {
+//                            Drawer.getInstance().removeMoveHandler();
+//                            return;
+//                        }
 
-                        edgePretender.setNodes(node, pretender);
-                        edgePretender.connectNodes(node, pretender);
+                        edgePretender.setNodes(pretender, node);
+                        edgePretender.connectNodes(pretender, node, pretender);
+                        edgePretender.createAnchor();
                         //Graph.getInstance().connectNodes(node, pretender, edgePretender);
 
                         Invoker.getInstance().createElement(edgePretender);
-                        //edgePretender.create();
                         Drawer.getInstance().removeMoveHandler();
                     }
                 }
@@ -147,7 +147,7 @@ public class Filter {
     /**
      * Controls potential edge's movements
      */
-    private static final EventHandler<MouseEvent> edgeMoveHandler = new EventHandler<MouseEvent>() {
+    private static final EventHandler<MouseEvent> edgeMoveHandler = new EventHandler<>() {
         @Override
         public void handle(MouseEvent event) {
 
@@ -170,6 +170,8 @@ public class Filter {
 
                 edgePretender.setStartY(cords[1]);
                 edgePretender.setEndY(event.getY() + CURSOR_GAP * signY);
+
+                edgePretender.relocateAnchor();
 
                 edgePretender.setVisible(true);
             } else {
