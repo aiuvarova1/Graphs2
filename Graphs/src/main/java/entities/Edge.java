@@ -2,8 +2,6 @@ package entities;
 
 import java.io.Serializable;
 
-import javax.annotation.Nullable;
-
 import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -126,6 +124,10 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
      * @param node2 second node to connect
      */
     public void connectNodes(Node node1, Node node2, Node movingNode) {
+        if (n1.equals(n2)) {
+            connectLoop();
+        }
+
         double dist = getDistance(node1.getCircle().getCenterX(), node1.getCircle().getCenterY(),
             node2.getCircle().getCenterX(), node2.getCircle().getCenterY());
 
@@ -344,6 +346,24 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
         );
         Drawer.getInstance().addElem(anchor);
         relocateAnchor();
+    }
+
+    private void connectLoop() {
+        setStartX(n1.getCircle().getCenterX() - Node.RADIUS);
+        setStartY(n1.getCircle().getCenterY());
+
+        setEndX(n1.getCircle().getCenterX() + Node.RADIUS);
+        setEndY(n1.getCircle().getCenterY());
+
+        double centerY = (n1.getCircle().getCenterY() - 10 * Node.RADIUS);
+
+        setControlX(n1.getCircle().getCenterX() / 0.5 - getStartX() * 0.5 - getEndX() * 0.5);
+        setControlY(centerY / 0.5 - getStartY() * 0.5 - getEndY() * 0.5);
+
+        if (anchor != null) {
+            anchor.setCenterX(n1.getCircle().getCenterX());
+            anchor.setCenterY(centerY);
+        }
     }
 
     /**

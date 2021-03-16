@@ -199,15 +199,19 @@ class ParserTest {
     @Test
     void test1() {
         res = Parser.parseDistance("((4-2)*(3+5))/2");
-        assertEquals(8,res);
+        assertEquals(8, res);
     }
 
     @Test
     void test2() {
         //res = Parser.parseDistance("{5+2}");
-        assertThrows(IllegalArgumentException.class,()->Parser.parseDistance("{5+2}"));
+        assertThrows(IllegalArgumentException.class, () -> Parser.parseDistance("{5+2}"));
     }
 
-
+    @Test
+    void texToSympy() {
+        String res = Parser.texToSympy("\\sqrt[4]{25}");
+        assertEquals("sqrt(25, 4)", res);
+    }
 
 }

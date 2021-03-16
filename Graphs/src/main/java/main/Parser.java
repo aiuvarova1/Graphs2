@@ -106,7 +106,8 @@ public class Parser {
             .filter(token -> REAL_NUMBER_PATTERN.matcher(token).matches())
             .map(Double::valueOf)
             .reduce(Double::sum)
-            .map(token -> token == 0 ? "" : String.valueOf(token))
+            .map(token -> token == 0 ? "" : token == token.intValue() ?
+                String.valueOf(token.intValue()) : String.valueOf(token))
             .orElse("");
 
         String texPart = tokens.stream()
@@ -179,9 +180,11 @@ public class Parser {
         return res.getFirst();
     }
 
-    private static String texToSympy(String token) {
-        String result = token
+    public static String texToSympy(String token) {
+        String result = token.strip()
             .replace("\\sqrt", "sqrt")
+            .replaceAll("\\\\frac\\{(.*)}\\{(.*)}", "($1)/($2)")
+            .replaceAll("sqrt\\[(\\d)]\\{([^}]*)}", "sqrt($2, $1)")
             .replace("^", "**")
             .replace("{", "(")
             .replace("}", ")");

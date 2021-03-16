@@ -79,7 +79,9 @@ public class Node extends StackPane implements
     public Set<Node> getNeighbours() {
         Set<Node> nodes = new HashSet<>(edges.size());
         for (Edge e : edges) {
-            nodes.add(e.getNeighbour(this));
+            if (this != e.getNeighbour(this)) {
+                nodes.add(e.getNeighbour(this));
+            }
         }
         return nodes;
     }
@@ -90,7 +92,9 @@ public class Node extends StackPane implements
 
         for (Edge e : edges) {
             neighbour = e.getNeighbour(this);
-            nodes.put(neighbour, nodes.getOrDefault(neighbour, -1) + 1);
+            if (neighbour != this) {
+                nodes.put(neighbour, nodes.getOrDefault(neighbour, -1) + 1);
+            }
         }
         return nodes;
     }
@@ -100,7 +104,9 @@ public class Node extends StackPane implements
 
         for (Edge e : edges) {
             if (!map.containsKey(this) || e.getLength() < map.get(this).getKey()) {
-                map.put(e.getNeighbour(this), new Pair<>(e.getLength(), e.getTextLength()));
+                if (this != e.getNeighbour(this)) {
+                    map.put(e.getNeighbour(this), new Pair<>(e.getLength(), e.getTextLength()));
+                }
             }
         }
         return map;

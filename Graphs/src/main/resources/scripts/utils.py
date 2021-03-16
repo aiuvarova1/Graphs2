@@ -1,8 +1,10 @@
-from sympy import Matrix, latex
+from sympy import Matrix, latex, symbols, simplify, radsimp
 
 BEGIN_MATRIX = "\\begin{pmatrix}\n"
 END_MATRIX = '\\end{pmatrix}\n'
 MATRIX_DELIMITER = ' & '
+
+q = symbols('q')
 
 
 def tex_replace(el):
@@ -30,7 +32,7 @@ def read_sample(file_path):
 
 
 def convert_matrix_row_to_string(row):
-    r = [latex(str(x)) for x in row]
+    r = [(str(latex(x))) for x in row]
     return MATRIX_DELIMITER.join(r) + '\\\\\n'
 
 
