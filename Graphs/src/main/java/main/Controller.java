@@ -368,7 +368,7 @@ public class Controller {
     private void calculateMagnitude() {
         try {
             MagnitudeService.calculateMagnitude();
-        } catch (ValidationException ex) {
+        } catch (RuntimeException ex) {
             PopupMessage.showMessage(ex.getMessage());
         }
     }
@@ -377,7 +377,7 @@ public class Controller {
     private void calculateBarnes() {
         try {
             BarnesZetaFunctionService.calculateBarnesFunction();
-        } catch (ValidationException ex) {
+        } catch (RuntimeException ex) {
             PopupMessage.showMessage(ex.getMessage());
         }
     }
@@ -386,7 +386,7 @@ public class Controller {
     private void calculateIhara() {
         try {
             IharaZetaFunctionService.calculateIharaFunction();
-        } catch (ValidationException ex) {
+        } catch (RuntimeException ex) {
             PopupMessage.showMessage(ex.getMessage());
         }
     }

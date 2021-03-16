@@ -1,6 +1,8 @@
 package services;
 
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
@@ -8,6 +10,8 @@ import java.util.Stack;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import javax.annotation.Nullable;
 
 import entities.Graph;
 import entities.Node;
@@ -36,9 +40,7 @@ public class AlgorithmService {
         int n = Graph.getInstance().getSize();
         int[][] A = new int[n][n];
 
-        List<Node> sorted = Graph.getInstance().getNodes().stream().sorted(
-            Comparator.comparing(Node::getNum)
-        ).collect(Collectors.toList());
+        List<Node> sorted = getSorted();
 
         for (Node node : sorted) {
             node.getNeighboursAndCounts().forEach((neighbour, count) ->
@@ -49,14 +51,31 @@ public class AlgorithmService {
         return A;
     }
 
+    //TODO: multiple edges? take min for now
+    public static String[][] findWeightedMatrix() {
+        int n = Graph.getInstance().getSize();
+        String[][] W = new String[n][n];
+
+        Arrays.stream(W).forEach(row -> Arrays.fill(row, "0"));
+
+        Graph.getInstance().getNodes()
+            .forEach(node -> {
+                HashMap<Node, Pair<Double, String>> neighboursAndDistances = node.getNeighboursAndDistances();
+                neighboursAndDistances.forEach(
+                    (neighbour, pairDist) ->
+                        W[node.getNum() - 1][neighbour.getNum() - 1] = Parser.texToSympy(pairDist.getValue())
+                );
+            });
+
+        return W;
+    }
+
     public static int[][] findDiagonalMatrix() {
         int n = Graph.getInstance().getSize();
 
         int[][] Q = new int[n][n];
 
-        List<Node> sorted = Graph.getInstance().getNodes().stream().sorted(
-            Comparator.comparing(Node::getNum)
-        ).collect(Collectors.toList());
+        List<Node> sorted = getSorted();
 
         IntStream.range(0, n).forEach(i -> Q[i][i] = sorted.get(i).getDegree() - 1);
 
@@ -85,7 +104,7 @@ public class AlgorithmService {
      * @param handler method to handle depending on what we need
      * @return num of components
      */
-    public static int runDFS(Consumer<Node> handler) {
+    public static int runDFS(@Nullable Consumer<Node> handler) {
 
         if (Graph.getInstance().getSize() == 0) {
             return 0;
@@ -103,6 +122,12 @@ public class AlgorithmService {
         resetDFS();
 
         return components;
+    }
+
+    private static List<Node> getSorted() {
+        return Graph.getInstance().getNodes().stream().sorted(
+            Comparator.comparing(Node::getNum)
+        ).collect(Collectors.toList());
     }
 
     private static void findMinDistance(Node n, String[] distances) {
@@ -172,7 +197,7 @@ public class AlgorithmService {
      *
      * @param handler method to handle with each node
      */
-    private static void DFS(Consumer<Node> handler) {
+    private static void DFS(@Nullable Consumer<Node> handler) {
         Node curNode;
         while (!dfsStack.isEmpty()) {
             curNode = dfsStack.pop();

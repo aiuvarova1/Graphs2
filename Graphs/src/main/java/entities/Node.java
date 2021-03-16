@@ -93,7 +93,7 @@ public class Node extends StackPane implements
         for (Edge e : edges) {
             neighbour = e.getNeighbour(this);
             if (neighbour != this) {
-                nodes.put(neighbour, nodes.getOrDefault(neighbour, -1) + 1);
+                nodes.put(neighbour, nodes.getOrDefault(neighbour, 0) + 1);
             }
         }
         return nodes;

@@ -43,6 +43,13 @@ def write_matrix_and_replace(prefix, output, input_matrix):
     return output, Matrix(matrix_obj)
 
 
+def write_matrix_and_replace_new(prefix, new_prefix, output, input_matrix):
+    matrix, matrix_obj = write_matrix(new_prefix, input_matrix)
+
+    output = output.replace(prefix, matrix)
+    return output, Matrix(matrix_obj)
+
+
 def write_matrix(prefix, input_matrix):
     matrix = prefix + BEGIN_MATRIX
     m = []

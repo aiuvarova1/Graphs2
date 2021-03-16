@@ -10,22 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3aa67ae0-54ba-4086-884d-3b050cac4cee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apiguardian_apiguardian_api_1_0_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_api_5_4_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_jupiter_junit_jupiter_engine_5_4_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_commons_1_4_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_junit_platform_junit_platform_engine_1_4_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_opentest4j_opentest4j_1_1_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/data/complex.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GraphsTool.iml" beforeDir="false" afterPath="$PROJECT_DIR$/GraphsTool.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Edge.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Parser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/AlgorithmService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/AlgorithmService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/IharaZetaFunctionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/IharaZetaFunctionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/dto/IharaDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/dto/IharaDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/scripts/ihara.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scripts/ihara.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/scripts/magnitude.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scripts/magnitude.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/scripts/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scripts/utils.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/main/ParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/main/ParserTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -415,7 +409,7 @@
       <workItem from="1615657084098" duration="31258000" />
       <workItem from="1615743263123" duration="10767000" />
       <workItem from="1615833458585" duration="7697000" />
-      <workItem from="1615917822249" duration="3374000" />
+      <workItem from="1615917822249" duration="8916000" />
     </task>
     <task id="LOCAL-00001" summary="Several hot fixes, basis for infinite graphs (completely built in gui, working visualization but still no &quot;infinity&quot; for line)">
       <created>1588347857172</created>
@@ -459,7 +453,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615749595391</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Tex to sympy, magnitudex optimization and bugfix">
+      <created>1615921346701</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1615921346701</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -476,7 +477,8 @@
     <MESSAGE value="Completed magnitude with python" />
     <MESSAGE value="Full ihara (no loops, weights, multiple edges, no validation)" />
     <MESSAGE value="Multiple edges added (full), some bugs fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Multiple edges added (full), some bugs fixed" />
+    <MESSAGE value="Tex to sympy, magnitudex optimization and bugfix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tex to sympy, magnitudex optimization and bugfix" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -499,11 +501,6 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/entities/Edge.java</url>
-          <line>81</line>
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/entities/Edge.java</url>
           <line>352</line>
           <option name="timeStamp" value="63" />
         </line-breakpoint>
@@ -522,22 +519,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/main/resources/scripts/magnitude.py</url>
-          <line>43</line>
+          <line>44</line>
           <option name="timeStamp" value="50" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/main/resources/scripts/magnitude.py</url>
-          <line>37</line>
+          <line>38</line>
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/main/resources/scripts/magnitude.py</url>
-          <line>88</line>
+          <line>89</line>
           <option name="timeStamp" value="53" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/main/resources/scripts/magnitude.py</url>
-          <line>47</line>
+          <line>48</line>
           <option name="timeStamp" value="54" />
         </line-breakpoint>
       </breakpoints>

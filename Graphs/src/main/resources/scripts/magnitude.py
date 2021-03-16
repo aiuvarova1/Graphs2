@@ -61,7 +61,7 @@ def insert_sum(z_inv):
 def parse_args():
     global matrix, COMPLEX
 
-    with open(SHORT_DATA_PATH, 'r') as data:
+    with open(FULL_DATA_PATH, 'r') as data:
         for line in data:
             row = [x for x in line.strip().split(DELIMITER)]
             if not COMPLEX:
@@ -76,7 +76,7 @@ def parse_args():
 
 def read_sample():
     global output
-    with open(SHORT_TEMPLATE_PATH, 'r') as sample:
+    with open(FULL_TEMPLATE_PATH, 'r') as sample:
         for s in sample:
             output += s
 

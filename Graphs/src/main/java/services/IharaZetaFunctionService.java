@@ -9,6 +9,7 @@ import services.dto.IharaDto;
 import utils.Constants;
 
 import static utils.Constants.EMPTY_GRAPH_MESSAGE;
+import static utils.Constants.GRAPH_NOT_CONNECTED_MESSAGE;
 
 @ParametersAreNonnullByDefault
 public class IharaZetaFunctionService {
@@ -33,18 +34,31 @@ public class IharaZetaFunctionService {
         int n = Graph.getInstance().getSize();
         int rm1 = Graph.getInstance().getEdgesAndDistances().keySet().size() - n;
 
-        int[][] A = AlgorithmService.findAdjacencyMatrix();
         int[][] Q = AlgorithmService.findDiagonalMatrix();
 
-        return new IharaDto()
+        IharaDto dto = new IharaDto()
             .setRm1(rm1)
-            .setA(A)
+            .setWeighted(Graph.areDistancesShown())
             .setQ(Q);
+
+        if (Graph.areDistancesShown()) {
+            String[][] W = AlgorithmService.findWeightedMatrix();
+            dto.setW(W);
+        } else {
+            int[][] A = AlgorithmService.findAdjacencyMatrix();
+            dto.setA(A);
+        }
+
+        return dto;
     }
 
     private static void validate() {
         if (Graph.getInstance().getSize() == 0) {
             throw new ValidationException(EMPTY_GRAPH_MESSAGE);
+        }
+
+        if (AlgorithmService.runDFS(null) > 1) {
+            throw new ValidationException(GRAPH_NOT_CONNECTED_MESSAGE);
         }
     }
 }
