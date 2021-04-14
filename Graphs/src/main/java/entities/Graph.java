@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 import javafx.util.Pair;
@@ -22,6 +23,9 @@ public class Graph implements Serializable {
     private static boolean showDistances = false;
 
     @Getter
+    private Node selectedNode;
+
+    @Getter
     private final ArrayList<Node> nodes = new ArrayList<>(20);
 
     /**
@@ -34,6 +38,21 @@ public class Graph implements Serializable {
             instance = new Graph();
         }
         return instance;
+    }
+
+    public void selectNode(Node n) {
+        if (selectedNode != null) {
+            selectedNode.deselect();
+        }
+        selectedNode = n;
+        selectedNode.select();
+    }
+
+    public void deselectNode() {
+        if (selectedNode != null) {
+            selectedNode.deselect();
+        }
+        selectedNode = null;
     }
 
     public int getSize() {
@@ -97,6 +116,14 @@ public class Graph implements Serializable {
             }
         }
         return res;
+    }
+
+    public int getOrientedEdgesCount() {
+        return nodes.stream()
+            .map(Node::getNeighboursSorted)
+            .map(List::size)
+            .reduce(Integer::sum)
+            .orElse(0);
     }
 
     /**

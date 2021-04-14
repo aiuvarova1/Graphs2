@@ -1,4 +1,5 @@
 main/Parser$Operation.class
+services/data/EdgeData.class
 main/GUIStarter.class
 entities/Arrow.class
 main/Command.class
@@ -14,6 +15,7 @@ main/MoveCommand.class
 main/Filter$1.class
 main/Parser$Function.class
 main/CreateCommand.class
+services/dto/CustomFunctionDto.class
 main/ChangeDistCommand.class
 main/MyContextMenu.class
 entities/Graph.class
@@ -23,6 +25,7 @@ main/Filter$2.class
 utils/Constants.class
 main/Formatter.class
 entities/Anchor.class
+services/dto/IharaEdgeDto.class
 main/MenuManager.class
 main/Controller.class
 main/Parser.class
@@ -30,17 +33,18 @@ main/ChangeAllDistancesCommand.class
 services/IharaZetaFunctionService.class
 entities/Distance.class
 entities/Edge.class
+services/dto/IharaPathDto.class
 services/MagnitudeService.class
 main/FileManager.class
 services/dto/IharaDto.class
 exceptions/IsAlreadyVisitedException.class
 main/PopupMessage.class
 main/Invoker.class
-services/BarnesZetaFunctionService.class
 main/DeleteCommand.class
 entities/TexLabel.class
 main/NodeContextMenu.class
 entities/Undoable.class
+services/CustomFunctionService.class
 exceptions/ValidationException.class
 main/Filter.class
 main/Drawer.class

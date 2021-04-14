@@ -1,4 +1,5 @@
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Controller.java
+/home/aidenne/Coursework3/Graphs/src/main/java/services/dto/IharaPathDto.java
 /home/aidenne/Coursework3/Graphs/src/main/java/services/dto/IharaDto.java
 /home/aidenne/Coursework3/Graphs/src/main/java/services/AlgorithmService.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Parser.java
@@ -8,8 +9,9 @@
 /home/aidenne/Coursework3/Graphs/src/main/java/main/PopupMessage.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/MyContextMenu.java
 /home/aidenne/Coursework3/Graphs/src/main/java/services/PythonService.java
-/home/aidenne/Coursework3/Graphs/src/main/java/services/BarnesZetaFunctionService.java
+/home/aidenne/Coursework3/Graphs/src/main/java/services/CustomFunctionService.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/MenuManager.java
+/home/aidenne/Coursework3/Graphs/src/main/java/services/data/EdgeData.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Cache.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Drawer.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Anchor.java
@@ -31,5 +33,7 @@
 /home/aidenne/Coursework3/Graphs/src/main/java/main/Filter.java
 /home/aidenne/Coursework3/Graphs/src/main/java/utils/Constants.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Restorable.java
+/home/aidenne/Coursework3/Graphs/src/main/java/services/dto/IharaEdgeDto.java
+/home/aidenne/Coursework3/Graphs/src/main/java/services/dto/CustomFunctionDto.java
 /home/aidenne/Coursework3/Graphs/src/main/java/main/NodeContextMenu.java
 /home/aidenne/Coursework3/Graphs/src/main/java/entities/Graph.java

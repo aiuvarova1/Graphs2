@@ -277,21 +277,41 @@
                                                          <Font name="Constantia" size="17.0"/>
                                                      </font>
                                                  </Button>
-                                                 <Button fx:id="barnes" alignment="CENTER" minWidth="208.0"
-                                                         mnemonicParsing="false" onAction="#calculateBarnes"
+                                                 <Button fx:id="vertexIhara" alignment="CENTER" minWidth="208.0"
+                                                         mnemonicParsing="false" onAction="#calculateIhara"
                                                          prefHeight="32.0" prefWidth="277.0"
                                                          style="-fx-background-color: #f5f5f5;"
-                                                         text="Barnes zeta function" textAlignment="CENTER"
+                                                         text="Ihara vertex zeta function" textAlignment="CENTER"
                                                          textFill="#686060">
                                                      <font>
                                                          <Font name="Constantia" size="17.0"/>
                                                      </font>
                                                  </Button>
-                                                 <Button fx:id="ihara" alignment="CENTER" minWidth="208.0"
-                                                         mnemonicParsing="false" onAction="#calculateIhara"
+                                                 <Button fx:id="edgeIhara" alignment="CENTER" minWidth="208.0"
+                                                         mnemonicParsing="false" onAction="#calculateEdgeIhara"
                                                          prefHeight="32.0" prefWidth="277.0"
                                                          style="-fx-background-color: #f5f5f5;"
-                                                         text="Ihara zeta function" textAlignment="CENTER"
+                                                         text="Ihara edge zeta function" textAlignment="CENTER"
+                                                         textFill="#686060">
+                                                     <font>
+                                                         <Font name="Constantia" size="17.0"/>
+                                                     </font>
+                                                 </Button>
+                                                 <Button fx:id="pathIhara" alignment="CENTER" minWidth="208.0"
+                                                         mnemonicParsing="false" onAction="#calculatePathIhara"
+                                                         prefHeight="32.0" prefWidth="277.0"
+                                                         style="-fx-background-color: #f5f5f5;"
+                                                         text="Ihara path zeta function" textAlignment="CENTER"
+                                                         textFill="#686060">
+                                                     <font>
+                                                         <Font name="Constantia" size="17.0"/>
+                                                     </font>
+                                                 </Button>
+                                                 <Button fx:id="customPathFunction" alignment="CENTER" minWidth="208.0"
+                                                         mnemonicParsing="false" onAction="#calculateCustomFunction"
+                                                         prefHeight="32.0" prefWidth="277.0"
+                                                         style="-fx-background-color: #f5f5f5;"
+                                                         text="Custom path function" textAlignment="CENTER"
                                                          textFill="#686060">
                                                      <font>
                                                          <Font name="Constantia" size="17.0"/>

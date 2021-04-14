@@ -98,10 +98,12 @@ public class Filter {
                         event.consume();
                         edgeStarted = false;
                         Node node = (Node) event.getSource();
-//                        if (node == pretender) {
-//                            Drawer.getInstance().removeMoveHandler();
-//                            return;
-//                        }
+//                       TODO: uncomment if no loops!
+
+                        if (node == pretender) {
+                            Drawer.getInstance().removeMoveHandler();
+                            return;
+                        }
 
                         edgePretender.setNodes(pretender, node);
                         edgePretender.connectNodes(pretender, node, pretender);

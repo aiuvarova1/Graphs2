@@ -10,16 +10,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3aa67ae0-54ba-4086-884d-3b050cac4cee" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/CustomFunctionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/data/EdgeData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/dto/CustomFunctionDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/dto/IharaEdgeDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/services/dto/IharaPathDto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/custom.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/data/custom_data.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/data/ihara_edge_data.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/data/ihara_path_data.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/ihara_edge.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/ihara_path.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/templates/custom.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/templates/ihara_edge.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/scripts/templates/ihara_path.tex" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Edge.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Graph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/entities/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Filter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/NodeContextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/NodeContextMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/AlgorithmService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/AlgorithmService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/BarnesZetaFunctionService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/services/IharaZetaFunctionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/IharaZetaFunctionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/dto/IharaDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/dto/IharaDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/services/PythonService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/PythonService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/utils/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utils/Constants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/scripts/ihara.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scripts/ihara.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/scripts/magnitude.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scripts/magnitude.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/MainScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MainScene.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/scripts/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/scripts/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MainScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MainScene.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +77,15 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="autoDetectCompiler" value="false" />
+        <option name="downloadDocsAutomatically" value="true" />
+        <option name="downloadSourcesAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
   <component name="MavenRunner">
     <option name="delegateBuildToMaven" value="true" />
   </component>
@@ -84,10 +115,10 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.14942528" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.importing" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -107,18 +138,18 @@
       <recent name="main" />
     </key>
   </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn compiler:compile" />
+    </option>
+  </component>
   <component name="RunManager" selected="Application.GUIStarter">
     <configuration name="GUIStarter" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="11 (2)" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <envs>
-        <env name="D:\CourseWork\GraphsTool\libs\" value="in = PATH" />
-      </envs>
       <option name="MAIN_CLASS_NAME" value="main.GUIStarter" />
       <module name="GraphsTool" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="main.EdgeContextMenu" />
+          <option name="PATTERN" value="main.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -157,6 +188,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GraphsTool-1.0-SNAPSHOT-jar-with-dependencies.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/target/GraphsTool-1.0-SNAPSHOT-jar-with-dependencies.jar" />
+      <method v="2" />
+    </configuration>
+    <configuration name="GraphsTool.jar" type="JarApplication" temporary="true">
+      <option name="JAR_PATH" value="$PROJECT_DIR$/out/artifacts/GraphsTool_jar/GraphsTool.jar" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -182,64 +221,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ihara" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="GraphsTool" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/main/resources/scripts" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/main/resources/scripts/ihara.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="magnitude" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="GraphsTool" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/main/resources/scripts" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/main/resources/scripts/magnitude.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Application.GUIStarter" />
+      <item itemvalue="JAR Application.GraphsTool.jar" />
+      <item itemvalue="JAR Application.GraphsTool-1.0-SNAPSHOT-jar-with-dependencies.jar" />
       <item itemvalue="JUnit.ParserTest.texToSympy" />
       <item itemvalue="JUnit.ParserTest" />
-      <item itemvalue="Python.magnitude" />
-      <item itemvalue="Python.ihara" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.GUIStarter" />
+        <item itemvalue="JAR Application.GraphsTool-1.0-SNAPSHOT-jar-with-dependencies.jar" />
+        <item itemvalue="JAR Application.GraphsTool.jar" />
         <item itemvalue="JUnit.ParserTest" />
         <item itemvalue="JUnit.ParserTest.texToSympy" />
-        <item itemvalue="Python.magnitude" />
-        <item itemvalue="Python.ihara" />
-        <item itemvalue="Application.GUIStarter" />
       </list>
     </recent_temporary>
   </component>
@@ -409,7 +404,14 @@
       <workItem from="1615657084098" duration="31258000" />
       <workItem from="1615743263123" duration="10767000" />
       <workItem from="1615833458585" duration="7697000" />
-      <workItem from="1615917822249" duration="8916000" />
+      <workItem from="1615917822249" duration="9072000" />
+      <workItem from="1616184329662" duration="644000" />
+      <workItem from="1616397401743" duration="76000" />
+      <workItem from="1617282790581" duration="41569000" />
+      <workItem from="1617811375104" duration="5101000" />
+      <workItem from="1617873868844" duration="5518000" />
+      <workItem from="1618335690110" duration="1301000" />
+      <workItem from="1618337127279" duration="4263000" />
     </task>
     <task id="LOCAL-00001" summary="Several hot fixes, basis for infinite graphs (completely built in gui, working visualization but still no &quot;infinity&quot; for line)">
       <created>1588347857172</created>
@@ -460,7 +462,14 @@
       <option name="project" value="LOCAL" />
       <updated>1615921346701</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Ihara weighted function">
+      <created>1615926826331</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1615926826331</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -478,7 +487,8 @@
     <MESSAGE value="Full ihara (no loops, weights, multiple edges, no validation)" />
     <MESSAGE value="Multiple edges added (full), some bugs fixed" />
     <MESSAGE value="Tex to sympy, magnitudex optimization and bugfix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Tex to sympy, magnitudex optimization and bugfix" />
+    <MESSAGE value="Ihara weighted function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ihara weighted function" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -500,14 +510,34 @@
           <option name="timeStamp" value="35" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/entities/Edge.java</url>
-          <line>352</line>
-          <option name="timeStamp" value="63" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/main/Parser.java</url>
           <line>191</line>
           <option name="timeStamp" value="73" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/main/Filter.java</url>
+          <line>142</line>
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/entities/Edge.java</url>
+          <line>127</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/services/IharaZetaFunctionService.java</url>
+          <line>30</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/services/AlgorithmService.java</url>
+          <line>109</line>
+          <option name="timeStamp" value="104" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/services/AlgorithmService.java</url>
+          <line>437</line>
+          <option name="timeStamp" value="109" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/java/entities/Distance.java</url>

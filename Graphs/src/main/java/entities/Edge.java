@@ -126,6 +126,7 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
     public void connectNodes(Node node1, Node node2, Node movingNode) {
         if (n1.equals(n2)) {
             connectLoop();
+            return;
         }
 
         double dist = getDistance(node1.getCircle().getCenterX(), node1.getCircle().getCenterY(),
@@ -230,7 +231,9 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
     public boolean create() {
 
         if (this.n1.addEdge(this.n2, this)) {
-            this.n2.addEdge(this.n1, this);
+            if (n1.getNum() != n2.getNum()) {
+                this.n2.addEdge(this.n1, this);
+            }
         } else {
             Drawer.getInstance().removeElement(this);
             Drawer.getInstance().removeElement(anchor);
@@ -241,7 +244,7 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
         try {
             Drawer.getInstance().addElem(this);
             Drawer.getInstance().addElem(anchor);
-            if (Graph.getInstance().areDistancesShown()) {
+            if (Graph.areDistancesShown()) {
                 length.show();
             }
             setStroke(color);
@@ -284,7 +287,15 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
         relocateAnchor((getStartX() + getEndX()) / 2.0, (getStartY() + getEndY()) / 2.0);
     }
 
+    public void relocateAnchorWithCoefficient(double xCoef, double yCoef) {
+        relocateAnchor((getStartX() + getEndX()) / 2.0, (getStartY() + getEndY()) / 2.0, xCoef, yCoef);
+    }
+
     public void relocateAnchor(double centerX, double centerY) {
+        relocateAnchor(centerX, centerY, 0.5, 0.5);
+    }
+
+    private void relocateAnchor(double centerX, double centerY, double xCoef, double yCoef) {
         double v1 = getStartX();
         double v3 = getEndX();
         double v2 = getStartY();
@@ -303,8 +314,8 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
         System.out.println("Relocate " + centerX + " " + centerY);
 
 
-        setControlX(centerX / 0.5 - v1 * 0.5 - v3 * 0.5);
-        setControlY(centerY / 0.5 - v2 * 0.5 - v4 * 0.5);
+        setControlX(centerX / xCoef - v1 * xCoef - v3 * xCoef);
+        setControlY(centerY / yCoef - v2 * yCoef - v4 * yCoef);
 
         if (anchor != null) {
             anchor.setNewCoordinatesSafe(centerX, centerY);
@@ -334,8 +345,12 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
         return length.getValue();
     }
 
-    String getTextLength() {
+    public String getTextLength() {
         return length.getText();
+    }
+
+    public boolean isLoop() {
+        return n1.getNum() == n2.getNum();
     }
 
     public void createAnchor() {
@@ -345,25 +360,40 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
             this::relocateAnchor
         );
         Drawer.getInstance().addElem(anchor);
-        relocateAnchor();
+        if (isLoop()) {
+//            this.toFront();
+            anchor.setCenterX(n1.getCircle().getCenterX());
+            anchor.setCenterY(n1.getCircle().getCenterY() - 5 * Node.RADIUS);
+//            relocateAnchor((getStartX() + getEndX()) / 2.0, getStartY() - 2*Node.RADIUS);
+        } else {
+            relocateAnchor();
+        }
     }
 
     private void connectLoop() {
-        setStartX(n1.getCircle().getCenterX() - Node.RADIUS);
-        setStartY(n1.getCircle().getCenterY());
+        setStartX(300);
+        setStartY(200);
 
-        setEndX(n1.getCircle().getCenterX() + Node.RADIUS);
-        setEndY(n1.getCircle().getCenterY());
+        setEndX(400);
+        setEndY(200);
 
-        double centerY = (n1.getCircle().getCenterY() - 10 * Node.RADIUS);
+//        System.out.println(n1.getCircle().getCenterX());
+//        System.out.println(n1.getCircle().getCenterY());
+//        double centerY = (n1.getCircle().getCenterY() - 4 * Node.RADIUS);
+//
+        System.out.println("set new");
+        setControlX(350);
+        setControlY(200);
+//
+//        System.out.println(getControlX());
+//        System.out.println(getControlY());
+//        setControlX(n1.getCircle().getCenterX() / 0.5 - getStartX() * 0.5 - getEndX() * 0.5);
+//        setControlY(n1.getCircle().getCenterY() / 0.5 - getStartY() * 0.5 - getEndY() * 0.5);
 
-        setControlX(n1.getCircle().getCenterX() / 0.5 - getStartX() * 0.5 - getEndX() * 0.5);
-        setControlY(centerY / 0.5 - getStartY() * 0.5 - getEndY() * 0.5);
-
-        if (anchor != null) {
-            anchor.setCenterX(n1.getCircle().getCenterX());
-            anchor.setCenterY(centerY);
-        }
+//        if (anchor != null) {
+//            anchor.setCenterX(n1.getCircle().getCenterX());
+//            anchor.setCenterY(centerY);
+//        }
     }
 
     /**

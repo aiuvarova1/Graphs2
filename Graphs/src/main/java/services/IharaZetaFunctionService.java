@@ -4,8 +4,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import entities.Graph;
 import exceptions.ValidationException;
-import main.FileManager;
 import services.dto.IharaDto;
+import services.dto.IharaEdgeDto;
+import services.dto.IharaPathDto;
 import utils.Constants;
 
 import static utils.Constants.EMPTY_GRAPH_MESSAGE;
@@ -19,15 +20,22 @@ public class IharaZetaFunctionService {
 
         IharaDto dto = constructDto();
 
-        try {
-            PythonService.writeJsonObject(dto, Constants.PATH_TO_IHARA_DATA);
-            String result = PythonService.runScript(Constants.PATH_TO_IHARA_SCRIPT);
-            FileManager.saveFunctionOutput(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Failed to calculate zeta function");
-        }
+        PythonService.constructResult(dto, Constants.PATH_TO_IHARA_SCRIPT, Constants.PATH_TO_IHARA_DATA);
 
+    }
+
+    public static void calculateIharaEdgeFunction() {
+        validate();
+        IharaEdgeDto dto = AlgorithmService.findEdgeMatrix();
+
+        PythonService.constructResult(dto, Constants.PATH_TO_IHARA_EDGE_SCRIPT, Constants.PATH_TO_IHARA_EDGE_DATA);
+    }
+
+    public static void calculateIharaPathFunction() {
+        validate();
+        IharaPathDto dto = AlgorithmService.findPathMatrix();
+
+        PythonService.constructResult(dto, Constants.PATH_TO_IHARA_PATH_SCRIPT, Constants.PATH_TO_IHARA_PATH_DATA);
     }
 
     private static IharaDto constructDto() {

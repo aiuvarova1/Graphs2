@@ -4,7 +4,6 @@ import entities.Distance;
 import entities.Edge;
 import entities.Graph;
 import entities.Node;
-import exceptions.ValidationException;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
@@ -24,7 +23,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
-import services.BarnesZetaFunctionService;
+import services.CustomFunctionService;
 import services.IharaZetaFunctionService;
 import services.MagnitudeService;
 
@@ -75,10 +74,16 @@ public class Controller {
     private Button magnitude;
 
     @FXML
-    private Button barnes;
+    private Button edgeIhara;
 
     @FXML
-    private Button ihara;
+    private Button vertexIhara;
+
+    @FXML
+    private Button pathIhara;
+
+    @FXML
+    private Button customPathFunction;
 
     @FXML
     private Button redoButton;
@@ -136,11 +141,17 @@ public class Controller {
         magnitude.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
         magnitude.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
 
-        barnes.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
-        barnes.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+        edgeIhara.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
+        edgeIhara.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
 
-        ihara.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
-        ihara.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+        vertexIhara.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
+        vertexIhara.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+
+        pathIhara.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
+        pathIhara.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+
+        customPathFunction.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
+        customPathFunction.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
 
         setAll.addEventHandler(MouseEvent.MOUSE_ENTERED, event ->
         {
@@ -369,15 +380,7 @@ public class Controller {
         try {
             MagnitudeService.calculateMagnitude();
         } catch (RuntimeException ex) {
-            PopupMessage.showMessage(ex.getMessage());
-        }
-    }
-
-    @FXML
-    private void calculateBarnes() {
-        try {
-            BarnesZetaFunctionService.calculateBarnesFunction();
-        } catch (RuntimeException ex) {
+            ex.printStackTrace();
             PopupMessage.showMessage(ex.getMessage());
         }
     }
@@ -387,6 +390,37 @@ public class Controller {
         try {
             IharaZetaFunctionService.calculateIharaFunction();
         } catch (RuntimeException ex) {
+            ex.printStackTrace();
+            PopupMessage.showMessage(ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void calculateEdgeIhara() {
+        try {
+            IharaZetaFunctionService.calculateIharaEdgeFunction();
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
+            PopupMessage.showMessage(ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void calculatePathIhara() {
+        try {
+            IharaZetaFunctionService.calculateIharaPathFunction();
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
+            PopupMessage.showMessage(ex.getMessage());
+        }
+    }
+
+    @FXML
+    private void calculateCustomFunction() {
+        try {
+            CustomFunctionService.calculate();
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
             PopupMessage.showMessage(ex.getMessage());
         }
     }

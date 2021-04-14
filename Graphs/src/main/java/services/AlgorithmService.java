@@ -1,11 +1,16 @@
 package services;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
+import java.util.Set;
 import java.util.Stack;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -13,15 +18,26 @@ import java.util.stream.IntStream;
 
 import javax.annotation.Nullable;
 
+import entities.Edge;
 import entities.Graph;
 import entities.Node;
 import exceptions.IsAlreadyVisitedException;
+import exceptions.ValidationException;
 import javafx.util.Pair;
 import main.Parser;
+import services.data.EdgeData;
+import services.dto.IharaEdgeDto;
+import services.dto.IharaPathDto;
 
 public class AlgorithmService {
 
     private static final Stack<Node> dfsStack = new Stack<>();
+
+    public static List<String> findAllPaths(Node node) {
+        List<String> paths = new ArrayList<>();
+        recursiveDFS(node, new ArrayList<>(), paths, new HashSet<>());
+        return paths;
+    }
 
     public static String[][] findAllMinDistances() {
         int n = Graph.getInstance().getSize();
@@ -33,6 +49,111 @@ public class AlgorithmService {
         }
 
         return matrix;
+    }
+
+    public static IharaPathDto findPathMatrix() {
+        int m = Graph.getInstance().getOrientedEdgesCount();
+
+        Pair<EdgeData[], HashMap<EdgeData, Integer>> edgeData = markEdges(m);
+
+        EdgeData[] edges = edgeData.getKey();
+        HashMap<EdgeData, Integer> dict = edgeData.getValue();
+
+        Set<Integer> edgesInTreeIndexes = findSpanningTree(Graph.getInstance().getNodes(), dict);
+
+        if (edgesInTreeIndexes.size() == m / 2) {
+            throw new RuntimeException("The whole graph is a spanning tree, path matrix has size 0");
+        }
+
+        String edgesDict = getEdgesDictString(edges);
+        String spanningTreeDict =
+            edgesInTreeIndexes.stream()
+                .map(i -> String.format("$e_{%d}, e_{%d}$", i + 1, i + (m / 2) + 1))
+                .reduce((a, b) -> a + ", " + b)
+                .orElse("");
+
+
+        HashMap<Integer, List<EdgeData>> treeDict = new HashMap<>();
+
+        for (Integer index : edgesInTreeIndexes) {
+            if (!treeDict.containsKey(index)) {
+                treeDict.put(edges[index].getFrom(), new ArrayList<>());
+            }
+
+            if (!treeDict.containsKey(index + m / 2)) {
+                treeDict.put(edges[index + m / 2].getFrom(), new ArrayList<>());
+            }
+
+            treeDict.get(edges[index].getFrom()).add(edges[index]);
+            treeDict.get(edges[index + m / 2].getFrom()).add(edges[index + m / 2]);
+
+            edges[index].setIndex(index + 1);
+            edges[index + m / 2].setIndex(index + (m / 2) + 1);
+        }
+
+        List<EdgeData> notInTree = IntStream.range(0, m)
+            .filter(i -> !edgesInTreeIndexes.contains(i) && (i < m / 2 || !edgesInTreeIndexes.contains(i - m / 2)))
+            .mapToObj(i -> edges[i])
+            .collect(Collectors.toList());
+
+        String notInTreeDict =
+            notInTree.stream()
+                .sorted(Comparator.comparing(EdgeData::getIndex))
+                .map(i -> String.format("$e_{%d}$", i.getIndex()))
+                .reduce((a, b) -> a + ", " + b)
+                .orElse("");
+
+        String[][] matrix = new String[notInTree.size()][notInTree.size()];
+        for (int i = 0; i < notInTree.size(); i++) {
+            for (int j = 0; j < notInTree.size(); j++) {
+
+                if (!(notInTree.get(i).getFrom() == notInTree.get(j).getTo() && notInTree.get(i).getTo() == notInTree.get(j).getFrom())
+                    || (notInTree.get(i).equals(notInTree.get(j)))) {
+                    String res = recursiveFindPathBySpanningTree(
+                        notInTree.get(i),
+                        notInTree.get(j),
+                        treeDict,
+                        "",
+                        new HashSet<>()
+                    );
+                    matrix[i][j] = res.length() > 0 ? res.substring(0, res.length() - 1) : "";
+                    if (i == j) {
+                        matrix[i][j] += "-1";
+                    }
+                } else {
+                    matrix[i][j] = i == j ? "-1" : "0";
+                }
+            }
+        }
+
+        return new IharaPathDto()
+            .setSpanningTree(spanningTreeDict)
+            .setEdgeMatrix(matrix)
+            .setEdgeOrder(edgesDict)
+            .setNotSpanningTree(notInTreeDict);
+    }
+
+    public static IharaEdgeDto findEdgeMatrix() {
+        int m = Graph.getInstance().getOrientedEdgesCount();
+        int[][] matrix = new int[m][m];
+
+        EdgeData[] dict = markEdges(m).getKey();
+
+        for (int i = 0; i < dict.length; i++) {
+            for (int j = 0; j < dict.length; j++) {
+                if (dict[i].getTo() == dict[j].getFrom() &&
+                    (dict[i].getFrom() != dict[j].getTo() || dict[i].getTo() == dict[i].getFrom())
+                ) {
+                    matrix[i][j] = 1;
+                } else {
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+
+        String dictString = getEdgesDictString(dict);
+
+        return new IharaEdgeDto().setEdgeMatrix(matrix).setEdgeOrder(dictString);
     }
 
     //no loops for now
@@ -124,10 +245,122 @@ public class AlgorithmService {
         return components;
     }
 
+    private static String recursiveFindPathBySpanningTree(
+        EdgeData curEdge,
+        EdgeData aimEdge,
+        HashMap<Integer, List<EdgeData>> spanningTree,
+        String res,
+        Set<Integer> visited
+    ) {
+
+        if (curEdge.getTo() == aimEdge.getFrom()) {
+            return res + String.format("w_{%d, %d}$", curEdge.getIndex(), aimEdge.getIndex());
+        }
+
+        if (curEdge.equals(aimEdge)) {
+            return "";
+        }
+
+        visited.add(curEdge.getTo());
+
+        for (EdgeData e : spanningTree.get(curEdge.getTo())) {
+
+            if (visited.contains(e.getTo())) {
+                continue;
+            }
+
+            String curRes = recursiveFindPathBySpanningTree(
+                e,
+                aimEdge,
+                spanningTree,
+                res + String.format("w_{%d, %d}", curEdge.getIndex(), e.getIndex()),
+                visited
+            );
+
+            if (curRes.length() > 1 && curRes.endsWith("$")) {
+                return curRes;
+            }
+        }
+
+        return "";
+
+    }
+
+    private static String getEdgesDictString(EdgeData[] dict) {
+        return IntStream.range(0, dict.length)
+            .mapToObj(i -> String.format("$e_{%d}$ = %s\\\\\n", i + 1, dict[i].toString()))
+            .reduce((a, b) -> a + b)
+            .orElse("");
+    }
+
     private static List<Node> getSorted() {
         return Graph.getInstance().getNodes().stream().sorted(
             Comparator.comparing(Node::getNum)
         ).collect(Collectors.toList());
+    }
+
+    private static Pair<EdgeData[], HashMap<EdgeData, Integer>> markEdges(int m) {
+        EdgeData[] dict = new EdgeData[m];
+        HashMap<EdgeData, Integer> pairsToIndexes = new HashMap<>();
+
+        List<Node> sorted = getSorted();
+
+        int index = 0;
+
+        for (Node n : sorted) {
+            List<Node> neighbours = n.getNeighboursSorted();
+            for (Node neighbour : neighbours) {
+                EdgeData pair = new EdgeData(n.getNum(), neighbour.getNum(), -1);
+
+                if (n.getNum() < neighbour.getNum()) {
+                    pairsToIndexes.put(pair, index);
+                    dict[index] = pair;
+                    pair.setIndex(index + 1);
+                    index += 1;
+
+                } else {
+                    Integer revertedIndex = pairsToIndexes.get(new EdgeData(neighbour.getNum(), n.getNum(), -1));
+                    Integer realIndex = revertedIndex + m / 2;
+
+                    pair.setIndex(realIndex + 1);
+                    pairsToIndexes.put(pair, realIndex);
+                    dict[realIndex] = pair;
+
+                }
+            }
+        }
+        return new Pair(dict, pairsToIndexes);
+    }
+
+    private static Set<Integer> findSpanningTree(List<Node> nodes, HashMap<EdgeData, Integer> dict) {
+        Deque<Node> queue = new ArrayDeque<>();
+
+        Set<Node> addedNodes = new HashSet<>();
+
+        Set<Integer> indexes = new HashSet<>();
+
+        queue.push(nodes.get(0));
+        addedNodes.add(nodes.get(0));
+
+        while (!queue.isEmpty()) {
+            Node node = queue.pop();
+            Set<Node> neighbours = node.getNeighbours();
+
+            for (Node neighbour : neighbours) {
+                if (!addedNodes.contains(neighbour)) {
+                    queue.push(neighbour);
+                    addedNodes.add(neighbour);
+
+                    indexes.add(dict.get(new EdgeData(node.getNum(), neighbour.getNum(), -1)));
+                }
+            }
+        }
+
+        if (addedNodes.size() != nodes.size()) {
+            throw new RuntimeException("Graph not connected, unable to construct spanning tree");
+        }
+
+        return indexes;
     }
 
     private static void findMinDistance(Node n, String[] distances) {
@@ -156,10 +389,6 @@ public class AlgorithmService {
 
             for (Map.Entry<Node, Pair<Double, String>> entry : minNode.getNeighboursAndDistances().entrySet()) {
                 double curVal = minNode.getDijkstraDistance() + entry.getValue().getKey();
-
-//                String curTextVal = minNode.getDijkstraTexDistance().equals("") ?
-//                    entry.getValue().getValue() :
-//                    minNode.getDijkstraTexDistance() + '+' + entry.getValue().getValue();
 
                 Node node = entry.getKey();
                 if (curVal > 0 && node.getDijkstraDistance() > curVal) {
@@ -190,6 +419,35 @@ public class AlgorithmService {
 
         n.setProcessed(false);
         n.setVisited(true);
+    }
+
+    private static void recursiveDFS(
+        Node curNode,
+        List<String> tokens,
+        List<String> paths,
+        Set<Edge> visited
+    ) {
+
+        for (Edge e : curNode.getEdges()) {
+            Set<Edge> newVisited = new HashSet<>(visited);
+
+            if (e.getTextLength().contains("infty")) {
+                throw new ValidationException("There must be no infinities in distances");
+            }
+
+            if (visited.contains(e)) {
+                continue;
+            }
+
+            newVisited.add(e);
+
+            ArrayList<String> t = new ArrayList<>(tokens);
+            t.add(e.getTextLength());
+            paths.add(Parser.parseTexToSympy(t));
+
+            recursiveDFS(e.getNeighbour(curNode), t, paths, newVisited);
+
+        }
     }
 
     /**

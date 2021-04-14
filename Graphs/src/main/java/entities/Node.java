@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -71,15 +72,35 @@ public class Node extends StackPane implements
         return num;
     }
 
+    public void select() {
+        this.getCircle().setFill(selectedColor);
+        curColor = selectedColor;
+    }
+
+    public void deselect() {
+        this.getCircle().setFill(color);
+        curColor = color;
+    }
+
+    public List<Node> getNeighboursSorted() {
+        List<Node> neighbours = new ArrayList<>(getNeighbours(true));
+        neighbours.sort(Comparator.comparing(Node::getNum));
+        return neighbours;
+    }
+
     /**
      * Gets list of neighbours through passing the list of edges
      *
      * @return list of neighbour nodes
      */
     public Set<Node> getNeighbours() {
+        return getNeighbours(true);
+    }
+
+    public Set<Node> getNeighbours(boolean noLoops) {
         Set<Node> nodes = new HashSet<>(edges.size());
         for (Edge e : edges) {
-            if (this != e.getNeighbour(this)) {
+            if (noLoops && this != e.getNeighbour(this)) {
                 nodes.add(e.getNeighbour(this));
             }
         }

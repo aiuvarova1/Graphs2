@@ -32,7 +32,7 @@ def read_sample(file_path):
 
 
 def convert_matrix_row_to_string(row):
-    r = [(str(latex(x))) for x in row]
+    r = [(str(latex(x))) if not isinstance(x, str) else x for x in row]
     return MATRIX_DELIMITER.join(r) + '\\\\\n'
 
 
@@ -59,4 +59,4 @@ def write_matrix(prefix, input_matrix):
         matrix += convert_matrix_row_to_string(row)
     matrix += END_MATRIX
 
-    return matrix, Matrix(m)
+    return matrix, m

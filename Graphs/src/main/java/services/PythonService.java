@@ -13,11 +13,23 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import main.FileManager;
 
 @ParametersAreNonnullByDefault
 public class PythonService {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
+    public static void constructResult(Object dto, String scriptPath, String dataPath) {
+        try {
+            writeJsonObject(dto, dataPath);
+            String result = runScript(scriptPath);
+            FileManager.saveFunctionOutput(result);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Failed to calculate zeta function");
+        }
+    }
 
     @Nonnull
     public static String runScript(String pathToScript) {
