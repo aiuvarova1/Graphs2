@@ -11,29 +11,10 @@
   <component name="ChangeListManager">
     <list default="true" id="3aa67ae0-54ba-4086-884d-3b050cac4cee" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coursework_docs/.~lock.PZ1.docx#" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Coursework_docs/PZ1.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework_docs/PZ1.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Anchor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Anchor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Arrow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Arrow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Distance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/EdgeDistance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Graph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/entities/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Cache.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Cache.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Command.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/InterfaceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Drawer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/DrawingAreaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/EdgeContextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/EdgeContextMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/FileManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/FileManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/EventFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Invoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Invoker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Manager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Manager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/MyContextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/CommonContextMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/NodeContextMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/NodeContextMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/Parser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/Parser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/PopupMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/PopupMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/services/MagnitudeService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/services/MagnitudeService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/MainScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/MainScene.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coursework_docs/.~lock.TZ-Uvarova-Anastasia-BPI181_2_2.docx#" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework_docs/.~lock.TZ-Uvarova-Anastasia-BPI181_2_2.docx#" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coursework_docs/Rukovodstvo_operatora.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework_docs/Rukovodstvo_operatora.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coursework_docs/TZ-Uvarova-Anastasia-BPI181_2_2.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework_docs/TZ-Uvarova-Anastasia-BPI181_2_2.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/MainScene.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/MainScene.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -149,6 +130,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ParserTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="GraphsTool" />
       <extension name="coverage">
@@ -222,8 +214,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.GUIStarter" />
         <item itemvalue="JAR Application.GraphsTool-1.0-SNAPSHOT-jar-with-dependencies.jar" />
+        <item itemvalue="Application.GUIStarter" />
         <item itemvalue="JAR Application.GraphsTool.jar" />
         <item itemvalue="JUnit.ParserTest" />
         <item itemvalue="JUnit.ParserTest.texToSympy" />
@@ -407,6 +399,7 @@
       <workItem from="1618405971860" duration="737000" />
       <workItem from="1618415034261" duration="18700000" />
       <workItem from="1618508209130" duration="53000" />
+      <workItem from="1618508277493" duration="2646000" />
     </task>
     <task id="LOCAL-00001" summary="Several hot fixes, basis for infinite graphs (completely built in gui, working visualization but still no &quot;infinity&quot; for line)">
       <created>1588347857172</created>
@@ -478,7 +471,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618406102376</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="docs">
+      <created>1618508439432</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1618508439433</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
