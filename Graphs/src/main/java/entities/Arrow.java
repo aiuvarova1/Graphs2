@@ -2,7 +2,7 @@ package entities;
 
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
-import main.Drawer;
+import main.DrawingAreaController;
 
 enum Position {
     POSITIVE, NEGATIVE
@@ -47,16 +47,16 @@ class Arrow extends Line {
      * Adds an arrow on the screen
      */
     void addArrow() {
-        Drawer.getInstance().addElem(this);
-        Drawer.getInstance().addElem(triangle);
+        DrawingAreaController.getInstance().addNode(this);
+        DrawingAreaController.getInstance().addNode(triangle);
     }
 
     /**
      * Removes an arrow from the screen
      */
     void removeArrow() {
-        Drawer.getInstance().removeElement(this);
-        Drawer.getInstance().removeElement(triangle);
+        DrawingAreaController.getInstance().hideNode(this);
+        DrawingAreaController.getInstance().hideNode(triangle);
     }
 
     /**

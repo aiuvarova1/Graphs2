@@ -8,31 +8,31 @@ import javafx.util.Duration;
  * A popup which notifies the user about incorrect input or other events
  */
 public class PopupMessage {
-    private static Label popup;
-    private static FadeTransition ft;
+    private static Label messageLabel;
+    private static FadeTransition transition;
 
     /**
      * Sets the parameters of the popup window
      *
      * @param label popup label
      */
-    public static void setPopup(Label label) {
-        popup = label;
-        ft = new FadeTransition(Duration.millis(3000), popup);
-        ft.setFromValue(0.9);
-        ft.setToValue(0);
-        ft.setDelay(Duration.millis(3000));
-        ft.setOnFinished((x) -> popup.setVisible(false));
+    public static void setMessageLabel(Label label) {
+        messageLabel = label;
+        transition = new FadeTransition(Duration.millis(3000), messageLabel);
+        transition.setFromValue(0.9);
+        transition.setToValue(0);
+        transition.setDelay(Duration.millis(3000));
+        transition.setOnFinished((x) -> messageLabel.setVisible(false));
     }
 
-    public static void showMessage(String mes) {
-        ft.stop();
-        ft.setDelay(Duration.millis(3000));
-        popup.setVisible(true);
-        popup.setText(mes);
-        popup.setOpacity(0.9);
-        popup.toFront();
-        ft.play();
+    public static void showPopup(String message) {
+        transition.stop();
+        transition.setDelay(Duration.millis(3000));
+        messageLabel.setVisible(true);
+        messageLabel.setText(message);
+        messageLabel.setOpacity(0.9);
+        messageLabel.toFront();
+        transition.play();
     }
 
     /**
@@ -41,19 +41,19 @@ public class PopupMessage {
      * @param mes message to fix
      */
     public static void fixMessage(String mes) {
-        ft.stop();
+        transition.stop();
 
-        ft.setDelay(Duration.millis(0));
-        popup.setVisible(true);
-        popup.setText(mes);
-        popup.setOpacity(0.9);
-        popup.toFront();
+        transition.setDelay(Duration.millis(0));
+        messageLabel.setVisible(true);
+        messageLabel.setText(mes);
+        messageLabel.setOpacity(0.9);
+        messageLabel.toFront();
     }
 
     /**
      * Unfixes the message
      */
     public static void unfixMessage() {
-        ft.play();
+        transition.play();
     }
 }

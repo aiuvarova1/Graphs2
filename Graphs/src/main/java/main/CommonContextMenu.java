@@ -4,15 +4,14 @@ import entities.Undoable;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 
-public class MyContextMenu extends ContextMenu {
-    private final MenuItem deletion;
-    protected Undoable elem;
+public class CommonContextMenu extends ContextMenu {
+    protected Undoable undoable;
 
-    public MyContextMenu() {
+    public CommonContextMenu() {
 
-        deletion = new MenuItem("Delete");
+        MenuItem deletion = new MenuItem("Delete");
 
-        deletion.setOnAction(actionEvent -> Invoker.getInstance().deleteElement(elem));
+        deletion.setOnAction(actionEvent -> Invoker.getInstance().delete(undoable));
 
         this.getItems().addAll(deletion);
 
@@ -24,6 +23,6 @@ public class MyContextMenu extends ContextMenu {
     }
 
     public void bindElem(javafx.scene.Node el) {
-        elem = (Undoable) el;
+        undoable = (Undoable) el;
     }
 }

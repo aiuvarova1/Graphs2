@@ -9,8 +9,8 @@ import javafx.scene.shape.QuadCurve;
 import javafx.scene.shape.StrokeLineCap;
 import lombok.Getter;
 import lombok.Setter;
-import main.Drawer;
-import main.Filter;
+import main.DrawingAreaController;
+import main.EventFilter;
 import main.MenuManager;
 
 /**
@@ -21,16 +21,16 @@ import main.MenuManager;
 public class Edge extends QuadCurve implements Undoable, Visitable,
     Serializable, Restorable {
 
-    private static final double LABEL_GAP = 15;
+    private static final double DISTANCE_LABEL_GAP = 15;
     private static final Color color = Color.DIMGRAY;
     private static final Color selectedColor = Color.LIGHTBLUE;
 
-    private Node n1;
-    private Node n2;
+    private Node startNode;
+    private Node endNode;
 
     private boolean visited = false;
 
-    private Distance length;
+    private EdgeDistance length;
     private Anchor anchor;
 
     private transient Color curColor = color;
@@ -50,13 +50,13 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
     }
 
     void hide() {
-        Drawer.getInstance().removeElement(this);
-        Drawer.getInstance().removeElement(length);
+        DrawingAreaController.getInstance().hideNode(this);
+        DrawingAreaController.getInstance().hideNode(length);
     }
 
     void show() {
-        Drawer.getInstance().addElem(this);
-        Drawer.getInstance().addElem(length);
+        DrawingAreaController.getInstance().addNode(this);
+        DrawingAreaController.getInstance().addNode(length);
     }
 
     /**
@@ -66,13 +66,13 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
      * @param n2 end node
      */
     public void setNodes(Node n1, Node n2) {
-        this.n1 = n1;
-        this.n2 = n2;
+        this.startNode = n1;
+        this.endNode = n2;
 
         setHandlers();
 
-        length = new Distance();
-        relocateLabel();
+        length = new EdgeDistance();
+        moveDistanceLabel();
         relocateAnchor();
     }
 
@@ -87,13 +87,13 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
 
         curColor = color;
 
-        Distance d = new Distance();
+        EdgeDistance d = new EdgeDistance();
         createAnchor();
 
         d.setDistance(length.getText(), length.getValue());
         length = d;
 
-        Drawer.getInstance().addElem(this);
+        DrawingAreaController.getInstance().addNode(this);
 
     }
 
@@ -103,7 +103,7 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
      * @return nodes on the ends of the edge
      */
     public Node[] getNodes() {
-        return new Node[]{n1, n2};
+        return new Node[]{startNode, endNode};
     }
 
     /**
@@ -113,7 +113,7 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
      * @return neighbour
      */
     public Node getNeighbour(Node n) {
-        return n == n1 ? n2 : n1;
+        return n == startNode ? endNode : startNode;
     }
 
     /**
@@ -124,7 +124,7 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
      * @param node2 second node to connect
      */
     public void connectNodes(Node node1, Node node2, Node movingNode) {
-        if (n1.equals(n2)) {
+        if (startNode.equals(endNode)) {
             connectLoop();
             return;
         }
@@ -162,7 +162,7 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
 
         if (anchor != null) {
             double difX = 0, difY = 0, coefX = 0, coefY = 0;
-            if (movingNode.equals(n1)) {
+            if (movingNode.equals(startNode)) {
 
                 System.out.println("end");
                 difX = getEndX() - oldEndX;
@@ -182,7 +182,7 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
             }
             relocateAnchor(anchor.getCenterX() + difX * coefX, anchor.getCenterY() + difY * coefY);
         } else {
-            relocateLabel();
+            moveDistanceLabel();
         }
     }
 
@@ -230,26 +230,26 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
     @Override
     public boolean create() {
 
-        if (this.n1.addEdge(this.n2, this)) {
-            if (n1.getNum() != n2.getNum()) {
-                this.n2.addEdge(this.n1, this);
+        if (this.startNode.addEdge(this.endNode, this)) {
+            if (startNode.getNum() != endNode.getNum()) {
+                this.endNode.addEdge(this.startNode, this);
             }
         } else {
-            Drawer.getInstance().removeElement(this);
-            Drawer.getInstance().removeElement(anchor);
-            length.hide();
+            DrawingAreaController.getInstance().hideNode(this);
+            DrawingAreaController.getInstance().hideNode(anchor);
+            length.fromScreen();
             return false;
         }
 
         try {
-            Drawer.getInstance().addElem(this);
-            Drawer.getInstance().addElem(anchor);
+            DrawingAreaController.getInstance().addNode(this);
+            DrawingAreaController.getInstance().addNode(anchor);
             if (Graph.areDistancesShown()) {
-                length.show();
+                length.toScreen();
             }
             setStroke(color);
             curColor = color;
-            connectNodes(n1, n2, n1);
+            connectNodes(startNode, endNode, startNode);
         } catch (IllegalArgumentException ex) {
             System.out.println("Already drawn");
         }
@@ -261,17 +261,17 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
      */
     @Override
     public void remove() {
-        n1.removeNeighbour(n2);
-        n2.removeNeighbour(n1);
-        Drawer.getInstance().removeElement(this);
-        Drawer.getInstance().removeElement(anchor);
-        Drawer.getInstance().removeElement(length);
+        startNode.removeNeighbour(endNode);
+        endNode.removeNeighbour(startNode);
+        DrawingAreaController.getInstance().hideNode(this);
+        DrawingAreaController.getInstance().hideNode(anchor);
+        DrawingAreaController.getInstance().hideNode(length);
     }
 
     @Override
     public Edge clone() throws CloneNotSupportedException {
         Edge clone = (Edge) super.clone();
-        clone.setNodes(this.n1, this.n2);
+        clone.setNodes(this.startNode, this.endNode);
         return clone;
     }
 
@@ -279,8 +279,8 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
      * Shows the lengths label
      */
     void showLength() {
-        relocateLabel();
-        length.show();
+        moveDistanceLabel();
+        length.toScreen();
     }
 
     public void relocateAnchor() {
@@ -319,7 +319,7 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
 
         if (anchor != null) {
             anchor.setNewCoordinatesSafe(centerX, centerY);
-            relocateLabel();
+            moveDistanceLabel();
         }
     }
 
@@ -327,17 +327,17 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
      * Hides the lengths label
      */
     void hideLength() {
-        length.hide();
+        length.fromScreen();
     }
 
     /**
      * Resets the label to default value
      */
     void resetLength() {
-        length.reset();
+        length.toInfty();
     }
 
-    public void changeLength(String text, double val) {
+    public void changeLengthValue(String text, double val) {
         length.setDistance(text, val);
     }
 
@@ -350,7 +350,7 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
     }
 
     public boolean isLoop() {
-        return n1.getNum() == n2.getNum();
+        return startNode.getNum() == endNode.getNum();
     }
 
     public void createAnchor() {
@@ -359,11 +359,11 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
             controlYProperty(),
             this::relocateAnchor
         );
-        Drawer.getInstance().addElem(anchor);
+        DrawingAreaController.getInstance().addNode(anchor);
         if (isLoop()) {
 //            this.toFront();
-            anchor.setCenterX(n1.getCircle().getCenterX());
-            anchor.setCenterY(n1.getCircle().getCenterY() - 5 * Node.RADIUS);
+            anchor.setCenterX(startNode.getCircle().getCenterX());
+            anchor.setCenterY(startNode.getCircle().getCenterY() - 5 * Node.RADIUS);
 //            relocateAnchor((getStartX() + getEndX()) / 2.0, getStartY() - 2*Node.RADIUS);
         } else {
             relocateAnchor();
@@ -399,7 +399,7 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
     /**
      * Moves length field after the edge
      */
-    private void relocateLabel() {
+    private void moveDistanceLabel() {
         if (length == null) {
             return;
         }
@@ -417,8 +417,8 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
             y = (this.getStartY() + this.getEndY()) / 2.0;
         }
 
-        length.setLayoutX(x + LABEL_GAP * (Math.sqrt(1 - coef * coef)));
-        length.setLayoutY(y + LABEL_GAP * coef);
+        length.setLayoutX(x + DISTANCE_LABEL_GAP * (Math.sqrt(1 - coef * coef)));
+        length.setLayoutY(y + DISTANCE_LABEL_GAP * coef);
 
         length.toFront();
     }
@@ -448,16 +448,16 @@ public class Edge extends QuadCurve implements Undoable, Visitable,
 
 
         this.setOnContextMenuRequested(contextMenuEvent -> {
-            if (Filter.isEdgeStarted()) {
+            if (EventFilter.isEdgeStarted()) {
                 return;
             }
             // System.out.println(contextMenuEvent.getSource());
             MenuManager.getEdgeMenu().bindElem((javafx.scene.Node) contextMenuEvent.getSource());
-            MenuManager.getEdgeMenu().show(n1,
+            MenuManager.getEdgeMenu().show(startNode,
                 contextMenuEvent.getScreenX(), contextMenuEvent.getScreenY());
         });
 
-        addEventFilter(MouseEvent.MOUSE_CLICKED, Filter.clickFilter);
+        addEventFilter(MouseEvent.MOUSE_CLICKED, EventFilter.clickFilter);
     }
 
 }

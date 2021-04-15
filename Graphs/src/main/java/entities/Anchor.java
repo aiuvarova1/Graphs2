@@ -9,8 +9,8 @@ import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import main.Drawer;
-import main.Filter;
+import main.DrawingAreaController;
+import main.EventFilter;
 
 public class Anchor extends Circle implements Serializable {
 
@@ -30,13 +30,13 @@ public class Anchor extends Circle implements Serializable {
 
         setStrokeWidth(1);
 
-        enableDrag(anchorManager);
+        enableDraggingEdgeOnDraggingAnchor(anchorManager);
     }
 
-    private void enableDrag(BiConsumer<Double, Double> anchorManager) {
+    private void enableDraggingEdgeOnDraggingAnchor(BiConsumer<Double, Double> anchorManager) {
 
-        addEventFilter(MouseEvent.MOUSE_DRAGGED, Filter.dragFilter);
-        addEventFilter(MouseEvent.MOUSE_CLICKED, Filter.clickFilter);
+        addEventFilter(MouseEvent.MOUSE_DRAGGED, EventFilter.dragFilter);
+        addEventFilter(MouseEvent.MOUSE_CLICKED, EventFilter.clickFilter);
 
         setOnMousePressed(mouseEvent -> getScene().setCursor(Cursor.MOVE));
         setOnMouseReleased(mouseEvent -> getScene().setCursor(Cursor.HAND));
@@ -65,7 +65,7 @@ public class Anchor extends Circle implements Serializable {
     }
 
     public void setNewCoordinatesSafe(double newX, double newY) {
-        Bounds b = Drawer.getInstance().getBounds();
+        Bounds b = DrawingAreaController.getInstance().getBounds();
 
         if (newX > 0 && getTranslateX() + newX + 2 * RADIUS + getLayoutX() < b.getMaxX()) {
             setCenterX(newX);

@@ -8,7 +8,7 @@ import java.util.Objects;
 
 import javafx.util.Pair;
 import lombok.Getter;
-import main.Drawer;
+import main.DrawingAreaController;
 import main.Invoker;
 import services.AlgorithmService;
 
@@ -72,7 +72,7 @@ public class Graph implements Serializable {
 
         int num = node.getNum() - 1;
         instance.nodes.add(num, node);
-        Drawer.getInstance().addElem(node);
+        DrawingAreaController.getInstance().addNode(node);
     }
 
     /**
@@ -90,7 +90,7 @@ public class Graph implements Serializable {
         nodes.remove(circle);
         refreshLabels(circle);
 
-        Drawer.getInstance().removeElement(circle);
+        DrawingAreaController.getInstance().hideNode(circle);
     }
 
     void refreshLabels(Node circle) {
@@ -132,7 +132,7 @@ public class Graph implements Serializable {
      * @param g new graph
      */
     public static void setNew(Graph g) {
-        Drawer.getInstance().clear();
+        DrawingAreaController.getInstance().clear();
         instance = Objects.requireNonNull(g);
         AlgorithmService.runDFS(Node::restore);
         for (Node n : instance.nodes) {
@@ -188,13 +188,13 @@ public class Graph implements Serializable {
     /**
      * Sets all distances to \\infty
      */
-    public void resetDistances() {
+    public void resetLengths() {
         //runDFS(Node::resetLengths);
-        changeDistances("\\infty");
+        changeLengths("\\infty");
     }
 
-    public void changeDistances(String input) {
-        Invoker.getInstance().changeAllDistances(input);
+    public void changeLengths(String input) {
+        Invoker.getInstance().setAllLengths(input);
     }
 
 }

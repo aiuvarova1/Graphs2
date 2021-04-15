@@ -6,41 +6,41 @@ import java.util.Stack;
  * Represents a cycled stack of commands
  */
 public class Cache extends Stack<Command> {
-    private static final int CAPACITY = 20;
-    private Command[] stack = new Command[CAPACITY];
+    private static final int MAX_COMMANDS = 20;
+    private final Command[] commandStack = new Command[MAX_COMMANDS];
 
-    private int curCapacity;
+    private int currentSize;
 
-    private int pointer = -1;
-    private int redoPointer = 0;
+    private int undoCommandPointer = -1;
+    private int redoCommandPointer = 0;
 
     @Override
-    public Command push(Command elem) {
-        pointer++;
-        redoPointer = 0;
+    public Command push(Command command) {
+        undoCommandPointer++;
+        redoCommandPointer = 0;
 
-        if (pointer == CAPACITY) {
-            pointer = 0;
+        if (undoCommandPointer == MAX_COMMANDS) {
+            undoCommandPointer = 0;
         }
-        stack[pointer] = elem;
-        if (curCapacity < CAPACITY) {
-            curCapacity++;
+        commandStack[undoCommandPointer] = command;
+        if (currentSize < MAX_COMMANDS) {
+            currentSize++;
         }
-        Invoker.checkLastCommand();
-        return elem;
+        Invoker.checkLastSaveCommand();
+        return command;
     }
 
     @Override
     public Command pop() {
 
-        if (stack.length > 0 && curCapacity > 0) {
-            Command toReturn = stack[pointer];
-            pointer--;
-            if (pointer < 0) {
-                pointer = CAPACITY - 1;
+        if (commandStack.length > 0 && currentSize > 0) {
+            Command toReturn = commandStack[undoCommandPointer];
+            undoCommandPointer--;
+            if (undoCommandPointer < 0) {
+                undoCommandPointer = MAX_COMMANDS - 1;
             }
-            curCapacity--;
-            redoPointer++;
+            currentSize--;
+            redoCommandPointer++;
             return toReturn;
         }
 
@@ -50,22 +50,22 @@ public class Cache extends Stack<Command> {
 
     public Command getNext() {
 
-        if (curCapacity == CAPACITY || redoPointer == 0) {
+        if (currentSize == MAX_COMMANDS || redoCommandPointer == 0) {
             return null;
         }
 
-        pointer++;
-        redoPointer--;
+        undoCommandPointer++;
+        redoCommandPointer--;
 
-        if (pointer == CAPACITY) {
-            pointer = 0;
+        if (undoCommandPointer == MAX_COMMANDS) {
+            undoCommandPointer = 0;
         }
-        curCapacity++;
+        currentSize++;
 
-        return stack[pointer];
+        return commandStack[undoCommandPointer];
     }
 
     public Command getCurrent() {
-        return pointer > -1 && pointer < CAPACITY ? stack[pointer] : null;
+        return undoCommandPointer > -1 && undoCommandPointer < MAX_COMMANDS ? commandStack[undoCommandPointer] : null;
     }
 }

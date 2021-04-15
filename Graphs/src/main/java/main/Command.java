@@ -15,111 +15,114 @@ public interface Command {
 }
 
 
-class ChangeDistCommand implements Command {
-    private Distance dist;
-    private String oldDist;
-    private double oldVal;
-    private String newDist;
-    private double newVal;
+class SetSingleLengthCommand implements Command {
+    private EdgeDistance length;
+    private String oldLengthText;
+    private double oldRealValue;
+    private String newLengthText;
+    private double newRealValue;
 
-    public ChangeDistCommand(Distance dist, String text, double newVal) {
-        this.dist = dist;
-        oldDist = dist.getText();
-        oldVal = dist.getValue();
-        newDist = text;
-        this.newVal = newVal;
+    public SetSingleLengthCommand(EdgeDistance length, String text, double newRealValue) {
+        this.length = length;
+        oldLengthText = length.getText();
+        oldRealValue = length.getValue();
+        newLengthText = text;
+        this.newRealValue = newRealValue;
     }
 
     public boolean execute() {
-        dist.setDistance(newDist, newVal);
-        return !oldDist.equals(dist.getText());
+        length.setDistance(newLengthText, newRealValue);
+        return !oldLengthText.equals(length.getText());
     }
 
     public void undo() {
-        dist.setDistance(oldDist, oldVal);
+        length.setDistance(oldLengthText, oldRealValue);
     }
 }
 
 class CreateCommand implements Command {
-    private Undoable elem;
+    private Undoable created;
 
-    CreateCommand(Undoable elem) {
-        this.elem = elem;
+    CreateCommand(Undoable created) {
+        this.created = created;
     }
 
     public boolean execute() {
-        return (elem.create());
+        return (created.create());
     }
 
     public void undo() {
-        elem.remove();
+        created.remove();
     }
 
 }
 
-class ChangeAllDistancesCommand implements Command {
-    private double commonValue;
+class SetAllLengthsCommand implements Command {
+    private double newLength;
     private boolean initialized = false;
-    private String input;
-    private HashMap<Edge, Pair<String, Double>> oldVals;
+    private String newTextLength;
+    private HashMap<Edge, Pair<String, Double>> oldLengthValues;
 
-    ChangeAllDistancesCommand(String input) {
-        System.out.println("input " + input);
-        this.input = input;
+    SetAllLengthsCommand(String newTextLength) {
+        System.out.println("input " + newTextLength);
+        this.newTextLength = newTextLength;
     }
 
     public boolean execute() {
 
         if (!initialized) {
             try {
-                commonValue = Parser.parseDistance(input);
+                newLength = Parser.parseDistance(newTextLength);
             } catch (IllegalArgumentException ex) {
                 System.out.println(ex.getMessage());
-                PopupMessage.showMessage(ex.getMessage());
+                PopupMessage.showPopup(ex.getMessage());
                 return false;
             }
 
-            oldVals = Graph.getInstance().getEdgesAndDistances();
+            oldLengthValues = Graph.getInstance().getEdgesAndDistances();
         }
 
-        for (Edge e : oldVals.keySet())
-            e.changeLength(input, commonValue);
+        for (Edge e : oldLengthValues.keySet()) {
+            e.changeLengthValue(newTextLength, newLength);
+        }
         initialized = true;
 
         return true;
     }
 
     public void undo() {
-        for (Map.Entry<Edge, Pair<String, Double>> edge : oldVals.entrySet())
-            edge.getKey().changeLength(edge.getValue().getKey(), edge.getValue().getValue());
+        for (Map.Entry<Edge, Pair<String, Double>> edge : oldLengthValues.entrySet()) {
+            edge.getKey().changeLengthValue(edge.getValue().getKey(), edge.getValue().getValue());
+        }
     }
 }
 
 class DeleteCommand implements Command {
-    private Undoable elem;
-    private ArrayList<Edge> cachedEdges;
+    private Undoable deleted;
+    private ArrayList<Edge> connectedEdges;
 
-    public DeleteCommand(Undoable elem) {
-        this.elem = elem;
+    public DeleteCommand(Undoable deleted) {
+        this.deleted = deleted;
 
-        cachedEdges = new ArrayList<>();
+        connectedEdges = new ArrayList<>();
     }
 
     public boolean execute() {
-        if (elem instanceof Node) {
-            Node node = (Node) elem;
-            cachedEdges = (ArrayList<Edge>) node.getEdges().clone();
+        if (deleted instanceof Node) {
+            Node node = (Node) deleted;
+            connectedEdges = (ArrayList<Edge>) node.getEdges().clone();
         }
-        elem.remove();
+        deleted.remove();
         return true;
     }
 
     public void undo() {
-        elem.create();
-        if (elem instanceof Node) {
-            System.out.println(cachedEdges);
-            for (Edge e : cachedEdges)
+        deleted.create();
+        if (deleted instanceof Node) {
+            System.out.println(connectedEdges);
+            for (Edge e : connectedEdges) {
                 e.create();
+            }
         }
     }
 }

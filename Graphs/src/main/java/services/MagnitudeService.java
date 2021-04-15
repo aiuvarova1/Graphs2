@@ -34,7 +34,7 @@ public class MagnitudeService {
             String result = PythonService.runScript(PATH_TO_MAGNITUDE_SCRIPT);
             FileManager.saveFunctionOutput(result);
         } catch (Exception e) {
-            PopupMessage.showMessage("Failed to run python script");
+            PopupMessage.showPopup("Failed to run python script");
             System.out.println(e.getMessage());
         }
     }

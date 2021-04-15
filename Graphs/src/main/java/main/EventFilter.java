@@ -13,21 +13,15 @@ import javafx.scene.text.Text;
 /**
  * Filters clicks and some other user's input
  */
-public class Filter {
-
-    private static String SELECTED_BUTTON = "-fx-background-color: #ebebeb;" + "-fx-font-size: 18px;"
-        + "-fx-font-family: \"Constantia\";";
-
-    private static String UNSELECTED_BUTTON = "-fx-background-color: #f5f5f5;" + "-fx-font-size: 17px;"
-        + "-fx-font-family: \"Constantia\";";
+public class EventFilter {
 
     private static boolean dragging = false;
 
     private static boolean edgeStarted = false;
     private static boolean editing = false;
 
-    private static Node pretender;
-    private static Edge edgePretender;
+    private static Node nodeWithStartedEdge;
+    private static Edge startedEdge;
 
     private static final int CURSOR_GAP = 5;
 
@@ -74,7 +68,7 @@ public class Filter {
             if (editing && (event.getTarget().getClass() != Text.class ||
                 event.getSource().getClass() == Node.class)) {
                 event.consume();
-                Drawer.getInstance().setFocus();
+                DrawingAreaController.getInstance().setFocus();
                 return;
             }
 
@@ -88,62 +82,62 @@ public class Filter {
                         }
 
                         edgeStarted = true;
-                        pretender = (Node) event.getSource();
+                        nodeWithStartedEdge = (Node) event.getSource();
 
-                        edgePretender = new Edge(0, 0, 0, 0);
-                        edgePretender.setVisible(false);
-                        Drawer.getInstance().setMoveHandler(edgeMoveHandler);
-                        Drawer.getInstance().addElem(edgePretender);
+                        startedEdge = new Edge(0, 0, 0, 0);
+                        startedEdge.setVisible(false);
+                        DrawingAreaController.getInstance().setMoveHandler(edgeMoveHandler);
+                        DrawingAreaController.getInstance().addNode(startedEdge);
                     } else {
                         event.consume();
                         edgeStarted = false;
                         Node node = (Node) event.getSource();
 //                       TODO: uncomment if no loops!
 
-                        if (node == pretender) {
-                            Drawer.getInstance().removeMoveHandler();
+                        if (node == nodeWithStartedEdge) {
+                            DrawingAreaController.getInstance().removeMoveHandler();
                             return;
                         }
 
-                        edgePretender.setNodes(pretender, node);
-                        edgePretender.connectNodes(pretender, node, pretender);
-                        edgePretender.createAnchor();
+                        startedEdge.setNodes(nodeWithStartedEdge, node);
+                        startedEdge.connectNodes(nodeWithStartedEdge, node, nodeWithStartedEdge);
+                        startedEdge.createAnchor();
                         //Graph.getInstance().connectNodes(node, pretender, edgePretender);
 
-                        Invoker.getInstance().createElement(edgePretender);
-                        Drawer.getInstance().removeMoveHandler();
+                        Invoker.getInstance().create(startedEdge);
+                        DrawingAreaController.getInstance().removeMoveHandler();
                     }
                 }
             } else if (edgeStarted && event.getTarget().getClass() == AnchorPane.class) {
 
                 // System.out.println(event.getTarget().getClass() + " target");
                 event.consume();
-                removeStartedEdge();
+                deleteNotEndedEdge();
 
             } else if (event.getSource().getClass() == Edge.class) {
                 event.consume();
 
-            } else if (event.getSource().getClass() == Distance.class) {
+            } else if (event.getSource().getClass() == EdgeDistance.class) {
                 event.consume();
                 System.out.println("and here");
 
-                Distance curDist = (Distance) event.getSource();
+                EdgeDistance curDist = (EdgeDistance) event.getSource();
                 curDist.showInput();
                 editing = true;
                 if (edgeStarted) {
-                    removeStartedEdge();
+                    deleteNotEndedEdge();
                 }
             }
         }
     };
 
-    private static void removeStartedEdge() {
+    private static void deleteNotEndedEdge() {
         edgeStarted = false;
 
-        edgePretender.setVisible(false);
-        Drawer.getInstance().removeElement(edgePretender);
+        startedEdge.setVisible(false);
+        DrawingAreaController.getInstance().hideNode(startedEdge);
 
-        Drawer.getInstance().removeMoveHandler();
+        DrawingAreaController.getInstance().removeMoveHandler();
     }
 
     /**
@@ -156,28 +150,28 @@ public class Filter {
             double xPos = event.getX();
             double yPos = event.getY();
 
-            Bounds b = Drawer.getInstance().getBounds();
+            Bounds b = DrawingAreaController.getInstance().getBounds();
 
-            double dist = Edge.getDistance(xPos, yPos, pretender.getCircle().getCenterX(),
-                pretender.getCircle().getCenterY());
+            double dist = Edge.getDistance(xPos, yPos, nodeWithStartedEdge.getCircle().getCenterX(),
+                nodeWithStartedEdge.getCircle().getCenterY());
 
             if (dist > Node.RADIUS + CURSOR_GAP && isInBounds(event.getX(), event.getY(), b)) {
-                double[] cords = Edge.getStartCoordinates(xPos, yPos, pretender.getCircle().getCenterX(),
-                    pretender.getCircle().getCenterY(), dist, pretender.getCircle().getRadius());
+                double[] cords = Edge.getStartCoordinates(xPos, yPos, nodeWithStartedEdge.getCircle().getCenterX(),
+                    nodeWithStartedEdge.getCircle().getCenterY(), dist, nodeWithStartedEdge.getCircle().getRadius());
 
                 int signX = cords[0] <= event.getX() ? -1 : 1;
                 int signY = cords[1] <= event.getY() ? -1 : 1;
-                edgePretender.setStartX(cords[0]);
-                edgePretender.setEndX(event.getX() + CURSOR_GAP * signX);
+                startedEdge.setStartX(cords[0]);
+                startedEdge.setEndX(event.getX() + CURSOR_GAP * signX);
 
-                edgePretender.setStartY(cords[1]);
-                edgePretender.setEndY(event.getY() + CURSOR_GAP * signY);
+                startedEdge.setStartY(cords[1]);
+                startedEdge.setEndY(event.getY() + CURSOR_GAP * signY);
 
-                edgePretender.relocateAnchor();
+                startedEdge.relocateAnchor();
 
-                edgePretender.setVisible(true);
+                startedEdge.setVisible(true);
             } else {
-                edgePretender.setVisible(false);
+                startedEdge.setVisible(false);
             }
         }
 
@@ -193,6 +187,8 @@ public class Filter {
     static final EventHandler<MouseEvent> buttonEnterHandler = event -> {
 
         Button b = (Button) event.getSource();
+        String SELECTED_BUTTON = "-fx-background-color: #ebebeb;" + "-fx-font-size: 18px;"
+            + "-fx-font-family: \"Constantia\";";
         b.setStyle(SELECTED_BUTTON);
         ((Button) event.getSource()).getScene().setCursor(Cursor.HAND);
     };
@@ -203,6 +199,8 @@ public class Filter {
     static final EventHandler<MouseEvent> buttonExitHandler = event -> {
 
         Button b = (Button) event.getSource();
+        String UNSELECTED_BUTTON = "-fx-background-color: #f5f5f5;" + "-fx-font-size: 17px;"
+            + "-fx-font-family: \"Constantia\";";
         b.setStyle(UNSELECTED_BUTTON);
         ((Button) event.getSource()).getScene().setCursor(Cursor.DEFAULT);
     };

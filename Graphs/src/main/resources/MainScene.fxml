@@ -19,7 +19,8 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="menu" minHeight="600.0" minWidth="900.0" prefHeight="600.0" prefWidth="1000.0"
-            xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+            xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.InterfaceController">
     <children>
         <HBox maxWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
               AnchorPane.topAnchor="0.0">

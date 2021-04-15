@@ -9,7 +9,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
-import java.nio.charset.StandardCharsets;
 
 import entities.Graph;
 import javafx.beans.property.BooleanProperty;
@@ -22,12 +21,12 @@ import javafx.stage.Stage;
  */
 public class FileManager {
 
-    private static File curFile = null;
+    private static File chosenFile = null;
     private static final FileChooser fileChooser = new FileChooser();
     private static final FileChooser functionFileChooser = new FileChooser();
     private static Stage mainStage = null;
 
-    private static final BooleanProperty noSave = new SimpleBooleanProperty(false);
+    private static final BooleanProperty dontNeedSave = new SimpleBooleanProperty(false);
 
     static {
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter
@@ -55,7 +54,7 @@ public class FileManager {
      * @return whether the save is needed, reverted
      */
     static BooleanProperty getDisable() {
-        return noSave;
+        return dontNeedSave;
     }
 
     /**
@@ -63,9 +62,9 @@ public class FileManager {
      *
      * @param val value to set (whether the save is needed, reverted)
      */
-    static void setNoSave(boolean val) {
-        if (val != noSave.get()) {
-            noSave.set(val);
+    static void setDontNeedSave(boolean val) {
+        if (val != dontNeedSave.get()) {
+            dontNeedSave.set(val);
         }
     }
 
@@ -76,41 +75,41 @@ public class FileManager {
      */
     static boolean isSaveNeeded() {
         return Graph.getInstance().getSize() != 0 &&
-            !noSave.get();
+            !dontNeedSave.get();
     }
 
     /**
      * Saves the current graph in the current file (if no file,
      * calls saveAs)
      */
-    static void save() {
-        if (curFile == null) {
+    public static void save() {
+        if (chosenFile == null) {
             saveAs();
             return;
         }
 
         if (Graph.getInstance().getSize() == 0) {
-            PopupMessage.showMessage("Nothing to save");
+            PopupMessage.showPopup("Nothing to save");
             return;
         }
 
-        convertGraph(curFile);
+        serializeCurrentGraph(chosenFile);
     }
 
     /**
      * Saves the graph in a concrete file defined by user
      */
-    static void saveAs() {
+    public static void saveAs() {
 
         if (Graph.getInstance().getSize() == 0) {
-            PopupMessage.showMessage("Nothing to save");
+            PopupMessage.showPopup("Nothing to save");
             return;
         }
 
         File file = fileChooser.showSaveDialog(mainStage);
 
         if (file != null) {
-            convertGraph(file);
+            serializeCurrentGraph(file);
         }
     }
 
@@ -122,13 +121,13 @@ public class FileManager {
             ) {
                 writer.write(functionResult);
             } catch (IOException e) {
-                PopupMessage.showMessage("Failed to write data to file");
+                PopupMessage.showPopup("Failed to write data to file");
                 e.printStackTrace();
             }
         }
     }
 
-    static void openGraphFile() {
+    public static void openGraphFile() {
 
         File file = fileChooser.showOpenDialog(mainStage);
 
@@ -142,19 +141,19 @@ public class FileManager {
             Graph g = (Graph) inputStream.readObject();
             Graph.setNew(g);
         } catch (FileNotFoundException ex) {
-            PopupMessage.showMessage("File not found");
+            PopupMessage.showPopup("File not found");
             return;
         } catch (IOException ex) {
-            PopupMessage.showMessage("Unable to read the data");
+            PopupMessage.showPopup("Unable to read the data");
             ex.printStackTrace();
             return;
         } catch (Exception ex) {
-            PopupMessage.showMessage("Failed to open the file");
+            PopupMessage.showPopup("Failed to open the file");
             ex.printStackTrace();
             return;
         }
         Invoker.reset();
-        noSave.set(false);
+        dontNeedSave.set(false);
     }
 
     /**
@@ -162,22 +161,22 @@ public class FileManager {
      *
      * @param file place to save into
      */
-    private static void convertGraph(File file) {
+    private static void serializeCurrentGraph(File file) {
 
         try (ObjectOutputStream outputStream = new ObjectOutputStream(
             new FileOutputStream(file))) {
             outputStream.writeObject(Graph.getInstance());
 
         } catch (FileNotFoundException ex) {
-            PopupMessage.showMessage("File not found");
+            PopupMessage.showPopup("File not found");
             return;
         } catch (IOException ex) {
-            PopupMessage.showMessage("Unable to write the data");
+            PopupMessage.showPopup("Unable to write the data");
             ex.printStackTrace();
             return;
         }
-        curFile = file;
-        Invoker.renewLastCommand();
-        PopupMessage.showMessage(String.format("Saved to %s", curFile.getPath()));
+        chosenFile = file;
+        Invoker.renewLastSaveCommand();
+        PopupMessage.showPopup(String.format("Saved to %s", chosenFile.getPath()));
     }
 }

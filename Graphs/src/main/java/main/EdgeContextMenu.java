@@ -1,4 +1,4 @@
 package main;
 
-public class EdgeContextMenu extends MyContextMenu {
+public class EdgeContextMenu extends CommonContextMenu {
 }

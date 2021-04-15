@@ -21,8 +21,8 @@ import javafx.scene.text.Text;
 import javafx.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
-import main.Drawer;
-import main.Filter;
+import main.DrawingAreaController;
+import main.EventFilter;
 import main.MenuManager;
 
 /**
@@ -158,22 +158,22 @@ public class Node extends StackPane implements
      */
     void rescaleX(double scale) {
 
-        Bounds b = Drawer.getInstance().getBounds();
+        Bounds b = DrawingAreaController.getInstance().getBounds();
 
         double oldX = getLayoutX();
 
 
         if (getLayoutX() * scale > b.getMaxX()) {
-            setLayoutX(b.getMaxX() - 2 * RADIUS - 2 * Drawer.BOUNDS_GAP);
+            setLayoutX(b.getMaxX() - 2 * RADIUS - 2 * DrawingAreaController.BOUNDS_GAP);
         } else {
             setLayoutX(getLayoutX() * scale);
         }
 
         relocate(getLayoutX(), getLayoutY());
-        relocateCircleCenter(getLayoutX(), getLayoutY());
+        moveCenter(getLayoutX(), getLayoutY());
 
         if (!(oldX == getLayoutX())) {
-            recalculateEdges();
+            reconnect();
         }
     }
 
@@ -183,21 +183,21 @@ public class Node extends StackPane implements
      * @param scale scale param
      */
     void rescaleY(double scale) {
-        Bounds b = Drawer.getInstance().getBounds();
+        Bounds b = DrawingAreaController.getInstance().getBounds();
 
         double oldY = getLayoutY();
         //System.out.println("scale" + circle.getLayoutY() + " " + b.getMaxY());
         if (getLayoutY() * scale > b.getMaxY()) {
-            setLayoutY(b.getMaxY() - 2 * RADIUS - 2 * Drawer.BOUNDS_GAP);
+            setLayoutY(b.getMaxY() - 2 * RADIUS - 2 * DrawingAreaController.BOUNDS_GAP);
         } else {
             setLayoutY(getLayoutY() * scale);
         }
 
         relocate(getLayoutX(), getLayoutY());
-        relocateCircleCenter(getLayoutX(), getLayoutY());
+        moveCenter(getLayoutX(), getLayoutY());
 
         if (!(oldY == getLayoutY())) {
-            recalculateEdges();
+            reconnect();
         }
     }
 
@@ -251,7 +251,7 @@ public class Node extends StackPane implements
      * @param x center's x
      * @param y center's y
      */
-    private void relocateCircleCenter(double x, double y) {
+    private void moveCenter(double x, double y) {
         getCircle().setCenterX(x + getCircle().getRadius());
         getCircle().setCenterY(y + getCircle().getRadius());
     }
@@ -272,7 +272,7 @@ public class Node extends StackPane implements
         curPosition[0] = xPos;
         curPosition[1] = yPos;
 
-        relocateCircleCenter(getLayoutX(), getLayoutY());
+        moveCenter(getLayoutX(), getLayoutY());
     }
 
     /**
@@ -293,7 +293,7 @@ public class Node extends StackPane implements
         Graph.getInstance().addNode(this);
 
         try {
-            Drawer.getInstance().addElem(this);
+            DrawingAreaController.getInstance().addNode(this);
         } catch (IllegalArgumentException ex) {
             System.out.println("Already drawn node");
         }
@@ -342,12 +342,12 @@ public class Node extends StackPane implements
 
         Circle circle = new Circle(RADIUS, Color.WHITE);
         circle.setStroke(Color.BLACK);
-        circle.addEventFilter(MouseEvent.MOUSE_DRAGGED, Filter.dragFilter);
+        circle.addEventFilter(MouseEvent.MOUSE_DRAGGED, EventFilter.dragFilter);
 
         this.getChildren().add(circle);
 
         Text numText = new Text("" + num);
-        numText.setStyle(Drawer.NODE_TEXT);
+        numText.setStyle(DrawingAreaController.NODE_TEXT);
 
         this.getChildren().add(numText);
         curColor = color;
@@ -355,7 +355,7 @@ public class Node extends StackPane implements
         setHandlers();
         fixPosition(curPosition[0], curPosition[1]);
 
-        Drawer.getInstance().addElem(this);
+        DrawingAreaController.getInstance().addNode(this);
         handleEdges(Edge::restore);
     }
 
@@ -376,9 +376,9 @@ public class Node extends StackPane implements
     /**
      * Calls redrawing for all edges
      */
-    private void recalculateEdges() {
+    private void reconnect() {
         for (Edge e : edges) {
-            e.connectNodes(e.getN1(), e.getN2(), this);
+            e.connectNodes(e.getStartNode(), e.getEndNode(), this);
         }
     }
 
@@ -391,7 +391,7 @@ public class Node extends StackPane implements
      */
     private boolean[] checkBoundsCrossed(MouseEvent event) {
 
-        Bounds b = Drawer.getInstance().getBounds();
+        Bounds b = DrawingAreaController.getInstance().getBounds();
 
         boolean crossedBoundsX = false;
         boolean crossedBoundsY = false;
@@ -403,7 +403,7 @@ public class Node extends StackPane implements
 
             //was 2.5
         } else if (getTranslateX() + event.getX() + 2 * RADIUS + getLayoutX() > b.getMaxX()) {
-            setLayoutX(b.getMaxX() - 2 * RADIUS - Drawer.BOUNDS_GAP);
+            setLayoutX(b.getMaxX() - 2 * RADIUS - DrawingAreaController.BOUNDS_GAP);
             setTranslateX(0);
             //System.out.println("crossed " + b.getMaxX() + " " + circle.getLayoutX() + " " + circle.getTranslateX());
             crossedBoundsX = true;
@@ -415,7 +415,7 @@ public class Node extends StackPane implements
             crossedBoundsY = true;
         } else if (getTranslateY() + event.getY() + 2 * RADIUS + getLayoutY() > b.getMaxY()) {
 
-            setLayoutY(b.getMaxY() - 2 * RADIUS - Drawer.BOUNDS_GAP);
+            setLayoutY(b.getMaxY() - 2 * RADIUS - DrawingAreaController.BOUNDS_GAP);
             setTranslateY(0);
             // System.out.println("crossed " + b.getMaxY() + " " + circle.getLayoutY() + " " + circle.getTranslateY());
             crossedBoundsY = true;
@@ -438,13 +438,13 @@ public class Node extends StackPane implements
      * (dragging, clicking, etc)
      */
     private void setHandlers() {
-        addEventFilter(MouseEvent.MOUSE_CLICKED, Filter.clickFilter);
-        addEventFilter(MouseEvent.MOUSE_DRAGGED, Filter.dragFilter);
+        addEventFilter(MouseEvent.MOUSE_CLICKED, EventFilter.clickFilter);
+        addEventFilter(MouseEvent.MOUSE_DRAGGED, EventFilter.dragFilter);
 
         setOnMousePressed(event -> {
 
-            if (Filter.isEdgeStarted()
-                || Filter.isEditing()
+            if (EventFilter.isEdgeStarted()
+                || EventFilter.isEditing()
                 || event.isSecondaryButtonDown()) {
                 return;
             }
@@ -458,7 +458,7 @@ public class Node extends StackPane implements
         });
 
         this.setOnContextMenuRequested(contextMenuEvent -> {
-            if (Filter.isEdgeStarted()) {
+            if (EventFilter.isEdgeStarted()) {
                 return;
             }
             MenuManager.getNodeMenu().bindElem((javafx.scene.Node) contextMenuEvent.getSource());
@@ -481,7 +481,7 @@ public class Node extends StackPane implements
         });
         setOnMouseDragged(event -> {
 
-            if (Filter.isEdgeStarted() || event.getButton() != MouseButton.PRIMARY) {
+            if (EventFilter.isEdgeStarted() || event.getButton() != MouseButton.PRIMARY) {
                 return;
             }
 
@@ -493,9 +493,9 @@ public class Node extends StackPane implements
                 setTranslateY(getTranslateY() + event.getY() - RADIUS);
             }
 
-            recalculateEdges();
+            reconnect();
 
-            relocateCircleCenter(getLayoutX() + getTranslateX(),
+            moveCenter(getLayoutX() + getTranslateX(),
                 getLayoutY() + getTranslateY());
         });
         setOnMouseEntered(mouseEvent -> {

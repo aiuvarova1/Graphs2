@@ -10,8 +10,6 @@ import entities.*;
 public class Invoker {
     private final Cache commands = new Cache();
     private static Invoker instance = new Invoker();
-    private Command toUndo;
-    private Command toRedo;
     private static Command lastSaveCommand;
 
     /**
@@ -34,76 +32,83 @@ public class Invoker {
     /**
      * Renews last saved command
      */
-    static void renewLastCommand(){
+    static void renewLastSaveCommand() {
         lastSaveCommand = instance.commands.getCurrent();
-        FileManager.setNoSave(true);
+        FileManager.setDontNeedSave(true);
     }
 
     /**
      * Checks whether the save is needed or not
      */
-    static void checkLastCommand(){
-        if(lastSaveCommand != null &&
-                lastSaveCommand == instance.commands.getCurrent())
-            FileManager.setNoSave(true);
-        else
-            FileManager.setNoSave(false);
+    static void checkLastSaveCommand() {
+        if (lastSaveCommand != null &&
+            lastSaveCommand == instance.commands.getCurrent()) {
+            FileManager.setDontNeedSave(true);
+        } else {
+            FileManager.setDontNeedSave(false);
+        }
     }
-
 
     /**
      * Calls create command
+     *
      * @param el element to create
      */
-    public void createElement(Undoable el){
+    public void create(Undoable el) {
         Command c = new CreateCommand(el);
-        if(c.execute())
+        if (c.execute()) {
             commands.push(c);
+        }
     }
 
-    public void changeAllDistances(String input){
-        Command c = new ChangeAllDistancesCommand(input);
-        if(c.execute())
+    public void setAllLengths(String length) {
+        Command c = new SetAllLengthsCommand(length);
+        if (c.execute()) {
             commands.push(c);
+        }
     }
 
     /**
      * Calls delete command
-     * @param el element to delete
+     *
+     * @param toDelete element to delete
      */
-    public void deleteElement(Undoable el){
-        Command c = new DeleteCommand(el);
-        if(c.execute())
+    public void delete(Undoable toDelete) {
+        Command c = new DeleteCommand(toDelete);
+        if (c.execute()) {
             commands.push(c);
+        }
     }
 
-    public void changeDistance(Distance d, String text, double val){
-        Command c = new ChangeDistCommand(d, text,val);
-        if(c.execute())
+    public void setSingleLength(EdgeDistance length, String text, double val) {
+        Command c = new SetSingleLengthCommand(length, text, val);
+        if (c.execute()) {
             commands.push(c);
+        }
     }
+
     /**
      * Reverts last command in cache
      */
-    void undoLast(){
+    public void undoCommand() {
 
-        toUndo = commands.pop();
+        Command toUndo = commands.pop();
 
-        if(toUndo !=null) {
+        if (toUndo != null) {
             toUndo.undo();
-            checkLastCommand();
+            checkLastSaveCommand();
         }
     }
 
     /**
      * Reverts next command in cache
      */
-    void redoLast(){
-        toRedo = commands.getNext();
+    public void redoCommand() {
+        Command toRedo = commands.getNext();
 
         if (toRedo != null) {
             toRedo.execute();
-            checkLastCommand();
+            checkLastSaveCommand();
         }
     }
 

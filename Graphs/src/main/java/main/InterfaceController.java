@@ -1,6 +1,6 @@
 package main;
 
-import entities.Distance;
+import entities.EdgeDistance;
 import entities.Edge;
 import entities.Graph;
 import entities.Node;
@@ -27,9 +27,9 @@ import services.CustomFunctionService;
 import services.IharaZetaFunctionService;
 import services.MagnitudeService;
 
-public class Controller {
+public class InterfaceController {
 
-    private final Drawer drawer;
+    private final DrawingAreaController drawingAreaController;
 
     @FXML
     private ToggleButton showDistances;
@@ -110,8 +110,8 @@ public class Controller {
     @FXML
     private Button cancelButton;
 
-    public Controller() {
-        drawer = Drawer.getInstance();
+    public InterfaceController() {
+        drawingAreaController = DrawingAreaController.getInstance();
     }
 
     @FXML
@@ -126,32 +126,32 @@ public class Controller {
 
     @FXML
     private void setButtons() {
-        clearButton.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
-        clearButton.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+        clearButton.addEventHandler(MouseEvent.MOUSE_ENTERED, EventFilter.buttonEnterHandler);
+        clearButton.addEventHandler(MouseEvent.MOUSE_EXITED, EventFilter.buttonExitHandler);
 
-        undoButton.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
-        undoButton.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+        undoButton.addEventHandler(MouseEvent.MOUSE_ENTERED, EventFilter.buttonEnterHandler);
+        undoButton.addEventHandler(MouseEvent.MOUSE_EXITED, EventFilter.buttonExitHandler);
 
-        redoButton.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
-        redoButton.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+        redoButton.addEventHandler(MouseEvent.MOUSE_ENTERED, EventFilter.buttonEnterHandler);
+        redoButton.addEventHandler(MouseEvent.MOUSE_EXITED, EventFilter.buttonExitHandler);
 
-        resetDistances.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
-        resetDistances.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+        resetDistances.addEventHandler(MouseEvent.MOUSE_ENTERED, EventFilter.buttonEnterHandler);
+        resetDistances.addEventHandler(MouseEvent.MOUSE_EXITED, EventFilter.buttonExitHandler);
 
-        magnitude.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
-        magnitude.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+        magnitude.addEventHandler(MouseEvent.MOUSE_ENTERED, EventFilter.buttonEnterHandler);
+        magnitude.addEventHandler(MouseEvent.MOUSE_EXITED, EventFilter.buttonExitHandler);
 
-        edgeIhara.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
-        edgeIhara.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+        edgeIhara.addEventHandler(MouseEvent.MOUSE_ENTERED, EventFilter.buttonEnterHandler);
+        edgeIhara.addEventHandler(MouseEvent.MOUSE_EXITED, EventFilter.buttonExitHandler);
 
-        vertexIhara.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
-        vertexIhara.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+        vertexIhara.addEventHandler(MouseEvent.MOUSE_ENTERED, EventFilter.buttonEnterHandler);
+        vertexIhara.addEventHandler(MouseEvent.MOUSE_EXITED, EventFilter.buttonExitHandler);
 
-        pathIhara.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
-        pathIhara.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+        pathIhara.addEventHandler(MouseEvent.MOUSE_ENTERED, EventFilter.buttonEnterHandler);
+        pathIhara.addEventHandler(MouseEvent.MOUSE_EXITED, EventFilter.buttonExitHandler);
 
-        customPathFunction.addEventHandler(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
-        customPathFunction.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+        customPathFunction.addEventHandler(MouseEvent.MOUSE_ENTERED, EventFilter.buttonEnterHandler);
+        customPathFunction.addEventHandler(MouseEvent.MOUSE_EXITED, EventFilter.buttonExitHandler);
 
         setAll.addEventHandler(MouseEvent.MOUSE_ENTERED, event ->
         {
@@ -165,14 +165,14 @@ public class Controller {
 
         });
 
-        saveButton.addEventFilter(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
-        saveButton.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+        saveButton.addEventFilter(MouseEvent.MOUSE_ENTERED, EventFilter.buttonEnterHandler);
+        saveButton.addEventHandler(MouseEvent.MOUSE_EXITED, EventFilter.buttonExitHandler);
 
-        saveAsButton.addEventFilter(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
-        saveAsButton.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+        saveAsButton.addEventFilter(MouseEvent.MOUSE_ENTERED, EventFilter.buttonEnterHandler);
+        saveAsButton.addEventHandler(MouseEvent.MOUSE_EXITED, EventFilter.buttonExitHandler);
 
-        openButton.addEventFilter(MouseEvent.MOUSE_ENTERED, Filter.buttonEnterHandler);
-        openButton.addEventHandler(MouseEvent.MOUSE_EXITED, Filter.buttonExitHandler);
+        openButton.addEventFilter(MouseEvent.MOUSE_ENTERED, EventFilter.buttonEnterHandler);
+        openButton.addEventHandler(MouseEvent.MOUSE_EXITED, EventFilter.buttonExitHandler);
 
         String unselected = "-fx-background-color: #e1e1e1;" + "-fx-font-size: 16px;"
             + "-fx-font-family: \"Constantia\";";
@@ -211,13 +211,13 @@ public class Controller {
 
         calculate.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                drawingArea.getChildren().filtered(x -> x instanceof Distance).
-                    forEach((x) -> ((Distance) x).calculate());
+                drawingArea.getChildren().filtered(x -> x instanceof EdgeDistance).
+                    forEach((x) -> ((EdgeDistance) x).showNumeric());
             } else {
-                drawingArea.getChildren().filtered(x -> x instanceof Distance).
-                    forEach((x) -> ((Distance) x).decalculate());
+                drawingArea.getChildren().filtered(x -> x instanceof EdgeDistance).
+                    forEach((x) -> ((EdgeDistance) x).showText());
             }
-            Distance.setCalc(newValue);
+            EdgeDistance.setCalc(newValue);
 
         });
 
@@ -225,8 +225,8 @@ public class Controller {
         allLengths.setOnKeyTyped(event -> {
             String string = allLengths.getText();
 
-            if (string.length() > Distance.MAX_LENGTH) {
-                allLengths.setText(string.substring(0, Distance.MAX_LENGTH));
+            if (string.length() > EdgeDistance.MAX_LENGTH) {
+                allLengths.setText(string.substring(0, EdgeDistance.MAX_LENGTH));
                 allLengths.positionCaret(string.length());
             }
         });
@@ -271,12 +271,12 @@ public class Controller {
 
     @FXML
     void initialize() {
-        drawingArea.addEventFilter(MouseEvent.MOUSE_CLICKED, Filter.dragFilter);
-        drawingArea.addEventFilter(MouseEvent.MOUSE_CLICKED, Filter.clickFilter);
+        drawingArea.addEventFilter(MouseEvent.MOUSE_CLICKED, EventFilter.dragFilter);
+        drawingArea.addEventFilter(MouseEvent.MOUSE_CLICKED, EventFilter.clickFilter);
 
         setOldIcon();
 
-        drawer.setPane(drawingArea, dialog);
+        drawingAreaController.setPane(drawingArea, dialog);
 
         setButtons();
 
@@ -286,8 +286,8 @@ public class Controller {
         helpTitledPane.setAnimated(true);
         accordion.setExpandedPane(drawTitledPane);
 
-        new Distance();
-        PopupMessage.setPopup(tip);
+        new EdgeDistance();
+        PopupMessage.setMessageLabel(tip);
     }
 
     /**
@@ -303,8 +303,8 @@ public class Controller {
         }
         if (Graph.getInstance().getSize() < Graph.MAX_SIZE) {
 
-            Node node = drawer.drawNode(event);
-            Invoker.getInstance().createElement(node);
+            Node node = drawingAreaController.createNodeByClick(event);
+            Invoker.getInstance().create(node);
             //node.create();
         }
     }
@@ -316,18 +316,18 @@ public class Controller {
     void clearWorkingArea() {
 
         drawingArea.getChildren().removeIf(x -> x.getClass() == Node.class || x.getClass() == Edge.class
-            || x.getClass() == Distance.class);
+            || x.getClass() == EdgeDistance.class);
         Graph.getInstance().clearGraph();
     }
 
     @FXML
     void undoAction() {
-        Invoker.getInstance().undoLast();
+        Invoker.getInstance().undoCommand();
     }
 
     @FXML
     void redoAction() {
-        Invoker.getInstance().redoLast();
+        Invoker.getInstance().redoCommand();
     }
 
     /**
@@ -367,12 +367,12 @@ public class Controller {
     @FXML
     void resetDist() {
 
-        Graph.getInstance().resetDistances();
+        Graph.getInstance().resetLengths();
     }
 
     @FXML
     private void changeDist() {
-        Graph.getInstance().changeDistances(allLengths.getText());
+        Graph.getInstance().changeLengths(allLengths.getText());
     }
 
     @FXML
@@ -381,7 +381,7 @@ public class Controller {
             MagnitudeService.calculateMagnitude();
         } catch (RuntimeException ex) {
             ex.printStackTrace();
-            PopupMessage.showMessage(ex.getMessage());
+            PopupMessage.showPopup(ex.getMessage());
         }
     }
 
@@ -391,7 +391,7 @@ public class Controller {
             IharaZetaFunctionService.calculateIharaFunction();
         } catch (RuntimeException ex) {
             ex.printStackTrace();
-            PopupMessage.showMessage(ex.getMessage());
+            PopupMessage.showPopup(ex.getMessage());
         }
     }
 
@@ -401,7 +401,7 @@ public class Controller {
             IharaZetaFunctionService.calculateIharaEdgeFunction();
         } catch (RuntimeException ex) {
             ex.printStackTrace();
-            PopupMessage.showMessage(ex.getMessage());
+            PopupMessage.showPopup(ex.getMessage());
         }
     }
 
@@ -411,7 +411,7 @@ public class Controller {
             IharaZetaFunctionService.calculateIharaPathFunction();
         } catch (RuntimeException ex) {
             ex.printStackTrace();
-            PopupMessage.showMessage(ex.getMessage());
+            PopupMessage.showPopup(ex.getMessage());
         }
     }
 
@@ -421,7 +421,7 @@ public class Controller {
             CustomFunctionService.calculate();
         } catch (RuntimeException ex) {
             ex.printStackTrace();
-            PopupMessage.showMessage(ex.getMessage());
+            PopupMessage.showPopup(ex.getMessage());
         }
     }
 
@@ -443,9 +443,9 @@ public class Controller {
         public void handle(KeyEvent event) {
 
             if (undoComb.match(event)) {
-                Invoker.getInstance().undoLast();
+                Invoker.getInstance().undoCommand();
             } else if (redoComb.match(event)) {
-                Invoker.getInstance().redoLast();
+                Invoker.getInstance().redoCommand();
             } else if (saveComb.match(event) && FileManager.isSaveNeeded()) {
                 FileManager.save();
             } else if (saveAsComb.match(event)) {

@@ -4,7 +4,6 @@ import entities.*;
 
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -12,38 +11,36 @@ import javafx.scene.shape.Circle;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 
-import java.util.ArrayList;
-
 /**
  * Draws Nodes and stores some needed references connected
  * with drawing
  */
-public class Drawer {
+public class DrawingAreaController {
 
     public static final int BOUNDS_GAP = 25;
 
     public static final String NODE_TEXT = "-fx-font-family: \"Pristina\";" +
         "-fx-font-size: 24px;";
 
-    private static Drawer instance;
+    private static DrawingAreaController instance;
     private AnchorPane pane;
-    private StackPane dialog;
+    private StackPane fileDialog;
 
     /**
      * Singleton
      *
      * @return static instance
      */
-    public static Drawer getInstance() {
+    public static DrawingAreaController getInstance() {
         if (instance == null) {
-            instance = new Drawer();
+            instance = new DrawingAreaController();
         }
         return instance;
     }
 
     public void clear() {
         pane.getChildren().removeIf(x -> x instanceof Edge ||
-            x instanceof Distance || x instanceof Node);
+            x instanceof EdgeDistance || x instanceof Node);
     }
 
     /**
@@ -51,7 +48,7 @@ public class Drawer {
      *
      * @param node node to remove
      */
-    public void removeElement(javafx.scene.Node node) {
+    public void hideNode(javafx.scene.Node node) {
         pane.getChildren().remove(node);
     }
 
@@ -61,11 +58,11 @@ public class Drawer {
 
     void setPane(AnchorPane pane, StackPane dialog) {
         this.pane = pane;
-        this.dialog = dialog;
+        this.fileDialog = dialog;
     }
 
     public void enableDialog(boolean enable) {
-        dialog.setDisable(!enable);
+        fileDialog.setDisable(!enable);
     }
 
     /**
@@ -89,7 +86,7 @@ public class Drawer {
      *
      * @param el element to add
      */
-    public void addElem(javafx.scene.Node el) {
+    public void addNode(javafx.scene.Node el) {
         pane.getChildren().add(el);
     }
 
@@ -106,9 +103,9 @@ public class Drawer {
      * @param ev parameters of a click
      * @return Screen representation of the node
      */
-    Node drawNode(MouseEvent ev) {
+    public Node createNodeByClick(MouseEvent ev) {
         double[] cors = checkBounds(ev.getX(), ev.getY());
-        return createLayout(cors[0], cors[1]);
+        return drawNodeLayout(cors[0], cors[1]);
     }
 
     /**
@@ -118,13 +115,13 @@ public class Drawer {
      * @param yPos y coordinate of center
      * @return node's representation on the screen (Circle + text united in stack pane)
      */
-    private Node createLayout(double xPos, double yPos) {
+    private Node drawNodeLayout(double xPos, double yPos) {
 
         // System.out.println("Node in " + xPos + " " + yPos);
 
         Circle node = new Circle(xPos, yPos, Node.RADIUS, Color.WHITE);
 
-        node.addEventFilter(MouseEvent.MOUSE_DRAGGED, Filter.dragFilter);
+        node.addEventFilter(MouseEvent.MOUSE_DRAGGED, EventFilter.dragFilter);
         node.setStroke(Color.BLACK);
 
         Node layout = new Node(Graph.getInstance().getSize() + 1);

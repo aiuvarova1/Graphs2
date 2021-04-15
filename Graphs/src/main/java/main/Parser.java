@@ -9,24 +9,24 @@ import java.util.stream.Collectors;
 public class Parser {
 
     private static class Token {
-        String val;
+        String value;
 
-        Token(String val) {
-            this.val = val;
+        Token(String value) {
+            this.value = value;
         }
     }
 
     private static class Operation extends Token {
-        int priority;
+        int operationPriority;
 
-        Operation(char sign, int priority) {
+        Operation(char sign, int operationPriority) {
             super(String.valueOf(sign));
-            this.priority = priority;
+            this.operationPriority = operationPriority;
 
         }
 
         double execute(double x, double y) {
-            switch (val) {
+            switch (value) {
                 case "+":
                     return x + y;
                 case "-":
@@ -54,12 +54,12 @@ public class Parser {
     }
 
     private static class Function extends Operation {
-        double data;
+        private double rootDegree;
         int fractionCounter = 0;
 
-        Function(char sign, int priority, double data) {
+        Function(char sign, int priority, double rootDegree) {
             super(sign, priority);
-            this.data = data;
+            this.rootDegree = rootDegree;
         }
 
         Function(char sign, int priority) {
@@ -67,38 +67,38 @@ public class Parser {
         }
 
         double execute(double x) {
-            switch (val) {
+            switch (value) {
                 case "r":
 //                    if(data==0 || x==0 || (x<0 && data%2==0))
 //                        return -1;
-                    if (data == 0) {
+                    if (rootDegree == 0) {
                         throw new IllegalArgumentException("The root of zero value is invalid");
                     }
                     if (x == 0) {
                         throw new IllegalArgumentException("Can not extract a root of zero");
                     }
-                    if (x < 0 && data % 2 == 0) {
+                    if (x < 0 && rootDegree % 2 == 0) {
                         throw new IllegalArgumentException("Can not extract an even root of a negative value");
                     }
 
-                    return Math.pow(x, 1.0 / data);
+                    return Math.pow(x, 1.0 / rootDegree);
                 default:
                     return -1;
             }
         }
     }
 
-    private static final HashMap<Character, Operation> operations;
+    private static final HashMap<Character, Operation> mathOps;
     private static final Pattern REAL_NUMBER_PATTERN = Pattern.compile("\\d+[.,]?\\d*");
 
     static {
-        operations = new HashMap<>();
-        operations.put('+', new Operation('+', 0));
-        operations.put('-', new Operation('-', 0));
-        operations.put('*', new Operation('*', 1));
-        operations.put('/', new Operation('/', 1));
-        operations.put('%', new Operation('%', 1));
-        operations.put('^', new Operation('^', 2));
+        mathOps = new HashMap<>();
+        mathOps.put('+', new Operation('+', 0));
+        mathOps.put('-', new Operation('-', 0));
+        mathOps.put('*', new Operation('*', 1));
+        mathOps.put('/', new Operation('/', 1));
+        mathOps.put('%', new Operation('%', 1));
+        mathOps.put('^', new Operation('^', 2));
     }
 
     public static String parseTexToSympy(List<String> tokens) {
@@ -140,7 +140,7 @@ public class Parser {
         ArrayDeque<Token> queue = new ArrayDeque<>();
         ArrayDeque<Token> stack = new ArrayDeque<>();
 
-        createPolandNotation(queue, stack, input);
+        toPostfixNotation(queue, stack, input);
 
         double cur;
         Token op;
@@ -149,7 +149,7 @@ public class Parser {
         while (!queue.isEmpty()) {
             op = queue.removeFirst();
             try {
-                cur = Double.parseDouble(op.val);
+                cur = Double.parseDouble(op.value);
                 res.addLast(cur);
             } catch (NumberFormatException ex) {
 
@@ -158,7 +158,7 @@ public class Parser {
                 }
 
                 double second = res.removeLast();
-                if (op.val.equals("r")) {
+                if (op.value.equals("r")) {
                     res.addLast(((Function) op).execute(second));
                 } else if (res.size() >= 1) {
                     res.addLast(((Operation) op).execute(res.removeLast(), second));
@@ -199,8 +199,8 @@ public class Parser {
      * @param stack keeps operations and braces
      * @param input user's input
      */
-    private static void createPolandNotation(ArrayDeque<Token> queue, ArrayDeque<Token> stack,
-                                             String input) {
+    private static void toPostfixNotation(ArrayDeque<Token> queue, ArrayDeque<Token> stack,
+                                          String input) {
 
         Operation op;
         StringBuilder number = new StringBuilder();
@@ -236,7 +236,7 @@ public class Parser {
                 number.delete(0, number.length());
 
                 if (input.charAt(cur) == '}') {
-                    while (!stack.isEmpty() && !stack.peekLast().val.equals("{")) {
+                    while (!stack.isEmpty() && !stack.peekLast().value.equals("{")) {
                         if (stack.peekLast() instanceof Function || !(stack.peekLast() instanceof Operation)) {
                             throw new IllegalArgumentException("'}' has no matching '{'");
                         }
@@ -247,13 +247,13 @@ public class Parser {
                     }
                     stack.removeLast();
 
-                    if (stack.getLast().val.equals("f") && ++((Function) (stack.getLast())).fractionCounter < 2) {
+                    if (stack.getLast().value.equals("f") && ++((Function) (stack.getLast())).fractionCounter < 2) {
                         prevFunc = true;
                     } else {
                         queue.addLast(stack.removeLast());
                     }
                 } else {
-                    while (!stack.isEmpty() && !stack.peekLast().val.equals("(")) {
+                    while (!stack.isEmpty() && !stack.peekLast().value.equals("(")) {
                         if (stack.peekLast() instanceof Function || !(stack.peekLast() instanceof Operation)) {
                             throw new IllegalArgumentException("')' has no matching '('");
                         }
@@ -297,14 +297,14 @@ public class Parser {
                         stack.addLast(new Function('f', 1));
                     }
                 } else {
-                    op = operations.get(input.charAt(cur));
+                    op = mathOps.get(input.charAt(cur));
                     if (op != null) {
                         while (!stack.isEmpty() && stack.peekLast() instanceof Operation &&
-                            ((Operation) (stack.peekLast())).priority >= op.priority) {
+                            ((Operation) (stack.peekLast())).operationPriority >= op.operationPriority) {
                             queue.addLast(stack.removeLast());
                         }
                         stack.addLast(op);
-                        if (op == operations.get('^')) {
+                        if (op == mathOps.get('^')) {
                             prevFunc = true;
                         }
                     } else {
@@ -319,7 +319,7 @@ public class Parser {
         }
 
         while (!stack.isEmpty()) {
-            if (stack.peekLast().val.equals("(") || stack.peekLast().val.equals("{")) {
+            if (stack.peekLast().value.equals("(") || stack.peekLast().value.equals("{")) {
                 throw new IllegalArgumentException("An opening brace has no pair");
             }
             queue.addLast(stack.removeLast());
