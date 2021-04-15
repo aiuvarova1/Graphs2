@@ -9,8 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3aa67ae0-54ba-4086-884d-3b050cac4cee" name="Default Changelist" comment="">
+    <list default="true" id="3aa67ae0-54ba-4086-884d-3b050cac4cee" name="Default Changelist" comment="PMI">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Coursework_docs/Programma_i_metodika_ispytaniy.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework_docs/Programma_i_metodika_ispytaniy.docx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Coursework_docs/Rukovodstvo_operatora.docx" beforeDir="false" afterPath="$PROJECT_DIR$/Coursework_docs/Rukovodstvo_operatora.docx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -383,7 +385,7 @@
       <workItem from="1618405971860" duration="737000" />
       <workItem from="1618415034261" duration="18700000" />
       <workItem from="1618508209130" duration="53000" />
-      <workItem from="1618508277493" duration="9485000" />
+      <workItem from="1618508277493" duration="11603000" />
     </task>
     <task id="LOCAL-00001" summary="Several hot fixes, basis for infinite graphs (completely built in gui, working visualization but still no &quot;infinity&quot; for line)">
       <created>1588347857172</created>
@@ -476,7 +478,14 @@
       <option name="project" value="LOCAL" />
       <updated>1618519056842</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="PMI">
+      <created>1618520314672</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1618520314672</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
