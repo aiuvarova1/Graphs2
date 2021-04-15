@@ -5,7 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.FileSystem;
+import java.nio.file.Path;
 import java.util.List;
 
 import javax.annotation.Nonnull;
@@ -14,6 +18,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import main.FileManager;
+import org.softsmithy.lib.nio.file.CopyFileVisitor;
+import org.softsmithy.lib.nio.file.JarFiles;
 
 @ParametersAreNonnullByDefault
 public class PythonService {
@@ -70,10 +76,22 @@ public class PythonService {
         String jsonData = OBJECT_MAPPER.writeValueAsString(value);
         System.out.println(jsonData);
 
+        URL resource = PythonService.class.getResource(pathToData);
         try (PrintWriter writer = new PrintWriter(PythonService.class.getResource(pathToData).getPath())) {
             OBJECT_MAPPER.writeValue(writer, value);
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    public void extractResource(String resourcePathString, Path targetDirPath) throws IOException, URISyntaxException {
+        URI jarURI = JarFiles.getJarURI(PythonService.class);
+
+        try (FileSystem jarFS = JarFiles.newJarFileSystem(jarURI)) {
+            Path resourcePath = jarFS.getPath(resourcePathString);
+
+
+            CopyFileVisitor.copy(resourcePath, targetDirPath);
         }
     }
 }
